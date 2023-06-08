@@ -6,9 +6,9 @@
 
 ## 현재 사용버전
 
-> typescript: 4.9.5
-> react: 18.2.0
-> react-dom: 18.2.0
-> styled-components: 5.3.10
-> eslint: 8.42.0
-> prettier: 2.8.8
+- typescript: 4.9.5
+- react: 18.2.0
+- react-dom: 18.2.0
+- styled-components: 5.3.10
+- eslint: 8.42.0
+- prettier: 2.8.8
