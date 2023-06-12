@@ -6,7 +6,13 @@ const Title = styled.h1`
 `;
 
 const Home = () => {
-  return <Title>OP-AL 프로젝트 임시 Home페이지 입니다.</Title>;
+  return (
+    <>
+      <Title>OP-AL 프로젝트 임시 Home페이지 입니당.티나게 바빶몹시다</Title>;
+      <Title>OP-AL 프로젝트 임시 Home페이지 입니당.티나게 바빶몹시다</Title>
+      <Title>OP-AL 프로젝트 임시 Home페이지 입니당.티나게 바빶몹시다</Title>
+    </>
+  );
 };
 
 export default Home;
