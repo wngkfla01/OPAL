@@ -1,6 +1,5 @@
 import React, { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from 'Components/Header/Header';
 interface RequestBody {
   email: string; // 사용자 아이디 (필수!)
   password: string; // 사용자 비밀번호, 8자 이상 (필수!)
@@ -90,7 +89,6 @@ const SignUp = () => {
 
   return (
     <div>
-      <Header />
       <h1>회원가입</h1>
       <form onSubmit={handleSignUp}>
         <input

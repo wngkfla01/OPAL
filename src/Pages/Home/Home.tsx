@@ -3,11 +3,7 @@ import styled from 'styled-components';
 import Header from 'Components/Header/Header';
 
 const Home = () => {
-  return (
-    <>
-      <Header />
-    </>
-  );
+  return <div>이건 홈이닷</div>;
 };
 
 export default Home;
