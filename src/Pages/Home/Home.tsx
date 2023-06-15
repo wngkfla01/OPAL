@@ -1,9 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
-import Header from 'Components/Header/Header';
+import SearchBar from 'Components/Contents/SearchBar';
 
 const Home = () => {
-  return <div>이건 홈이닷</div>;
+  return (
+    <>
+      <SearchBar />
+    </>
+  );
 };
 
 export default Home;

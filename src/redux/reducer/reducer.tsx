@@ -5,6 +5,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface TabState {
   selectedTab: string;
 }
+interface Counterstate {
+  clickedCounter: number;
+}
 
 // 초기값 설정입니다.
 const initialState: TabState = {
@@ -25,18 +28,33 @@ const tabSlice = createSlice({
   },
 });
 
+const counterSlice = createSlice({
+  name: 'counterSlice',
+  initialState: { clickedCounter: 0 },
+  reducers: {
+    up: (state, action: PayloadAction<number>) => {
+      state.clickedCounter = state.clickedCounter + action.payload;
+    },
+    down: (state, action: PayloadAction<number>) => {
+      state.clickedCounter = state.clickedCounter - action.payload;
+    },
+  },
+});
 // 모든 리듀서의 상태 타입을 포함하여 묶어서 내보내는 역할을 합니다.
 export interface RootState {
   // 상태 타입을 추가해주세요
   tabSlice: TabState;
+  counterSlice: Counterstate;
 }
 
 // createSlice 함수에서 반환된 action을 내보냅니다.
 // 다른 action들도 아래와 같이 추가로 작성하셔서 내보내면 됩니다.
 export const { selectTab } = tabSlice.actions;
+export const { up, down } = counterSlice.actions;
 
 // createSlice 함수에서 반환된 reducer를 내보냅니다.
 export default {
   // 다른 reducer들도 아래와 같이 추가로 작성하셔서 내보내면 됩니다.
   tabSlice: tabSlice.reducer,
+  counterSlice: counterSlice.reducer,
 };
