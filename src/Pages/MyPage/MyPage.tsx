@@ -1,6 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTab, RootState } from 'redux/reducer/reducer';
+import MyInfo from './MyInfo';
+import MyAccount from './MyAccount';
+import MyPurchase from './MyPurchase';
 
 const MyPage: React.FC = () => {
   // useSelector와 useDispatch는 React Redux 라이브러리에서 제공하는 훅(Hook)으로, Redux 상태 관리와 액션 디스패치를 간편하게 처리할 수 있도록 도와줍니다.
@@ -24,30 +27,44 @@ const MyPage: React.FC = () => {
   );
 
   const handleTabClick = (tab: string) => {
-    console.log('tab:', tab);
     dispatch(selectTab(tab));
   };
 
   return (
-    <div>
-      <button
-        onClick={() => handleTabClick('내 정보')}
-        disabled={selectedTab === '내 정보'}
+    <div style={{ width: '1100px', margin: '50px auto' }}>
+      <div style={{ border: '1px solid black' }}>
+        <button
+          onClick={() => handleTabClick('내 정보')}
+          disabled={selectedTab === '내 정보'}
+        >
+          내 정보
+        </button>
+        <button
+          onClick={() => handleTabClick('내 계좌')}
+          disabled={selectedTab === '내 계좌'}
+        >
+          내 계좌
+        </button>
+        <button
+          onClick={() => handleTabClick('구매 내역')}
+          disabled={selectedTab === '구매 내역'}
+        >
+          구매 내역
+        </button>
+      </div>
+      <div
+        style={{
+          border: '1px solid red',
+        }}
       >
-        내 정보
-      </button>
-      <button
-        onClick={() => handleTabClick('내 계좌')}
-        disabled={selectedTab === '내 계좌'}
-      >
-        내 계좌
-      </button>
-      <button
-        onClick={() => handleTabClick('구매 내역')}
-        disabled={selectedTab === '구매 내역'}
-      >
-        구매 내역
-      </button>
+        {selectedTab === '내 정보' ? (
+          <MyInfo />
+        ) : selectedTab === '내 계좌' ? (
+          <MyAccount />
+        ) : (
+          <MyPurchase />
+        )}
+      </div>
     </div>
   );
 };
