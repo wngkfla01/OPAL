@@ -2,6 +2,8 @@ import React, { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logInRequestBody, logInApi } from '../../api';
 import { Form, Input, Button, Typography, Space } from 'antd';
+import { userValue } from 'redux/reducer/reducer';
+import { useDispatch } from 'react-redux';
 import '../../Styles/Sign.scss';
 
 const { Title, Text } = Typography;
@@ -11,6 +13,7 @@ const SignIn = () => {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate(); //페이지 이동
+  const dispatch = useDispatch();
 
   async function handleSignUp() {
     navigate(`/signup`);
@@ -25,6 +28,7 @@ const SignIn = () => {
 
       if (logInData.accessToken) {
         localStorage.setItem('token', logInData.accessToken);
+        dispatch(userValue(logInData));
         navigate(`/`);
       } else {
         setMessage(
