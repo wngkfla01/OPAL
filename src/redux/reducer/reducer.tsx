@@ -5,10 +5,29 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface TabState {
   selectedTab: string;
 }
+//유저정보
+interface UserState {
+  user: {
+    email: string;
+    password: string;
+    displayName: string;
+    profileImgBase64?: string;
+  };
+  accessToken: string;
+}
 
 // 초기값 설정입니다.
 const initialState: TabState = {
   selectedTab: '내 정보',
+};
+export const initialStateUser: UserState = {
+  user: {
+    email: '',
+    password: '',
+    displayName: '',
+    profileImgBase64: '',
+  },
+  accessToken: '',
 };
 
 // createSlice 함수는 리듀서 함수와 해당 리듀서의 액션 생성자 함수들을 한 번에 생성해주는 편리한 기능을 제공합니다.
@@ -25,18 +44,36 @@ const tabSlice = createSlice({
   },
 });
 
+const userInfo = createSlice({
+  name: 'user',
+  initialState: initialStateUser,
+  reducers: {
+    userValue: (state, action: PayloadAction<UserState>) => {
+      // state = action.payload;
+      state.user.email = action.payload.user.email;
+      state.user.password = action.payload.user.password;
+      state.user.displayName = action.payload.user.displayName;
+      state.user.profileImgBase64 = action.payload.user.profileImgBase64;
+      state.accessToken = action.payload.accessToken;
+    },
+  },
+});
+
 // 모든 리듀서의 상태 타입을 포함하여 묶어서 내보내는 역할을 합니다.
 export interface RootState {
   // 상태 타입을 추가해주세요
   tabSlice: TabState;
+  userInfo: UserState;
 }
 
 // createSlice 함수에서 반환된 action을 내보냅니다.
 // 다른 action들도 아래와 같이 추가로 작성하셔서 내보내면 됩니다.
 export const { selectTab } = tabSlice.actions;
+export const { userValue } = userInfo.actions;
 
 // createSlice 함수에서 반환된 reducer를 내보냅니다.
 export default {
   // 다른 reducer들도 아래와 같이 추가로 작성하셔서 내보내면 됩니다.
   tabSlice: tabSlice.reducer,
+  userInfo: userInfo.reducer,
 };

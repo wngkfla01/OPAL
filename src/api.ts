@@ -11,7 +11,7 @@ const BASE_URL = 'https://asia-northeast3-heropy-api.cloudfunctions.net/api';
 const headers = {
   'content-type': 'application/json',
   apikey: 'KDT5_nREmPe9B',
-  username: 'KDT5_Team3',
+  username: 'KDT5_TeamX',
 };
 
 //----------------------------------인증----------------------------------//
@@ -26,20 +26,16 @@ export interface signUpRequestBody {
 export interface authResponseData {
   accessToken: string; // 액세스 토큰
 }
-export async function signUpApi(
-  requestBody: signUpRequestBody
-): Promise<authResponseData> {
+export async function signUpApi(requestBody: signUpRequestBody) {
   const res = await axios.post(`${BASE_URL}/auth/signup`, requestBody, {
     headers,
   });
-  const json: authResponseData = res.data;
+  const json = res.data;
   return json;
 }
 
 // 인증확인 - POST
-export async function authenticateApi(
-  accessToken: string
-): Promise<authResponseData> {
+export async function authenticateApi(accessToken: authResponseData) {
   const res = await axios.post(
     `${BASE_URL}/auth/me`,
     {},
@@ -50,7 +46,7 @@ export async function authenticateApi(
       },
     }
   );
-  const json: authResponseData = res.data;
+  const json = res.data;
   return json;
 }
 
@@ -62,20 +58,29 @@ export interface logInRequestBody {
 export interface logInResponseData {
   accessToken: string;
 }
-export async function logInApi(
-  requestBody: logInRequestBody
-): Promise<logInResponseData> {
+export async function logInApi(requestBody: logInRequestBody) {
   const res = await axios.post(`${BASE_URL}/auth/login`, requestBody, {
     headers,
   });
-  const json: logInResponseData = res.data;
+  const json = res.data;
   return json;
 }
 
-// 로그아웃 - POST (지금 안쓰고 있는데 필요할까요..?)
-// export function logOut() {
-//   return axios.post(`${BASE_URL}/auth/logout`).then((r) => r.data);
-// }
+// 로그아웃 - POST
+export async function logOutApi(accessToken: string) {
+  const res = await axios.post(
+    `${BASE_URL}/auth/logout`,
+    {},
+    {
+      headers: {
+        ...headers,
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  const json = res.data;
+  return json;
+}
 
 // 사용자 정보수정 - PUT
 export function userModifyApi() {

@@ -1,6 +1,11 @@
 import React, { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signUpApi, authenticateApi, signUpRequestBody } from 'api';
+import {
+  signUpApi,
+  authenticateApi,
+  signUpRequestBody,
+  authResponseData,
+} from 'api';
 import { Form, Input, Button, Typography, Col, Space } from 'antd';
 import '../../Styles/Sign.scss';
 
@@ -13,6 +18,7 @@ const SignUp = () => {
   const [displayName, setDisplayName] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate(); //페이지 이동
+
   async function handleSignIn() {
     navigate(`/signin`);
   }
@@ -30,6 +36,7 @@ const SignUp = () => {
       passwordCheck,
       displayName,
     };
+
     try {
       const signUpData = await signUpApi(requestBody);
       await authenticateCheck(signUpData.accessToken);
@@ -38,8 +45,9 @@ const SignUp = () => {
       setMessage((error as Error).message);
     }
   }
+
   //인증
-  async function authenticateCheck(accessToken: string) {
+  async function authenticateCheck(accessToken: authResponseData) {
     try {
       await authenticateApi(accessToken);
     } catch (error) {
