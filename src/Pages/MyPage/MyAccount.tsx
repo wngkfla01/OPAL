@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { accountListApi, authResponseData } from '../../api';
 import axios, { AxiosResponse } from 'axios';
+import { useSelector } from 'react-redux';
+import { useCookies } from 'react-cookie';
+import { RootState } from 'redux/reducer/reducer';
 import {
   Button,
   Modal,
@@ -20,7 +24,12 @@ const MyAccount: React.FC = () => {
   const [accountNumber, setAccountNumber] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [signature, setSignature] = useState<boolean>(false);
+  const userInfo = useSelector((state: RootState) => state.userInfo);
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
 
+  console.log('토큰: ', accessToken);
+  console.log(userInfo);
   // interface
   interface GetAccountsResVal {
     totalBalance: number; // 사용자 계좌 잔액 총합
@@ -53,7 +62,7 @@ const MyAccount: React.FC = () => {
   };
 
   useEffect(() => {
-    getAccounts();
+    getAccounts;
   }, []);
 
   const headers = {
@@ -61,18 +70,16 @@ const MyAccount: React.FC = () => {
     apikey: 'KDT5_nREmPe9B',
     username: 'KDT5_Team3',
     Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InFpeEdYMEFYR1lBSm5KcEtqaFdBIiwiaWF0IjoxNjg3MTgwMTAzLCJleHAiOjE2ODcyNjY1MDMsImlzcyI6InRoZXNlY29uQGdtYWlsLmNvbSJ9.H0ZBoW7EjbGHG9Jh6AoWHZJteeQ7A8_u1q1K9E_bW2s',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IldBM3NEMENYOXJzYjJWWTZIdkVGIiwiaWF0IjoxNjg3NDIzNzE2LCJleHAiOjE2ODc1MTAxMTYsImlzcyI6InRoZXNlY29uQGdtYWlsLmNvbSJ9.e-45zyRPHG9ceUVsyanIk5k188v6uFUHQG8hzyhv0UE',
   };
 
-  const getAccounts = async () => {
+  const getAccounts = async (accessToken: authResponseData) => {
     try {
-      const res: AxiosResponse<GetAccountsResVal> = await axios.get(
-        'https://asia-northeast3-heropy-api.cloudfunctions.net/api/account',
-        { headers }
-      );
-      const data: GetAccountsResVal = res.data;
-      setTotalBalance(data.totalBalance);
-      setAccounts(data.accounts);
+      const res = await accountListApi(accessToken);
+      console.log(res);
+      // const data: GetAccountsResVal = res.data;
+      // setTotalBalance(data.totalBalance);
+      // setAccounts(data.accounts);
     } catch (e) {
       console.log(e);
     }
@@ -114,7 +121,7 @@ const MyAccount: React.FC = () => {
           { headers }
         );
         setIsModalVisible(false);
-        getAccounts();
+        getAccounts;
       } catch (err) {
         console.log(err);
       }
@@ -140,7 +147,7 @@ const MyAccount: React.FC = () => {
     );
     console.log(res.data);
 
-    getAccounts();
+    getAccounts;
   };
 
   return (
@@ -153,45 +160,40 @@ const MyAccount: React.FC = () => {
         }}
       >
         <h3>내 계좌 총 잔액: {totalBalance}원</h3>
-        {accounts.map((account, index) => (
-          <div
-            style={{
-              display: 'grid',
-              width: '100%',
-              padding: '30px',
-              gridTemplateColumns: '15% 30% 20% 20%',
-              columnGap: '20px',
-            }}
-            key={index}
-          >
-            <span style={{ border: '1px solid black' }}>
-              {account.bankName}
-            </span>
-            <span style={{ border: '1px solid black' }}>
-              {account.accountNumber}
-            </span>
-            <span style={{ border: '1px solid black' }}>
-              잔액: {account.balance}원
-            </span>
-            <Popconfirm
-              title="계좌 삭제"
-              description="계좌 정보가 삭제됩니다. 계속하시겠습니까?"
-              onConfirm={(e) => deleteAccount(account, e)}
-              okText="삭제하기"
-              cancelText="취소"
+        {accounts &&
+          accounts.map((account, index) => (
+            <div
+              style={{
+                display: 'grid',
+                width: '100%',
+                padding: '30px',
+                gridTemplateColumns: '15% 30% 20% 20%',
+                columnGap: '20px',
+              }}
+              key={index}
             >
-              <Button
-                type="primary"
-                danger
-                // onClick={(e) => {
-                //   deleteAccount(account, e);
-                // }}
+              <span style={{ border: '1px solid black' }}>
+                {account.bankName}
+              </span>
+              <span style={{ border: '1px solid black' }}>
+                {account.accountNumber}
+              </span>
+              <span style={{ border: '1px solid black' }}>
+                잔액: {account.balance}원
+              </span>
+              <Popconfirm
+                title="계좌 삭제"
+                description="계좌 정보가 삭제됩니다. 계속하시겠습니까?"
+                onConfirm={(e) => deleteAccount(account, e)}
+                okText="삭제하기"
+                cancelText="취소"
               >
-                삭제
-              </Button>
-            </Popconfirm>
-          </div>
-        ))}
+                <Button type="primary" danger>
+                  삭제
+                </Button>
+              </Popconfirm>
+            </div>
+          ))}
       </div>
       <Button type="primary" block size="large" onClick={showAccountModal}>
         계좌 등록
@@ -214,9 +216,9 @@ const MyAccount: React.FC = () => {
             <div>
               <span>은행을 선택해 주세요.</span>
               <Select
-                value={selectedBank}
+                value={selectedBank || null}
                 onChange={(value: string) => setSelectedBank(value)}
-                // placeholder={'은행선택'}
+                placeholder="은행선택"
                 style={{ width: '130px' }}
               >
                 <Option value="004">KB국민은행</Option>
