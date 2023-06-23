@@ -1,5 +1,6 @@
 import React, { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import { logInRequestBody, logInApi } from '../../api';
 import { Form, Input, Button, Typography, Space } from 'antd';
 import { userValue } from 'redux/reducer/reducer';
@@ -12,6 +13,8 @@ const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  // const [accessToken, setAccessToken] = useState('');
+  const [cookies, setCookies] = useCookies(['accessToken']);
   const navigate = useNavigate(); //페이지 이동
   const dispatch = useDispatch();
 
@@ -27,6 +30,11 @@ const SignIn = () => {
       const logInData = await logInApi(requestBody);
 
       if (logInData.accessToken) {
+        if (!cookies.accessToken) {
+          const accessToken = logInData.accessToken;
+          setCookies('accessToken', accessToken, { path: '/' });
+        }
+        // setAccessToken(logInData.accessTokens);
         localStorage.setItem('token', logInData.accessToken);
         dispatch(userValue(logInData));
         navigate(`/`);
