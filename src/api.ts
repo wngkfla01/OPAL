@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 // BASE_URL을 가져다 써주세요!
 // headers는 공통영역이라 api.ts에서 선언해두었습니다
@@ -207,8 +207,40 @@ export function oneProductApi() {
 }
 
 // 제품검색 - POST
-export function searchProductApi() {
-  return axios.post(`${BASE_URL}/products/search`).then((r) => r.data);
+export interface Product {
+  id: string;
+  title: string;
+  price: number;
+  description: string;
+  tags: string[];
+  thumbnail: string | undefined;
+  discountRate: number;
+}
+export async function searchProductApi(
+  searchedValue: string
+): Promise<Product[]> {
+  const data = {
+    searchText: `${searchedValue}`,
+  };
+  const res: AxiosResponse<Product[]> = await axios.post(
+    `${BASE_URL}/products/search`,
+    data,
+    { headers }
+  );
+  const Data: Product[] = res.data;
+  return Data;
+}
+
+export async function categoryProductApi(
+  categoryName: string
+): Promise<Product[]> {
+  const res: AxiosResponse<Product[]> = await axios.post(
+    `${BASE_URL}/products/search`,
+    { searchTags: [`${categoryName}`] },
+    { headers }
+  );
+  const Data: Product[] = res.data;
+  return Data;
 }
 
 // 제품 거래(구매)신청 - POST
