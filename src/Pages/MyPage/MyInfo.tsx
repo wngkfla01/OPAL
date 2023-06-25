@@ -1,26 +1,62 @@
-import React, { useState } from 'react';
-import { Image, Input, Button, Popconfirm } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Input, Button, Popconfirm } from 'antd';
+import { useCookies } from 'react-cookie';
+import { authenticateApi, userModifyApi, userModifyRequestBody } from 'api';
+
 const MyInfo: React.FC = () => {
-  // 사용자가 수정하는 닉네임 및 아이디 관리 상태값입니다.
-  // 초깃값은 redux에서 받아온걸로 주면 되고, 수정완료 버튼을 눌렀을때 최종 상태값을 redux로 다시 넘겨주시면 됩니다.
-  const [nickName, setNickname] = useState('임시닉네임');
-  const [username, setUsername] = useState('임시유저네임');
-  // 닉네임과 아이디 input창 활성/비활성 상태를 컨트롤하기위한 상태값입니다.
-  const [editProfile, setEditProfile] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [defaultEmail, setDefaultEmail] = useState(''); //처음 불러오는 이메일
 
+  const [defaultName, setDefaultName] = useState(''); //처음 불러오는 닉네임
+  const [displayName, setDisplayName] = useState(defaultName);
+
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [editProfile, setEditProfile] = useState(false); //편집 수정모드
+
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userData = await authenticateApi(accessToken);
+        setDefaultName(userData.displayName);
+        setDefaultEmail(userData.email);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  //취소버튼을 눌렀을 때
   const cancelEditProfileHandler = () => {
-    // 취소 버튼을 누르면, 편집중인 input이 disabled 되어야하며,
-    // disabled된 input의 value값은 기존의 닉네임과 아이디로 다시 돌아와야합니다.
+    setDisplayName(defaultName);
     setEditProfile(!editProfile);
-
-    // >> 기존 닉네임과 아이디로 되돌아가는 코드 추가해야함 <<
   };
-  const updateProfileHandler = () => {
-    // 수정완료->수정완료 버튼을 누르면, 사용자가 변경한 닉네임과 아이디를 '프로필수정 api'로 전송해야 합니다.
-    // >> 프로필수정 전송 코드 추가해야함 <<
-    console.log('프로필수정!');
-    // 전송이 완료되면, input창은 다시 disabled로 바뀌어야합니다.
+
+  //수정완료 버튼을 눌렀을 때
+  const updateProfileHandler = async () => {
+    setDisplayName(defaultName);
+    setOldPassword(oldPassword);
+    setNewPassword(newPassword);
+
+    const requestBody: userModifyRequestBody = {
+      displayName: displayName || defaultName,
+      oldPassword,
+      newPassword,
+    };
+    try {
+      await userModifyApi(accessToken, requestBody);
+    } catch (error) {
+      console.log(error);
+    }
     setEditProfile(!editProfile);
+    window.location.reload();
   };
 
   return (
@@ -33,59 +69,76 @@ const MyInfo: React.FC = () => {
         alignItems: 'center',
       }}
     >
-      <div
-        style={{ width: '400px', height: '900px', border: '1px solid black' }}
-      >
-        <Image
-          className="profile-image"
-          src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-          alt="profileImg"
-        />
-        <Input
-          addonBefore="닉네임"
-          defaultValue={nickName}
-          onChange={(e) => {
-            setNickname(e.target.value);
-          }}
-          allowClear={true}
-          disabled={!editProfile}
-        />
-        <Input
-          addonBefore="아이디"
-          defaultValue={username}
-          onChange={(e) => {
-            setUsername(e.target.value);
-          }}
-          allowClear={true}
-          disabled={!editProfile}
-        />
-        {editProfile === false ? (
-          <Button
-            type="primary"
-            block
-            onClick={() => setEditProfile(!editProfile)}
-          >
-            내 정보 수정
-          </Button>
-        ) : (
-          <>
-            <Popconfirm
-              title="프로필 수정"
-              description="정말 수정하시겠습니까?"
-              onConfirm={updateProfileHandler}
-              okText="수정완료"
-              cancelText="취소"
+      {defaultName.length === 0 ? (
+        isLoading
+      ) : (
+        <div
+          style={{ width: '400px', height: '500px', border: '1px solid black' }}
+        >
+          <Input
+            addonBefore="닉네임"
+            value={displayName || defaultName}
+            onChange={(e) => {
+              setDisplayName(e.target.value);
+            }}
+            allowClear={true}
+            disabled={!editProfile}
+          />
+          <Input
+            addonBefore="아이디"
+            type="email"
+            defaultValue={defaultEmail}
+            allowClear={true}
+            disabled
+          />
+          {editProfile === false ? (
+            <Button
+              type="primary"
+              block
+              onClick={() => setEditProfile(!editProfile)}
             >
-              <Button type="primary" block>
-                수정완료
-              </Button>
-            </Popconfirm>
-            <Button danger block onClick={cancelEditProfileHandler}>
-              취소
+              내 정보 수정
             </Button>
-          </>
-        )}
-      </div>
+          ) : (
+            <>
+              <Input
+                addonBefore="기존 비밀번호 입력"
+                type="password"
+                onChange={(e) => {
+                  setOldPassword(e.target.value);
+                }}
+                allowClear={true}
+                disabled={!editProfile}
+                minLength={8}
+              />
+              <Input
+                addonBefore="새 비밀번호 입력"
+                type="password"
+                onChange={(e) => {
+                  setNewPassword(e.target.value);
+                }}
+                allowClear={true}
+                disabled={!editProfile}
+                minLength={8}
+              />
+              <Popconfirm
+                title="프로필 수정"
+                description="정말 수정하시겠습니까?"
+                onConfirm={updateProfileHandler}
+                okText="수정완료"
+                cancelText="취소"
+              >
+                <Button type="primary" block>
+                  수정완료
+                </Button>
+              </Popconfirm>
+              <Button danger block onClick={cancelEditProfileHandler}>
+                취소
+              </Button>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 };

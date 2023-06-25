@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { accountListApi, authResponseData } from '../../api';
 import axios, { AxiosResponse } from 'axios';
-import { useSelector } from 'react-redux';
 import { useCookies } from 'react-cookie';
-import { RootState } from 'redux/reducer/reducer';
 import {
   Button,
   Modal,
@@ -24,12 +22,10 @@ const MyAccount: React.FC = () => {
   const [accountNumber, setAccountNumber] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [signature, setSignature] = useState<boolean>(false);
-  const userInfo = useSelector((state: RootState) => state.userInfo);
   const [cookies] = useCookies(['accessToken']);
   const accessToken = cookies.accessToken;
 
   console.log('토큰: ', accessToken);
-  console.log(userInfo);
   // interface
   interface GetAccountsResVal {
     totalBalance: number; // 사용자 계좌 잔액 총합
@@ -75,7 +71,7 @@ const MyAccount: React.FC = () => {
 
   const getAccounts = async (accessToken: authResponseData) => {
     try {
-      const res = await accountListApi(accessToken);
+      const res = await accountListApi();
       console.log(res);
       // const data: GetAccountsResVal = res.data;
       // setTotalBalance(data.totalBalance);

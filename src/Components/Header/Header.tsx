@@ -1,23 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Row, Col, Button, Typography } from 'antd';
-import { userValue, initialStateUser } from 'redux/reducer/reducer';
-import { useDispatch } from 'react-redux';
+import { useCookies } from 'react-cookie';
+import { authenticateApi } from 'api';
 
 const { Title } = Typography;
 
 const Header = () => {
   const navigate = useNavigate(); // 페이지 이동
-  const accessToken = localStorage.getItem('token'); // localStorage에서 accessToken 가져오기
-  const dispatch = useDispatch();
+  const [cookies, setCookie, removeCookie] = useCookies(['accessToken']);
+  const [displayName, setDisplayName] = useState('');
+  const accessToken = cookies.accessToken;
+
+  if (accessToken) {
+    const fetchData = async () => {
+      const logInData = await authenticateApi(accessToken);
+      setDisplayName(logInData.displayName);
+    };
+    fetchData();
+  }
 
   async function handleSignIn() {
     navigate(`/signin`);
   }
 
   async function handleLogout() {
-    localStorage.removeItem('token');
-    dispatch(userValue(initialStateUser));
+    removeCookie('accessToken');
     navigate(`/`);
   }
 
@@ -35,6 +43,7 @@ const Header = () => {
       <Col>
         {accessToken ? (
           <>
+            <span>환영합니다! {displayName}님</span>
             <Button onClick={handleLogout}>로그아웃</Button>
             <Button onClick={handleMyPage}>마이페이지</Button>
           </>
