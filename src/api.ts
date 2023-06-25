@@ -110,24 +110,62 @@ export function userInquiryApi() {
 }
 
 //----------------------------------계좌----------------------------------//
+interface AddCountReqBody {
+  bankCode: string; // 연결할 은행 코드 (필수!)
+  accountNumber: string; // 연결할 계좌번호 (필수!)
+  phoneNumber: string; // 사용자 전화번호 (필수!)
+  signature: boolean; // 사용자 서명 (필수!)
+}
+interface DelAccountReqBody {
+  accountId: string; // 계좌 ID (필수!)
+  signature: boolean; // 사용자 서명 (필수!)
+}
 // 선택 가능한 은행 목록 조회 - GET
-export function bankInquiryApi() {
-  return axios.get(`${BASE_URL}/account/banks`).then((r) => r.data);
+export function bankInquiryApi(accessToken: authResponseData) {
+  const res = axios
+    .get(`${BASE_URL}/account/banks`, {
+      headers: { ...headers, Authorization: `Bearer ${accessToken}` },
+    })
+    .then((r) => r.data);
+  return res;
 }
 
 // 계좌목록 및 잔액조회 - GET
-export function accountListApi() {
-  return axios.get(`${BASE_URL}/account`).then((r) => r.data);
+export async function accountListApi(accessToken: authResponseData) {
+  const res = await axios
+    .get(`${BASE_URL}/account`, {
+      headers: { ...headers, Authorization: `Bearer ${accessToken}` },
+    })
+    .then((r) => r.data);
+  return res;
 }
 
 // 계좌연결 - POST
-export function connectAccountApi() {
-  return axios.post(`${BASE_URL}/account`).then((r) => r.data);
+export async function connectAccountApi(
+  accessToken: authResponseData,
+  body: AddCountReqBody
+) {
+  const res = await axios
+    .post(`${BASE_URL}/account`, body, {
+      headers: { ...headers, Authorization: `Bearer ${accessToken}` },
+    })
+
+    .then((r) => r.data);
+  return res;
 }
 
 // 계좌해지 - DELETE
-export function deleteAccountApi() {
-  return axios.delete(`${BASE_URL}/account`).then((r) => r.data);
+export function deleteAccountApi(
+  accessToken: authResponseData,
+  body: DelAccountReqBody
+) {
+  const res = axios
+    .delete(`${BASE_URL}/account`, {
+      data: body,
+      headers: { ...headers, Authorization: `Bearer ${accessToken}` },
+    })
+    .then((r) => r.data);
+  return res;
 }
 
 //----------------------------------제품----------------------------------//

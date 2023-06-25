@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTab, RootState } from 'redux/reducer/reducer';
+import { Tabs } from 'antd';
 import MyInfo from './MyInfo';
 import MyAccount from './MyAccount';
 import MyPurchase from './MyPurchase';
@@ -33,37 +34,24 @@ const MyPage: React.FC = () => {
   return (
     <div style={{ width: '1100px', margin: '50px auto' }}>
       <div style={{ border: '1px solid black' }}>
-        <button
-          onClick={() => handleTabClick('내 정보')}
-          disabled={selectedTab === '내 정보'}
-        >
-          내 정보
-        </button>
-        <button
-          onClick={() => handleTabClick('내 계좌')}
-          disabled={selectedTab === '내 계좌'}
-        >
-          내 계좌
-        </button>
-        <button
-          onClick={() => handleTabClick('구매 내역')}
-          disabled={selectedTab === '구매 내역'}
-        >
-          구매 내역
-        </button>
-      </div>
-      <div
-        style={{
-          border: '1px solid red',
-        }}
-      >
-        {selectedTab === '내 정보' ? (
-          <MyInfo />
-        ) : selectedTab === '내 계좌' ? (
-          <MyAccount />
-        ) : (
-          <MyPurchase />
-        )}
+        <Tabs
+          onChange={(key: string) => handleTabClick(key)}
+          type="card"
+          items={['내 정보', '내 계좌', '구매 내역'].map((title, i) => {
+            return {
+              label: `${title}`,
+              key: title,
+              children:
+                selectedTab === '내 정보' ? (
+                  <MyInfo />
+                ) : selectedTab === '내 계좌' ? (
+                  <MyAccount />
+                ) : (
+                  <MyPurchase />
+                ),
+            };
+          })}
+        />
       </div>
     </div>
   );

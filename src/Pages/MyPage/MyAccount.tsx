@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { accountListApi, authResponseData } from '../../api';
-import axios, { AxiosResponse } from 'axios';
+import {
+  accountListApi,
+  connectAccountApi,
+  deleteAccountApi,
+  authResponseData,
+  bankInquiryApi,
+} from '../../api';
 import { useCookies } from 'react-cookie';
 import {
   Button,
@@ -16,29 +21,33 @@ const { Option } = Select;
 
 const MyAccount: React.FC = () => {
   const [totalBalance, setTotalBalance] = useState<number>();
-  const [accounts, setAccounts] = useState<Bank[]>([]);
+  const [accounts, setAccounts] = useState<Account[]>([]);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [banks, setBanks] = useState<Bank[]>([]);
   const [selectedBank, setSelectedBank] = useState<string>('');
+  const [code, setCode] = useState<string>('');
+  const [digits, setDigits] = useState(0);
   const [accountNumber, setAccountNumber] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [signature, setSignature] = useState<boolean>(false);
   const [cookies] = useCookies(['accessToken']);
-  const accessToken = cookies.accessToken;
-
-  console.log('토큰: ', accessToken);
+  const accessToken: authResponseData = cookies.accessToken;
   // interface
-  interface GetAccountsResVal {
-    totalBalance: number; // 사용자 계좌 잔액 총합
-    accounts: Bank[]; // 사용자 계좌 정보 목록
-  }
 
-  interface Bank {
+  interface Account {
     // 사용자 계좌 정보
     id: string; // 계좌 ID
     bankName: string; // 은행 이름
     bankCode: string; // 은행 코드
     accountNumber: string; // 계좌 번호
     balance: number; // 계좌 잔액
+  }
+  interface Bank {
+    // 선택 가능한 은행 정보
+    name: string; // 은행 이름
+    code: string; // 은행 코드
+    digits: number[]; // 은행 계좌 자릿수
+    disabled: boolean; // 사용자가 추가한 계좌 여부
   }
 
   interface AddCountReqBody {
@@ -55,27 +64,20 @@ const MyAccount: React.FC = () => {
 
   const showAccountModal = () => {
     setIsModalVisible(true);
+    getBanksList();
   };
-
   useEffect(() => {
-    getAccounts;
+    getAccounts(accessToken);
   }, []);
-
-  const headers = {
-    'content-type': 'application/json',
-    apikey: 'KDT5_nREmPe9B',
-    username: 'KDT5_Team3',
-    Authorization:
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IldBM3NEMENYOXJzYjJWWTZIdkVGIiwiaWF0IjoxNjg3NDIzNzE2LCJleHAiOjE2ODc1MTAxMTYsImlzcyI6InRoZXNlY29uQGdtYWlsLmNvbSJ9.e-45zyRPHG9ceUVsyanIk5k188v6uFUHQG8hzyhv0UE',
+  const getBanksList = async () => {
+    const res = await bankInquiryApi(accessToken);
+    setBanks(res);
   };
-
-  const getAccounts = async (accessToken: authResponseData) => {
+  async function getAccounts(accessToken: authResponseData) {
     try {
-      const res = await accountListApi();
-      console.log(res);
-      // const data: GetAccountsResVal = res.data;
-      // setTotalBalance(data.totalBalance);
-      // setAccounts(data.accounts);
+      const res = await accountListApi(accessToken);
+      setTotalBalance(res.totalBalance);
+      setAccounts(res.accounts);
     } catch (e) {
       console.log(e);
     }
@@ -83,7 +85,7 @@ const MyAccount: React.FC = () => {
     setAccountNumber('');
     setPhoneNumber('');
     setSignature(false);
-  };
+  }
   const handleCancel = () => {
     setIsModalVisible(false);
     setSelectedBank('');
@@ -97,53 +99,38 @@ const MyAccount: React.FC = () => {
   const isValidAccountNumber = numberRegex.test(accountNumber);
   const isValidPhoneNumber = numberRegex.test(phoneNumber);
 
+  function sumDigits(digitsArray: number[]) {
+    let sum = 0;
+    for (let i = 0; i < digitsArray.length; i++) {
+      sum += digitsArray[i];
+    }
+    return sum;
+  }
   const addNewAccount = async () => {
-    if (
-      selectedBank &&
-      isValidAccountNumber &&
-      isValidPhoneNumber &&
-      signature
-    ) {
-      try {
-        const data: AddCountReqBody = {
-          bankCode: selectedBank,
-          accountNumber: accountNumber,
-          phoneNumber: phoneNumber,
-          signature: signature,
-        };
-        const res = await axios.post(
-          'https://asia-northeast3-heropy-api.cloudfunctions.net/api/account',
-          data,
-          { headers }
-        );
-        setIsModalVisible(false);
-        getAccounts;
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
-      alert('모든 값을 정확하게 입력해 주세요.');
+    try {
+      const body: AddCountReqBody = {
+        bankCode: code,
+        accountNumber: accountNumber,
+        phoneNumber: phoneNumber,
+        signature: signature,
+      };
+      await connectAccountApi(accessToken, body);
+      setIsModalVisible(false);
+      getAccounts(accessToken);
+    } catch (e) {
+      console.log(e);
     }
   };
 
   const deleteAccount = async (params: any, e: any) => {
     e.preventDefault();
-    console.log(params);
     const accountId = params.id;
-    const data: DelAccountReqBody = {
+    const body: DelAccountReqBody = {
       accountId: accountId,
       signature: true,
     };
-    const res = await axios.delete(
-      'https://asia-northeast3-heropy-api.cloudfunctions.net/api/account',
-      {
-        data: data,
-        headers: headers,
-      }
-    );
-    console.log(res.data);
-
-    getAccounts;
+    await deleteAccountApi(accessToken, body);
+    getAccounts(accessToken);
   };
 
   return (
@@ -202,7 +189,12 @@ const MyAccount: React.FC = () => {
         centered
         onCancel={handleCancel}
         footer={[
-          <Button key="submit" type="primary" onClick={addNewAccount}>
+          <Button
+            key="submit"
+            type="primary"
+            onClick={addNewAccount}
+            disabled={signature ? false : true}
+          >
             계좌 등록 완료하기
           </Button>,
         ]}
@@ -210,42 +202,62 @@ const MyAccount: React.FC = () => {
         <div>
           <Space direction="horizontal">
             <div>
-              <span>은행을 선택해 주세요.</span>
+              <span>1. 은행 선택</span>
               <Select
                 value={selectedBank || null}
-                onChange={(value: string) => setSelectedBank(value)}
-                placeholder="은행선택"
+                onChange={(value) => {
+                  const parsedValue = JSON.parse(value);
+                  setCode(parsedValue.code);
+                  setSelectedBank(parsedValue.name);
+                  setDigits(sumDigits(parsedValue.digits));
+                }}
+                placeholder="선택"
                 style={{ width: '130px' }}
               >
-                <Option value="004">KB국민은행</Option>
-                <Option value="088">신한은행</Option>
-                <Option value="020">우리은행</Option>
-                <Option value="081">하나은행</Option>
-                <Option value="089">케이뱅크</Option>
-                <Option value="090">카카오뱅크</Option>
-                <Option value="011">NH농협은행</Option>
+                {banks.map((bank, index) => (
+                  <Option
+                    value={JSON.stringify({
+                      name: bank.name,
+                      code: bank.code,
+                      digits: bank.digits,
+                    })}
+                    key={index}
+                    disabled={bank.disabled}
+                  >
+                    {bank.name}
+                  </Option>
+                ))}
               </Select>
             </div>
             <div>
-              <span>-를 제외한 숫자만 입력해 주세요.</span>
+              <span>2. 계좌번호 입력</span>
               <Input
                 value={accountNumber}
                 onChange={(e) => setAccountNumber(e.target.value)}
-                placeholder="계좌번호입력"
+                disabled={selectedBank ? false : true}
+                placeholder="-를 제외한 숫자만 입력해 주세요."
               />
             </div>
           </Space>
           <div>
-            <span>-를 제외한 숫자만 입력해주세요.</span>
+            <span>3. 휴대폰 번호 입력</span>
             <Input
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
-              placeholder="전화번호입력"
+              placeholder="-를 제외한 숫자만 입력해 주세요."
+              disabled={
+                accountNumber.length === digits && isValidAccountNumber
+                  ? false
+                  : true
+              }
             />
           </div>
           <div style={{ textAlign: 'center' }}>
             개인정보 저장에 동의합니다
             <Checkbox
+              disabled={
+                phoneNumber.length === 11 && isValidPhoneNumber ? false : true
+              }
               checked={signature}
               onChange={() => setSignature(!signature)}
             ></Checkbox>
