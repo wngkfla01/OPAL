@@ -11,7 +11,7 @@ const BASE_URL = 'https://asia-northeast3-heropy-api.cloudfunctions.net/api';
 const headers = {
   'content-type': 'application/json',
   apikey: 'KDT5_nREmPe9B',
-  username: 'KDT5_TeamX',
+  username: 'KDT5_Team3',
 };
 
 //----------------------------------인증----------------------------------//
@@ -82,9 +82,26 @@ export async function logOutApi(accessToken: string) {
   return json;
 }
 
+export interface userModifyRequestBody {
+  displayName?: string;
+  profileImgBase64?: string;
+  oldPassword?: string;
+  newPassword?: string;
+}
+
 // 사용자 정보수정 - PUT
-export function userModifyApi() {
-  return axios.put(`${BASE_URL}/auth/user`).then((r) => r.data);
+export async function userModifyApi(
+  accessToken: authResponseData,
+  requestBody: userModifyRequestBody
+) {
+  const res = await axios.put(`${BASE_URL}/auth/user`, requestBody, {
+    headers: {
+      ...headers,
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  const json = res.data;
+  return json;
 }
 
 // 사용자 목록조회 - GET 'masterKey: true'

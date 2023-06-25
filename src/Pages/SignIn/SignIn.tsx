@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { logInRequestBody, logInApi } from '../../api';
 import { Form, Input, Button, Typography, Space } from 'antd';
-import { userValue } from 'redux/reducer/reducer';
-import { useDispatch } from 'react-redux';
 import '../../Styles/Sign.scss';
 
 const { Title, Text } = Typography;
@@ -13,10 +11,8 @@ const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  // const [accessToken, setAccessToken] = useState('');
   const [cookies, setCookies] = useCookies(['accessToken']);
   const navigate = useNavigate(); //페이지 이동
-  const dispatch = useDispatch();
 
   async function handleSignUp() {
     navigate(`/signup`);
@@ -34,9 +30,6 @@ const SignIn = () => {
           const accessToken = logInData.accessToken;
           setCookies('accessToken', accessToken, { path: '/' });
         }
-        // setAccessToken(logInData.accessTokens);
-        localStorage.setItem('token', logInData.accessToken);
-        dispatch(userValue(logInData));
         navigate(`/`);
       } else {
         setMessage(
