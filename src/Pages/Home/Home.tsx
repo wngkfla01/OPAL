@@ -1,8 +1,8 @@
 import React from 'react';
-import { RootState } from 'redux/reducer/reducer';
 import { useCookies } from 'react-cookie';
 import SearchBar from 'Components/Contents/SearchBar';
 import Catagory from 'Components/Contents/Catagory';
+import Event from 'Components/Contents/Event';
 
 const Home = () => {
   const [cookies] = useCookies(['accessToken']);
@@ -13,6 +13,7 @@ const Home = () => {
     <>
       <SearchBar />
       <Catagory />
+      <Event />
     </>
   );
 };
