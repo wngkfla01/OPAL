@@ -1,0 +1,74 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  width: 1100px;
+  margin: 150px auto;
+  background-color: rgba(179, 203, 237);
+
+  .product__img {
+    width: 750px;
+    height: 450px;
+    margin: 0 auto;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+
+  .tags__container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px 0;
+
+    .product__tag {
+      margin: 5px 10px 0 0;
+      cursor: auto;
+      background-color: navy;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .product__card {
+    width: 100%;
+
+    .product__title {
+      display: flex;
+      flex-direction: column;
+
+      > h1 {
+        margin: 0 0 10px;
+      }
+
+      > p {
+        margin: 0;
+      }
+    }
+
+    .product__address {
+      margin-bottom: 10px;
+    }
+
+    .product__selection {
+      > p {
+        display: inline;
+      }
+    }
+  }
+
+  .reservation__Btn {
+    margin: 20px 0;
+    height: 50px;
+  }
+
+  .detailedInfo__card {
+    margin-bottom: 20px;
+  }
+}

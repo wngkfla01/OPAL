@@ -202,8 +202,33 @@ export function deleteProductApi() {
 }
 
 // 단일제품 상세조회 - GET
-export function oneProductApi() {
-  return axios.get(`${BASE_URL}/products/:productId`).then((r) => r.data);
+interface ProductDetailResponseData {
+  id: string; // 제품 ID
+  title: string; // 제품 이름
+  price: number; // 제품 가격
+  description: string; // 제품 상세 설명
+  tags: string[]; // 제품 태그
+  thumbnail: string; // 제품 썸네일 이미지(URL)
+  photo: string; // 제품 상세 이미지(URL)
+  isSoldOut: boolean; // 제품 매진 여부
+  reservations: Reservation[]; // 제품의 모든 예약 정보 목록
+  discountRate: number; // 제품 할인율
+}
+
+// 예약 정보가 있는 경우
+interface Reservation {
+  start: string; // 예약 시작 시간
+  end: string; // 예약 종료 시간
+  isCanceled: boolean; // 예약 취소 여부
+  isExpired: boolean; // 예약 만료 여부
+}
+
+export async function productDetailApi(id: string) {
+  const res = await axios.get(`${BASE_URL}/products/${id}`, {
+    headers,
+  });
+  const data: ProductDetailResponseData = res.data;
+  return data;
 }
 
 // 제품검색 - POST

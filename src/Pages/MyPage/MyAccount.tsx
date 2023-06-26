@@ -73,6 +73,7 @@ const MyAccount: React.FC = () => {
     const res = await bankInquiryApi(accessToken);
     setBanks(res);
   };
+
   async function getAccounts(accessToken: authResponseData) {
     try {
       const res = await accountListApi(accessToken);

@@ -26,6 +26,28 @@ export interface Product {
   discountRate: number; // 제품 할인율
 }
 
+// 단일 제품 상세 조회 - 예약 정보가 있을 경우 타입
+interface ReservationState {
+  start: string;
+  end: string;
+  isCanceled: boolean;
+  isExpired: boolean;
+}
+
+// 단일 제품 상세 조회 타입
+interface ProductState {
+  id: string;
+  title: string;
+  price: number;
+  description: string;
+  tags: string[];
+  thumbnail: string | null;
+  photo: string | null;
+  isSoldOut: boolean;
+  reservations: ReservationState[];
+  discountRate: number;
+}
+
 // 초기값 설정입니다.
 const initialState: TabState = {
   selectedTab: '내 정보',
@@ -42,6 +64,28 @@ const productInitialState: listState = {
       discountRate: 0,
     },
   ],
+};
+
+// 예약 정보가 있을 경우 초기값
+const initialReservationState: ReservationState = {
+  start: '',
+  end: '',
+  isCanceled: false,
+  isExpired: false,
+};
+
+// 단일 제품 상세 조회 초기값
+const initialProductState: ProductState = {
+  id: '',
+  title: '',
+  price: 0,
+  description: '',
+  tags: [],
+  thumbnail: '',
+  photo: '',
+  isSoldOut: false,
+  reservations: [],
+  discountRate: 0,
 };
 
 // createSlice 함수는 리듀서 함수와 해당 리듀서의 액션 생성자 함수들을 한 번에 생성해주는 편리한 기능을 제공합니다.
@@ -96,6 +140,35 @@ const listSlice = createSlice({
   },
 });
 
+const reservationSlice = createSlice({
+  name: 'reservation',
+  initialState: initialReservationState,
+  reducers: {
+    updateReservation: (state, action: PayloadAction<ReservationState>) => {
+      action.payload;
+    },
+  },
+});
+
+const productSlice = createSlice({
+  name: 'product',
+  initialState: initialProductState,
+  reducers: {
+    updateProductDetail: (state, action: PayloadAction<ProductState>) => {
+      state.id = action.payload.id;
+      state.title = action.payload.title;
+      state.price = action.payload.price;
+      state.description = action.payload.description;
+      state.tags = action.payload.tags;
+      state.thumbnail = action.payload.thumbnail;
+      state.photo = action.payload.photo;
+      state.isSoldOut = action.payload.isSoldOut;
+      state.reservations = action.payload.reservations;
+      state.discountRate = action.payload.discountRate;
+    },
+  },
+});
+
 // 모든 리듀서의 상태 타입을 포함하여 묶어서 내보내는 역할을 합니다.
 export interface RootState {
   // 상태 타입을 추가해주세요
@@ -103,6 +176,7 @@ export interface RootState {
   counterSlice: Counterstate;
   searchSlice: Searchstate;
   listSlice: listState;
+  productSlice: ProductState;
 }
 
 // createSlice 함수에서 반환된 action을 내보냅니다.
@@ -111,6 +185,8 @@ export const { selectTab } = tabSlice.actions;
 export const { up, down } = counterSlice.actions;
 export const { search, category } = searchSlice.actions;
 export const { plist } = listSlice.actions;
+export const { updateProductDetail } = productSlice.actions;
+export const { updateReservation } = reservationSlice.actions;
 
 // createSlice 함수에서 반환된 reducer를 내보냅니다.
 export default {
@@ -119,4 +195,6 @@ export default {
   counterSlice: counterSlice.reducer,
   searchSlice: searchSlice.reducer,
   listSlice: listSlice.reducer,
+  productSlice: productSlice.reducer,
+  reservationSlice: reservationSlice.reducer,
 };
