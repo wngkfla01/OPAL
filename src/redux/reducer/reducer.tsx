@@ -5,10 +5,43 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface TabState {
   selectedTab: string;
 }
+interface Counterstate {
+  clickedCounter: number;
+}
+interface Searchstate {
+  searchedValue: string;
+}
+interface listState {
+  listValue: Product[];
+}
+
+export interface Product {
+  // 제품 정보
+  id: string; // 제품 ID
+  title: string; // 제품 이름
+  price: number; // 제품 가격
+  description: string; // 제품 설명(최대 100자)
+  tags: string[]; // 제품 태그
+  thumbnail: string | undefined; // 제품 썸네일 이미지(URL)
+  discountRate: number; // 제품 할인율
+}
 
 // 초기값 설정입니다.
 const initialState: TabState = {
   selectedTab: '내 정보',
+};
+const productInitialState: listState = {
+  listValue: [
+    {
+      id: '',
+      title: '',
+      price: 0,
+      description: '',
+      tags: [''],
+      thumbnail: '',
+      discountRate: 0,
+    },
+  ],
 };
 
 // createSlice 함수는 리듀서 함수와 해당 리듀서의 액션 생성자 함수들을 한 번에 생성해주는 편리한 기능을 제공합니다.
@@ -25,18 +58,65 @@ const tabSlice = createSlice({
   },
 });
 
+const counterSlice = createSlice({
+  name: 'counterSlice',
+  initialState: { clickedCounter: 0 },
+  reducers: {
+    up: (state, action: PayloadAction<number>) => {
+      state.clickedCounter = state.clickedCounter + action.payload;
+    },
+    down: (state, action: PayloadAction<number>) => {
+      state.clickedCounter = state.clickedCounter - action.payload;
+    },
+  },
+});
+
+const searchSlice = createSlice({
+  name: 'searchSlice',
+  initialState: { searchedValue: '' },
+  reducers: {
+    search: (state, action: PayloadAction<string>) => {
+      state.searchedValue = action.payload;
+      console.log(state.searchedValue);
+    },
+    category: (state, action: PayloadAction<string>) => {
+      state.searchedValue = action.payload;
+      console.log(state.searchedValue);
+    },
+  },
+});
+
+const listSlice = createSlice({
+  name: 'listSlice',
+  initialState: productInitialState,
+  reducers: {
+    plist: (state, action: PayloadAction<Product[]>) => {
+      state.listValue = action.payload;
+    },
+  },
+});
+
 // 모든 리듀서의 상태 타입을 포함하여 묶어서 내보내는 역할을 합니다.
 export interface RootState {
   // 상태 타입을 추가해주세요
   tabSlice: TabState;
+  counterSlice: Counterstate;
+  searchSlice: Searchstate;
+  listSlice: listState;
 }
 
 // createSlice 함수에서 반환된 action을 내보냅니다.
 // 다른 action들도 아래와 같이 추가로 작성하셔서 내보내면 됩니다.
 export const { selectTab } = tabSlice.actions;
+export const { up, down } = counterSlice.actions;
+export const { search, category } = searchSlice.actions;
+export const { plist } = listSlice.actions;
 
 // createSlice 함수에서 반환된 reducer를 내보냅니다.
 export default {
   // 다른 reducer들도 아래와 같이 추가로 작성하셔서 내보내면 됩니다.
   tabSlice: tabSlice.reducer,
+  counterSlice: counterSlice.reducer,
+  searchSlice: searchSlice.reducer,
+  listSlice: listSlice.reducer,
 };
