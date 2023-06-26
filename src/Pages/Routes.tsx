@@ -5,6 +5,7 @@ import SignUp from './SignUp/SignUp';
 import SignIn from './SignIn/SignIn';
 import MyPage from './MyPage/MyPage';
 import ProductList from './ProductList/ProductList';
+import ProductDetail from './ProductDetail/ProductDetail';
 
 const RoutesComponent = () => {
   return (
@@ -14,6 +15,7 @@ const RoutesComponent = () => {
       <Route path="/signin" element={<SignIn />} />
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/productlist" element={<ProductList />} />
+      <Route path="/productdetail/:id" element={<ProductDetail />} />
     </Routes>
   );
 };
