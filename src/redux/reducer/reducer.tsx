@@ -48,6 +48,23 @@ interface ProductState {
   discountRate: number;
 }
 
+// 예약 날짜
+interface SelectedDate {
+  date: string;
+}
+
+// 예약 시간
+interface SelectedTime {
+  start: string;
+  end: string;
+  timeDiffer: string;
+}
+
+// 예약 인원
+interface SelectedGuests {
+  guests: number;
+}
+
 // 초기값 설정입니다.
 const initialState: TabState = {
   selectedTab: '내 정보',
@@ -86,6 +103,20 @@ const initialProductState: ProductState = {
   isSoldOut: false,
   reservations: [],
   discountRate: 0,
+};
+
+const initialDateState: SelectedDate = {
+  date: '',
+};
+
+const initialTimeState: SelectedTime = {
+  start: '',
+  end: '',
+  timeDiffer: '',
+};
+
+const initialGuestsState: SelectedGuests = {
+  guests: 1,
 };
 
 // createSlice 함수는 리듀서 함수와 해당 리듀서의 액션 생성자 함수들을 한 번에 생성해주는 편리한 기능을 제공합니다.
@@ -169,6 +200,37 @@ const productSlice = createSlice({
   },
 });
 
+const dateSlice = createSlice({
+  name: 'date',
+  initialState: initialDateState,
+  reducers: {
+    selectedDate: (state, action: PayloadAction<SelectedDate>) => {
+      state.date = action.payload.date;
+    },
+  },
+});
+
+const timeSlice = createSlice({
+  name: 'time',
+  initialState: initialTimeState,
+  reducers: {
+    selectedTime: (state, action: PayloadAction<SelectedTime>) => {
+      state.start = action.payload.start;
+      state.end = action.payload.end;
+      state.timeDiffer = action.payload.timeDiffer;
+    },
+  },
+});
+
+const guestsSlice = createSlice({
+  name: 'guests',
+  initialState: initialGuestsState,
+  reducers: {
+    selectedGuests: (state, action: PayloadAction<SelectedGuests>) => {
+      state.guests = action.payload.guests;
+    },
+  },
+});
 // 모든 리듀서의 상태 타입을 포함하여 묶어서 내보내는 역할을 합니다.
 export interface RootState {
   // 상태 타입을 추가해주세요
@@ -177,6 +239,10 @@ export interface RootState {
   searchSlice: Searchstate;
   listSlice: listState;
   productSlice: ProductState;
+  reservationSlice: ReservationState;
+  dateSlice: SelectedDate;
+  timeSlice: SelectedTime;
+  guestsSlice: SelectedGuests;
 }
 
 // createSlice 함수에서 반환된 action을 내보냅니다.
@@ -187,6 +253,9 @@ export const { search, category } = searchSlice.actions;
 export const { plist } = listSlice.actions;
 export const { updateProductDetail } = productSlice.actions;
 export const { updateReservation } = reservationSlice.actions;
+export const { selectedDate } = dateSlice.actions;
+export const { selectedTime } = timeSlice.actions;
+export const { selectedGuests } = guestsSlice.actions;
 
 // createSlice 함수에서 반환된 reducer를 내보냅니다.
 export default {
@@ -197,4 +266,7 @@ export default {
   listSlice: listSlice.reducer,
   productSlice: productSlice.reducer,
   reservationSlice: reservationSlice.reducer,
+  dateSlice: dateSlice.reducer,
+  timeSlice: timeSlice.reducer,
+  guestsSlice: guestsSlice.reducer,
 };
