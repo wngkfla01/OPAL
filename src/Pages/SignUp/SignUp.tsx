@@ -42,7 +42,7 @@ const SignUp = () => {
       await authenticateCheck(signUpData.accessToken);
       setMessage('회원가입이 완료되었습니다.');
     } catch (error) {
-      setMessage((error as Error).message);
+      setMessage('회원가입에 실패하였습니다. 이미 존재하는 아이디 입니다.');
     }
   }
 
@@ -66,17 +66,19 @@ const SignUp = () => {
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
                   type="text"
-                  placeholder="UserName"
+                  placeholder="사용자 이름"
                   size="large"
+                  required={true}
                 />
               </Form.Item>
               <Form.Item>
                 <Input
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  type="text"
+                  type="email"
                   placeholder="아이디(email)"
                   size="large"
+                  required={true}
                 />
               </Form.Item>
               <Form.Item>
@@ -86,6 +88,8 @@ const SignUp = () => {
                   type="password"
                   placeholder="비밀번호"
                   size="large"
+                  minLength={8}
+                  required={true}
                 />
               </Form.Item>
               <Form.Item>
@@ -95,14 +99,12 @@ const SignUp = () => {
                   type="password"
                   placeholder="비밀번호 확인"
                   size="large"
+                  minLength={8}
+                  required={true}
                 />
               </Form.Item>
               <Form.Item>
-                <Button
-                  className="btn__submit"
-                  type="primary"
-                  htmlType="submit"
-                >
+                <Button className="btn__sign" type="primary" htmlType="submit">
                   회원가입하기
                 </Button>
               </Form.Item>
