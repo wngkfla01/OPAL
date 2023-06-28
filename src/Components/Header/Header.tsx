@@ -24,8 +24,8 @@ const Header = () => {
   }
 
   async function handleLogout() {
-    removeCookie('accessToken');
     navigate(`/`);
+    removeCookie('accessToken');
   }
 
   async function handleMyPage() {

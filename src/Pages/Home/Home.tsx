@@ -3,7 +3,7 @@ import { useCookies } from 'react-cookie';
 import SearchBar from 'Components/Contents/SearchBar';
 import Category from 'Components/Contents/Category';
 import Event from 'Components/Contents/Event';
-import 'Styles/Home.scss';
+import QuickMenu from 'Components/Contents/QuickMenu';
 
 const Home = () => {
   const [cookies] = useCookies(['accessToken']);
@@ -16,6 +16,7 @@ const Home = () => {
         <SearchBar />
         <Category />
         <Event />
+        <QuickMenu />
       </main>
     </>
   );

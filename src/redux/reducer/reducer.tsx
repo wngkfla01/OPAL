@@ -128,7 +128,10 @@ const tabSlice = createSlice({
   initialState,
   reducers: {
     selectTab: (state, action: PayloadAction<string>) => {
-      state.selectedTab = action.payload;
+      return {
+        ...state,
+        selectedTab: action.payload,
+      };
     },
   },
 });

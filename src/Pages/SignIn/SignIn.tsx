@@ -30,14 +30,16 @@ const SignIn = () => {
           const accessToken = logInData.accessToken;
           setCookies('accessToken', accessToken, { path: '/' });
         }
-        navigate(`/`);
+        navigate(-1);
       } else {
         setMessage(
           '로그인에 실패하였습니다. 이메일과 비밀번호를 다시 확인해주세요'
         );
       }
     } catch (error) {
-      setMessage('요청을 처리하는 동안 오류가 발생했습니다.');
+      setMessage(
+        '로그인에 실패하였습니다. 이메일과 비밀번호를 다시 확인해주세요'
+      );
     }
   }
 
@@ -51,9 +53,10 @@ const SignIn = () => {
               <Input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                type="text"
+                type="email"
                 placeholder="email"
                 size="large"
+                required={true}
               />
             </Form.Item>
             <Form.Item>
@@ -63,19 +66,18 @@ const SignIn = () => {
                 type="password"
                 placeholder="password"
                 size="large"
+                required={true}
+                minLength={8}
               />
             </Form.Item>
-            <Button className="btn__submit" type="primary" htmlType="submit">
+            <Button className="btn__sign" type="primary" htmlType="submit">
               로그인
             </Button>
           </Form>
-          <div className="btn__area">
-            <Button className="btn__area-item">아이디/비밀번호 찾기</Button>
-            <Button className="btn__area-item" onClick={handleSignUp}>
-              회원 가입
-            </Button>
-          </div>
-          {message && <Text>{message}</Text>}
+          <Button className="btn__sign" onClick={handleSignUp}>
+            회원 가입
+          </Button>
+          <div>{message && <Text>{message}</Text>}</div>
         </div>
       </Space>
     </div>

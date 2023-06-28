@@ -35,9 +35,10 @@ const MyPage: React.FC = () => {
     <div style={{ width: '1100px', margin: '50px auto' }}>
       <div style={{ border: '1px solid black' }}>
         <Tabs
+          activeKey={selectedTab}
           onChange={(key: string) => handleTabClick(key)}
           type="card"
-          items={['내 정보', '내 계좌', '구매 내역'].map((title, i) => {
+          items={['내 정보', '내 계좌', '구매 내역'].map((title) => {
             return {
               label: `${title}`,
               key: title,
