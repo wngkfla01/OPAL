@@ -1,8 +1,9 @@
 import React from 'react';
 import { useCookies } from 'react-cookie';
 import SearchBar from 'Components/Contents/SearchBar';
-import Catagory from 'Components/Contents/Catagory';
+import Category from 'Components/Contents/Category';
 import Event from 'Components/Contents/Event';
+import 'Styles/Home.scss';
 
 const Home = () => {
   const [cookies] = useCookies(['accessToken']);
@@ -11,9 +12,11 @@ const Home = () => {
 
   return (
     <>
-      <SearchBar />
-      <Catagory />
-      <Event />
+      <main className="inner">
+        <SearchBar />
+        <Category />
+        <Event />
+      </main>
     </>
   );
 };

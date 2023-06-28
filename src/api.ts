@@ -265,7 +265,6 @@ export async function categoryProductApi(
     { headers }
   );
   const Data: Product[] = res.data;
-  console.log('출력', Data);
   return Data;
 }
 

@@ -1,0 +1,31 @@
+@import './common.scss';
+
+.header {
+  align-items: center;
+
+  &__inner {
+    margin: 0 auto;
+    height: 100%;
+    width: 1100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__logo {
+    margin-top: 50px;
+    font-family: $point-font;
+    font-size: 100px;
+    color: $main-br-1;
+    text-shadow: $shadow;
+    &--info {
+      font: {
+        size: 15px;
+      }
+      top: -20px;
+      width: 200px;
+      margin: 0 auto;
+      position: relative;
+      color: $main-br-3;
+    }
+  }
+}
