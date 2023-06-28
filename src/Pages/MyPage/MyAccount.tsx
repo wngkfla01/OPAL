@@ -5,6 +5,10 @@ import {
   deleteAccountApi,
   authResponseData,
   bankInquiryApi,
+  AddCountReqBody,
+  DelAccountReqBody,
+  Account,
+  Bank,
 } from '../../api';
 import { useCookies } from 'react-cookie';
 import {
@@ -32,36 +36,6 @@ const MyAccount: React.FC = () => {
   const [signature, setSignature] = useState<boolean>(false);
   const [cookies] = useCookies(['accessToken']);
   const accessToken: authResponseData = cookies.accessToken;
-  // interface
-
-  interface Account {
-    // 사용자 계좌 정보
-    id: string; // 계좌 ID
-    bankName: string; // 은행 이름
-    bankCode: string; // 은행 코드
-    accountNumber: string; // 계좌 번호
-    balance: number; // 계좌 잔액
-  }
-  interface Bank {
-    // 선택 가능한 은행 정보
-    name: string; // 은행 이름
-    code: string; // 은행 코드
-    digits: number[]; // 은행 계좌 자릿수
-    disabled: boolean; // 사용자가 추가한 계좌 여부
-  }
-
-  interface AddCountReqBody {
-    bankCode: string; // 연결할 은행 코드 (필수!)
-    accountNumber: string; // 연결할 계좌번호 (필수!)
-    phoneNumber: string; // 사용자 전화번호 (필수!)
-    signature: boolean; // 사용자 서명 (필수!)
-  }
-
-  interface DelAccountReqBody {
-    accountId: string; // 계좌 ID (필수!)
-    signature: boolean; // 사용자 서명 (필수!)
-  }
-
   const showAccountModal = () => {
     setIsModalVisible(true);
     getBanksList();
