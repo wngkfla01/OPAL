@@ -153,7 +153,7 @@ const ProductDetail: React.FC = () => {
 
   return (
     <main className={styles.inner}>
-      <h1>{}</h1>
+      <div className={styles.title}>{product.title}</div>
       <Carousel autoplay>
         <div>
           <img
@@ -189,25 +189,22 @@ const ProductDetail: React.FC = () => {
       <Card
         title={
           <div className={styles.product__title}>
-            <h1
-              style={{
-                display: 'inline',
-                fontSize: '42px',
-              }}
-            >
-              {product.title}
-            </h1>
+            <h1>{product.title}</h1>
             <p style={{ fontSize: '20px' }}>
               {product.description.split('<br>')[0]}
             </p>
           </div>
         }
-        bordered={true}
+        bordered={false}
         headStyle={{ height: '130px' }}
         bodyStyle={{ height: '250px', fontSize: '18px' }}
         className={styles.product__card}
       >
-        <Card.Grid hoverable={false} style={{ width: '30%' }}>
+        <Card.Grid
+          hoverable={false}
+          style={{ width: '30%' }}
+          className={styles.card__container}
+        >
           <div>
             {/* 제품(공간) 장소 출력 */}
             <h3 className={styles.product__address}>주소</h3>
@@ -217,7 +214,11 @@ const ProductDetail: React.FC = () => {
           </div>
         </Card.Grid>
 
-        <Card.Grid hoverable={false} style={{ width: '40%' }}>
+        <Card.Grid
+          hoverable={false}
+          style={{ width: '40%' }}
+          className={styles.card__container}
+        >
           <form className={styles.product__selection}>
             {/* 제품(공간)을 예약할 날짜, 시간, 인원 선택 */}
             <h3>예약 사항 선택</h3>
@@ -258,7 +259,11 @@ const ProductDetail: React.FC = () => {
           </form>
         </Card.Grid>
 
-        <Card.Grid hoverable={false} style={{ width: '30%' }}>
+        <Card.Grid
+          hoverable={false}
+          style={{ width: '30%' }}
+          className={styles.card__container}
+        >
           <div>
             {/* 제품(공간) 가격 (1시간 당) 출력 */}
             <h3>가격</h3>
@@ -269,7 +274,7 @@ const ProductDetail: React.FC = () => {
         </Card.Grid>
       </Card>
 
-      <Space direction="vertical">
+      <Space direction="vertical" className={styles.btn__container}>
         <Button
           type="primary"
           block

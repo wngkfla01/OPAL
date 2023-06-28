@@ -1,0 +1,55 @@
+@import './common.scss';
+
+.searchedValue {
+  font-size: 20px;
+  margin: 35px;
+}
+.productItem {
+  width: 1000px;
+  height: 200px;
+  display: flex;
+  position: relative;
+  margin: 25px 0;
+  overflow: hidden;
+  box-shadow: $shadow;
+  border-radius: 15px;
+
+  &__img {
+    overflow: hidden;
+    object-fit: cover;
+  }
+  &__info-container {
+    display: flex;
+  }
+  &__info {
+    width: 500px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    &:hover {
+      color: $main-br-1;
+    }
+  }
+  &__title {
+    font : {
+      size: 25px;
+      weight: 500;
+    }
+    margin: 0 0 18px 0;
+  }
+  &__des {
+    font : {
+      size: 14px;
+      weight: 300;
+    }
+  }
+  &__price {
+    width: 150px;
+    text-align: center;
+    vertical-align: middle;
+    font : {
+      size: 20px;
+      weight: 500;
+    }
+  }
+}

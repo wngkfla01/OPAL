@@ -15,8 +15,39 @@ $main-br-3: rgba(217, 205, 191, 1);
 $main-br-4: rgba(242, 235, 227, 1);
 
 $black: rgb(22, 22, 22);
-$white: rgb(245, 245, 245);
+$white: rgb(255, 255, 255);
+
+//shsadow
+$shadow: 0px 2px 10px rgba(223, 223, 223, 0.496);
+$inner-shadow: inset 0px 2px 10px rgba(223, 223, 223, 0.496);
 
 //font
-$point-font: 'Pacifico', cursive;
+$point-font: 'Shrikhand', cursive;
 $text-font: 'Noto Sans KR', sans-serif;
+
+.inner {
+  color: $black;
+  width: 1100px;
+  height: 100%;
+  background-color: $white;
+  margin: 0 auto;
+  border-radius: 2px;
+  box-shadow: $shadow;
+}
+
+.btn {
+  font: $text-font;
+  font-size: 18px;
+  color: $main-br-1;
+  background-color: $white;
+  border: none;
+  width: 100px;
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: $text-font;
+}

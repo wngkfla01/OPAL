@@ -7,6 +7,7 @@ import { searchProductApi, categoryProductApi } from 'api';
 import Counter from 'Components/Contents/Counter';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import 'Styles/SearchBar.scss';
 
 dayjs.extend(customParseFormat);
 const dateFormat = 'YYYY/MM/DD';
@@ -56,12 +57,12 @@ function SearchBar() {
 
   return (
     <>
-      <form>
-        <Space size={20}>
+      <form className="searchBar">
+        <Space className="searchBar__inner">
           <input
             type="text"
             value={searchedValue}
-            className="searsh__input"
+            className="searchBar__input"
             placeholder="검색어를 입력해주세요"
             onChange={(e) => {
               dispatch(search(e.target.value));
@@ -80,7 +81,7 @@ function SearchBar() {
           </div>
           <input
             type="button"
-            className="searsh__btn btn"
+            className="searchBar__btn btn"
             value={'검색하기'}
             onClick={gotoProductlist}
           />
