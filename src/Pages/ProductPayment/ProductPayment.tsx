@@ -11,19 +11,20 @@ const ProductPayment = () => {
   const pickedAccount = useSelector(
     (state: RootState) => state.selectAccountSlice.pickedAccount
   );
-  console.log('account? :', pickedAccount);
   const [cookies] = useCookies(['accessToken']);
   const accessToken = cookies.accessToken;
+  const [dateCookies, setDateCookies] = useCookies(['selectedDateTime']);
+  const cookieSavedDate = dateCookies.selectedDateTime;
+  const productInfo = useCookies(['productInfo'])[0].productInfo;
   const dateTimeOption = useSelector(
     (state: RootState) => state.reserveOptionSlice
   );
-  const guestsOption = useSelector((state: RootState) => state.guestsSlice);
   const product = useSelector((state: RootState) => state.productSlice);
   const productAddress = ['서울특별시 강남구 강남대로 364', '11층 11E 공간'];
 
   // 선택한 예약 날짜 및 시간에서 날짜만 반환
-  const reserveStartDate = dateTimeOption.start.split('T')[0];
-  const reserveEndDate = dateTimeOption.end.split('T')[0];
+  const reserveStartDate = cookieSavedDate.startTime.split('T')[0];
+  const reserveEndDate = cookieSavedDate.endTime.split('T')[0];
 
   const formatStartDate = new Date(reserveStartDate);
   const formatEndDate = new Date(reserveEndDate);
@@ -40,13 +41,15 @@ const ProductPayment = () => {
   const formattedEndDate = `${endYear}년 ${endMonth}월 ${endDay}일`;
 
   // 선택한 예약 입실 시간, 퇴실 시간 반환
-  const reserveStartTime = dateTimeOption.start.split('T')[1].split(':')[0];
-  const reserveEndTime = dateTimeOption.end.split('T')[1].split(':')[0];
+  const reserveStartTime = cookieSavedDate.startTime
+    .split('T')[1]
+    .split(':')[0];
+  const reserveEndTime = cookieSavedDate.endTime.split('T')[1].split(':')[0];
 
   const handlePayment = async () => {
     // 계좌 목록 및 잔액 조회
     const accountList = await accountListApi(accessToken);
-    console.log('accountList: ', accountList);
+
     if (pickedAccount.length === 0 && accountList.accounts.length !== 0) {
       alert('결제하실 계좌를 선택해 주세요.');
     } else if (accountList.accounts.length === 0) {
@@ -66,33 +69,14 @@ const ProductPayment = () => {
             end: dateTimeOption.end,
           },
         };
-        console.log('request? :', requestBody);
 
         // 제품(공간) 구매 신청(결제)
         const paymentResult = await productPaymentApi(accessToken, requestBody);
-        console.log(paymentResult);
       } catch {
         alert('결제실패');
       }
     }
-
-    // !accountList ? console.log('계좌를 등록해야 합니다!') : null;
-
-    // setSelectedAccount(
-    //   accountList.accounts.find(
-    //     (account: any) => account.id === selectedAccount
-    //   )
-    // );
-
-    // !selectedAccount ? console.log('계좌를 선택해야 합니다!') : null;
-
-    // if (paymentResult) {
-    //   console.log('결제에 성공했습니다!');
-    // } else {
-    //   console.log('결제에 실패했습니다!');
-    // }
   };
-
   return (
     <main className={styles.inner}>
       <Card
@@ -111,12 +95,12 @@ const ProductPayment = () => {
             width={500}
             height={350}
             preview={false}
-            src={product.thumbnail as string}
+            src={productInfo.photo}
             className={styles.product__img}
             alt={'공간 이미지'}
           />
           <div className={styles.product__info}>
-            <h1>{product.title}</h1>
+            <h1>{productInfo.title}</h1>
             <div>
               {/* 제품(공간) 주소 출력 */}
               {productAddress.map((item, i) => (
@@ -129,11 +113,14 @@ const ProductPayment = () => {
                 예약 시간 : <br />
                 {formattedStartDate} {reserveStartTime}시<br />~{' '}
                 {formattedEndDate} {reserveEndTime}시 (
-                {dateTimeOption.timeDiffer}시간)
+                {cookieSavedDate.timeDiffer}시간)
               </p>
-              <p>예약 인원 : {guestsOption.guests}명</p>
+              <p>예약 인원 : {productInfo.guests}명</p>
               <p>
-                가격 : {(product.price * guestsOption.guests).toLocaleString()}
+                가격 :{' '}
+                {(
+                  parseFloat(productInfo.price) * cookieSavedDate.timeDiffer
+                ).toLocaleString()}
                 원
               </p>
             </div>

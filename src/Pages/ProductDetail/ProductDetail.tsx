@@ -13,12 +13,7 @@ import { RangePickerProps } from 'antd/es/date-picker';
 import { productDetailApi } from 'api';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  RootState,
-  updateProductDetail,
-  selectedDateTime,
-  selectedGuests,
-} from 'redux/reducer/reducer';
+import { RootState, updateProductDetail } from 'redux/reducer/reducer';
 import { useCookies } from 'react-cookie';
 import styles from 'Styles/ProductDetail.module.scss';
 import dayjs from 'dayjs';
@@ -33,17 +28,23 @@ const { RangePicker } = DatePicker;
 // ProductDetail 컴포넌트
 const ProductDetail: React.FC = () => {
   const { id } = useParams();
-  const [cookies] = useCookies(['accessToken']);
-  const accessToken = cookies.accessToken;
+  const [accessCookies] = useCookies(['accessToken']);
+  const accessToken = accessCookies.accessToken;
+  const [dateCookies, setDateCookies] = useCookies(['selectedDateTime']);
+  const [productInfoCookies, setProductInfoCookies] = useCookies([
+    'productInfo',
+  ]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
+  const [timeDiffer, setTimeDiffer] = useState(0);
+  const [guests, setGuests] = useState(1);
   const product = useSelector((state: RootState) => state.productSlice);
   const productAddress = ['서울특별시 강남구 강남대로 364', '11층 11E 공간'];
-
   // 제품의 tags를 가져와 해시태그 기호를 붙여 출력
   const hashTags = product.tags.map((tag) => `#${tag}`);
-
   // antd DatePicker - 예약 날짜 및 시간
   const disabledDate: RangePickerProps['disabledDate'] = (current) => {
     return current && current < dayjs().startOf('day');
@@ -75,21 +76,17 @@ const ProductDetail: React.FC = () => {
     // 1시간을 밀리초로 변환하는 값으로 나누고, toFixed() 메서드로 소수점 자르기
     // 1,000ms(=1초) * 60s(=1분) * 60m(=1시간) => 1시간을 ms로 변환
     const timeOfUse = (end.diff(start) / (1000 * 60 * 60)).toFixed(0);
-
-    dispatch(
-      selectedDateTime({
-        start: isoStartString,
-        end: isoEndString,
-        timeDiffer: timeOfUse,
-      })
-    );
+    setStartTime(isoStartString);
+    setEndTime(isoEndString);
+    setTimeDiffer(Number(timeOfUse));
   };
 
   // antd InputNumber - 예약 인원
   const onChangePerson = (value: number | null) => {
-    dispatch(selectedGuests(value || 1));
+    // dispatch(selectedGuests(value || 1));
+    setGuests(value || 1);
   };
-
+  console.log(guests);
   // 제품의 description을 가져와 문자열에 포함된 <br>을 기준으로 나누고 빈 문자열만 제거
   const productInfo = (product.description || '')
     .split('<br>')
@@ -125,7 +122,27 @@ const ProductDetail: React.FC = () => {
   };
 
   const handleProductPayment = () => {
-    accessToken ? navigate('/productpayment') : showLoginModal();
+    if (accessToken) {
+      setDateCookies(
+        'selectedDateTime',
+        {
+          startTime: startTime,
+          endTime: endTime,
+          timeDiffer: timeDiffer,
+        },
+        { path: '/' }
+      );
+      setProductInfoCookies('productInfo', {
+        title: product.title,
+        photo: product.thumbnail,
+        guests: guests,
+        price: product.price,
+      });
+
+      navigate('/productpayment');
+    } else {
+      showLoginModal();
+    }
   };
 
   useEffect(() => {
@@ -257,6 +274,7 @@ const ProductDetail: React.FC = () => {
           block
           className={styles.reservation__Btn}
           onClick={handleProductPayment}
+          disabled={endTime.length === 0 ? true : false}
         >
           예약하기
         </Button>
