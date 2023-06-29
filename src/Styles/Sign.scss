@@ -1,3 +1,5 @@
+@import './common.scss';
+
 .inner {
   display: flex;
   flex-direction: column;
@@ -5,12 +7,22 @@
 }
 .container {
   width: 50rem;
-  padding: 5rem 10rem;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 5rem;
   border-radius: 20px;
+  &__input {
+    border: none;
+    padding-left: 30px;
+    border-radius: 25px;
+    height: 50px;
+    box-shadow: $inner-shadow;
+  }
 }
 .btn__sign {
   width: 100%;
   height: 100%;
-  font-size: 2rem;
+  margin-top: 20px;
+}
+.title {
+  margin-top: 15px;
+  color: $main-br-1;
 }

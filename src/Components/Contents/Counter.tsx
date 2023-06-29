@@ -20,6 +20,7 @@ export default function Counter() {
       />
       <InputNumber
         min={1}
+        max={50}
         value={clickedCounter}
         controls={false}
         bordered={false}

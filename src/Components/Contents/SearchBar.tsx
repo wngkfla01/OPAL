@@ -41,8 +41,8 @@ function SearchBar({ onSearch }: SearchBarProps) {
       setlist(merged);
     }
   }
-  async function setlist(lists: Product[]) {
-    dispatch(plist(lists));
+  async function setlist(merged: Product[]) {
+    dispatch(plist(merged));
   }
   async function pressEnterKey(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') {
@@ -88,7 +88,7 @@ function SearchBar({ onSearch }: SearchBarProps) {
           </div>
           <input
             type="button"
-            className="searchBar__btn btn"
+            className="btn"
             value={'검색하기'}
             onClick={clickSearchButton}
           />

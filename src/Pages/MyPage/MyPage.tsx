@@ -7,6 +7,7 @@ import MyAccount from './MyAccount';
 import MyPurchase from './MyPurchase';
 import { useCookies } from 'react-cookie';
 import NotFound from 'Components/Common/NotFound';
+import 'Styles/MyPage.scss';
 
 const MyPage: React.FC = () => {
   const dispatch = useDispatch();
@@ -40,13 +41,24 @@ const MyPage: React.FC = () => {
   ];
   return (
     <>
+      <div className="inner"></div>
       {accessToken ? (
         <div style={{ width: '1100px', margin: '50px auto' }}>
           <div style={{ border: '1px solid black' }}>
             <Tabs
+              tabBarStyle={{
+                fontSize: '20px',
+                color: 'rgba(89, 80, 69, 1)',
+                textAlign: 'center',
+                border: 'none',
+                margin: '0 auto',
+                marginBottom: '40px',
+              }}
+              tabBarGutter={40}
+              className="mypage"
               activeKey={selectedTab}
               onChange={(key: string) => handleTabClick(key)}
-              type="card"
+              type="line"
               items={items}
             />
           </div>
