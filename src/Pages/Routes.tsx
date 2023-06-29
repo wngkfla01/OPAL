@@ -6,16 +6,18 @@ import SignIn from './SignIn/SignIn';
 import MyPage from './MyPage/MyPage';
 import ProductList from './ProductList/ProductList';
 import ProductDetail from './ProductDetail/ProductDetail';
+import NotFound from '../Components/Common/NotFound';
 
 const RoutesComponent = () => {
   return (
     <Routes>
-      <Route path="/*" element={<Home />} />
+      <Route path="/" element={<Home />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/productlist" element={<ProductList />} />
       <Route path="/productdetail/:id" element={<ProductDetail />} />
+      <Route path="/*" element={<NotFound />} />
     </Routes>
   );
 };

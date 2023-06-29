@@ -69,7 +69,6 @@ const MyPurchase: React.FC = () => {
   const getMyPurchases = async (accessToken: authResponseData) => {
     try {
       const res = await allBuyProductApi(accessToken);
-      console.log('전체조회: ', res);
       setLoading(false);
       setCompletedPurchases(
         res.filter(
@@ -95,7 +94,6 @@ const MyPurchase: React.FC = () => {
       detailId: detailId,
     };
     const res = await oneBuyProductApi(accessToken, body);
-    console.log('purchasedetail', res);
     setPurchaseDetail(res);
   };
 
@@ -164,20 +162,22 @@ const MyPurchase: React.FC = () => {
               ) : (
                 displayOngoingPurchases.map((product, index) => (
                   <>
-                    <a
-                      onClick={() =>
-                        openVoucherModal(
-                          product.detailId,
-                          product.product.title,
-                          product.product.description,
-                          product.product.thumbnail,
-                          product.reservation?.start,
-                          product.reservation?.end
-                        )
-                      }
-                      key={index}
-                    >
-                      <h4>{product.product.title}</h4>
+                    <div key={index}>
+                      <h2>{product.product.title}</h2>
+                      <Button
+                        onClick={() =>
+                          openVoucherModal(
+                            product.detailId,
+                            product.product.title,
+                            product.product.description,
+                            product.product.thumbnail,
+                            product.reservation?.start,
+                            product.reservation?.end
+                          )
+                        }
+                      >
+                        예약 확인증
+                      </Button>
 
                       <div style={{ display: 'flex', height: '40px' }}>
                         <div
@@ -260,13 +260,25 @@ const MyPurchase: React.FC = () => {
                         </div>
                         <div
                           style={{
-                            height: '70px',
                             border: '1px solid black',
                             margin: '10px 0',
-                            textAlign: 'center',
                           }}
                         >
-                          [취소약관] 어쩌구저쩌구 취소하면 후회할텐데!!
+                          [취소약관]
+                          <div>
+                            <p>
+                              취소 요청은 상호 합의에 따라 처리될 수 있습니다.
+                            </p>
+                            <p>
+                              거래 취소 시, 환불 여부와 환불 규정은 개별 거래에
+                              따라 달라질 수 있습니다.
+                            </p>
+                            <p>
+                              상대방의 부적절한 행동, 불이익 등이 취소 사유로
+                              인정될 경우, 환불 및 기타 조치에 대한 결정은
+                              합리적인 판단에 따라 이루어질 수 있습니다.
+                            </p>
+                          </div>
                         </div>
                         <div style={{ textAlign: 'center' }}>
                           취소 약관에 동의합니다
@@ -276,7 +288,7 @@ const MyPurchase: React.FC = () => {
                           ></Checkbox>
                         </div>
                       </Modal>
-                    </a>
+                    </div>
                     <VoucherModal
                       open={isOpenVoucher}
                       onCancel={closeVoucherModal}
@@ -307,7 +319,21 @@ const MyPurchase: React.FC = () => {
               ) : (
                 displayCancelledPurchases.map((product, index) => (
                   <div style={{ border: '1px solid black' }} key={index}>
-                    <h4>{product.product.title}</h4>
+                    <h2>{product.product.title}</h2>
+                    <Button
+                      onClick={() =>
+                        openVoucherModal(
+                          product.detailId,
+                          product.product.title,
+                          product.product.description,
+                          product.product.thumbnail,
+                          product.reservation?.start,
+                          product.reservation?.end
+                        )
+                      }
+                    >
+                      예약 확인증
+                    </Button>
                     <div style={{ display: 'flex', height: '40px' }}>
                       <div style={{ width: '40%', border: '1px solid black' }}>
                         서울 강남구
@@ -331,6 +357,16 @@ const MyPurchase: React.FC = () => {
                         </span>
                       </div>
                     </div>
+                    <VoucherModal
+                      open={isOpenVoucher}
+                      onCancel={closeVoucherModal}
+                      detailId={voucherModalDetailId}
+                      title={voucherModalTitle}
+                      description={voucherModalDes}
+                      img={voucherModalImg}
+                      start={voucherModalSt}
+                      end={voucherModalEn}
+                    />
                   </div>
                 ))
               )}
@@ -351,7 +387,21 @@ const MyPurchase: React.FC = () => {
               ) : (
                 displayCompletedPurchases.map((product, index) => (
                   <div style={{ border: '1px solid black' }} key={index}>
-                    <h4>{product.product.title}</h4>
+                    <h2>{product.product.title}</h2>
+                    <Button
+                      onClick={() =>
+                        openVoucherModal(
+                          product.detailId,
+                          product.product.title,
+                          product.product.description,
+                          product.product.thumbnail,
+                          product.reservation?.start,
+                          product.reservation?.end
+                        )
+                      }
+                    >
+                      예약 확인증
+                    </Button>
                     <div style={{ display: 'flex', height: '40px' }}>
                       <div style={{ width: '40%', border: '1px solid black' }}>
                         서울 강남구
@@ -375,6 +425,16 @@ const MyPurchase: React.FC = () => {
                         </span>
                       </div>
                     </div>
+                    <VoucherModal
+                      open={isOpenVoucher}
+                      onCancel={closeVoucherModal}
+                      detailId={voucherModalDetailId}
+                      title={voucherModalTitle}
+                      description={voucherModalDes}
+                      img={voucherModalImg}
+                      start={voucherModalSt}
+                      end={voucherModalEn}
+                    />
                   </div>
                 ))
               )}

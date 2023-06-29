@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { search, plist, Product, RootState } from 'redux/reducer/reducer';
+import { search, plist, RootState } from 'redux/reducer/reducer';
 import { DatePicker, Space } from 'antd';
-import { searchProductApi, categoryProductApi } from 'api';
+import { Product, searchProductApi, categoryProductApi } from 'api';
 import Counter from 'Components/Contents/Counter';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';

@@ -67,7 +67,7 @@ export async function logInApi(requestBody: logInRequestBody) {
 }
 
 // 로그아웃 - POST
-export async function logOutApi(accessToken: string) {
+export async function logOutApi(accessToken: authResponseData) {
   const res = await axios.post(
     `${BASE_URL}/auth/logout`,
     {},
@@ -82,14 +82,13 @@ export async function logOutApi(accessToken: string) {
   return json;
 }
 
+// 사용자 정보수정 - PUT
 export interface userModifyRequestBody {
   displayName?: string;
   profileImgBase64?: string;
   oldPassword?: string;
   newPassword?: string;
 }
-
-// 사용자 정보수정 - PUT
 export async function userModifyApi(
   accessToken: authResponseData,
   requestBody: userModifyRequestBody
@@ -217,7 +216,7 @@ export function deleteProductApi() {
 }
 
 // 단일제품 상세조회 - GET
-interface ProductDetailResponseData {
+export interface ProductDetailResponseData {
   id: string; // 제품 ID
   title: string; // 제품 이름
   price: number; // 제품 가격
@@ -231,7 +230,7 @@ interface ProductDetailResponseData {
 }
 
 // 예약 정보가 있는 경우
-interface Reservation {
+export interface Reservation {
   start: string; // 예약 시작 시간
   end: string; // 예약 종료 시간
   isCanceled: boolean; // 예약 취소 여부
@@ -248,13 +247,14 @@ export async function productDetailApi(id: string) {
 
 // 제품검색 - POST
 export interface Product {
-  id: string;
-  title: string;
-  price: number;
-  description: string;
-  tags: string[];
-  thumbnail: string | undefined;
-  discountRate: number;
+  // 제품 정보
+  id: string; // 제품 ID
+  title: string; // 제품 이름
+  price: number; // 제품 가격
+  description: string; // 제품 설명(최대 100자)
+  tags: string[]; // 제품 태그
+  thumbnail: string | undefined; // 제품 썸네일 이미지(URL)
+  discountRate: number; // 제품 할인율
 }
 export async function searchProductApi(
   searchedValue: string
@@ -329,13 +329,6 @@ interface TransactionDetail {
   done: boolean; // 거래 완료 여부
 }
 
-interface Reservation {
-  start: string; // 예약 시작 시간
-  end: string; // 예약 종료 시간
-  isCanceled: boolean; // 예약 취소 여부
-  isExpired: boolean; // 예약 만료 여부
-}
-
 interface ProductDetailequestBody {
   detailId: string; // 상세 내용을 확인할 거래(구매) 내역 ID
 }
@@ -364,13 +357,6 @@ export interface OneTransactionDetail {
   timePaid: string; // 제품을 거래한 시간
   isCanceled: boolean; // 거래 취소 여부
   done: boolean; // 거래 완료 여부
-}
-
-interface Reservation {
-  start: string; // 예약 시작 시간
-  end: string; // 예약 종료 시간
-  isCanceled: boolean; // 예약 취소 여부
-  isExpired: boolean; // 예약 만료 여부
 }
 
 export async function allBuyProductApi(
