@@ -5,6 +5,8 @@ import { Tabs } from 'antd';
 import MyInfo from './MyInfo';
 import MyAccount from './MyAccount';
 import MyPurchase from './MyPurchase';
+import { useCookies } from 'react-cookie';
+import NotFound from 'Components/Common/NotFound';
 
 const MyPage: React.FC = () => {
   // useSelector와 useDispatch는 React Redux 라이브러리에서 제공하는 훅(Hook)으로, Redux 상태 관리와 액션 디스패치를 간편하게 처리할 수 있도록 도와줍니다.
@@ -30,31 +32,44 @@ const MyPage: React.FC = () => {
   const handleTabClick = (tab: string) => {
     dispatch(selectTab(tab));
   };
+  const [cookies] = useCookies(['accessToken']);
+  const accessToken = cookies.accessToken;
 
+  // interface TabsProps {}
+  const items = [
+    {
+      key: '내 정보',
+      label: `내 정보`,
+      children: <MyInfo />,
+    },
+    {
+      key: '내 계좌',
+      label: `내 계좌`,
+      children: <MyAccount />,
+    },
+    {
+      key: '구매 내역',
+      label: `구매 내역`,
+      children: <MyPurchase />,
+    },
+  ];
   return (
-    <div style={{ width: '1100px', margin: '50px auto' }}>
-      <div style={{ border: '1px solid black' }}>
-        <Tabs
-          activeKey={selectedTab}
-          onChange={(key: string) => handleTabClick(key)}
-          type="card"
-          items={['내 정보', '내 계좌', '구매 내역'].map((title) => {
-            return {
-              label: `${title}`,
-              key: title,
-              children:
-                selectedTab === '내 정보' ? (
-                  <MyInfo />
-                ) : selectedTab === '내 계좌' ? (
-                  <MyAccount />
-                ) : (
-                  <MyPurchase />
-                ),
-            };
-          })}
-        />
-      </div>
-    </div>
+    <>
+      {accessToken ? (
+        <div style={{ width: '1100px', margin: '50px auto' }}>
+          <div style={{ border: '1px solid black' }}>
+            <Tabs
+              activeKey={selectedTab}
+              onChange={(key: string) => handleTabClick(key)}
+              type="card"
+              items={items}
+            />
+          </div>
+        </div>
+      ) : (
+        <NotFound />
+      )}
+    </>
   );
 };
 

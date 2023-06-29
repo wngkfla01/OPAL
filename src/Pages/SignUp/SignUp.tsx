@@ -1,5 +1,6 @@
 import React, { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import {
   signUpApi,
   authenticateApi,
@@ -17,17 +18,18 @@ const SignUp = () => {
   const [passwordCheck, setPasswordCheck] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [message, setMessage] = useState('');
+  const [cookies, setCookies] = useCookies(['accessToken']);
   const navigate = useNavigate(); //페이지 이동
 
-  async function handleSignIn() {
-    navigate(`/signin`);
+  async function goToMain() {
+    navigate(`/`);
   }
   //회원가입
   async function handleSignUp(event: FormEvent) {
     event.preventDefault();
     // 비밀번호 확인
     if (password !== passwordCheck) {
-      setMessage('비밀번호를 확인해주세요.');
+      setMessage('비밀번호가 일치하지 않습니다. 확인해주세요.');
       return;
     }
     const requestBody: signUpRequestBody = {
@@ -40,7 +42,9 @@ const SignUp = () => {
     try {
       const signUpData = await signUpApi(requestBody);
       await authenticateCheck(signUpData.accessToken);
-      setMessage('회원가입이 완료되었습니다.');
+      const accessToken = signUpData.accessToken;
+      setCookies('accessToken', accessToken, { path: '/' });
+      setMessage('회원가입 & 로그인이 완료되었습니다.');
     } catch (error) {
       setMessage('회원가입에 실패하였습니다. 이미 존재하는 아이디 입니다.');
     }
@@ -113,8 +117,8 @@ const SignUp = () => {
           {message && (
             <>
               <Text>{message}</Text>
-              {message !== '비밀번호를 확인해주세요.' && (
-                <Button onClick={handleSignIn}>로그인하기</Button>
+              {message !== '비밀번호가 일치하지 않습니다. 확인해주세요.' && (
+                <Button onClick={goToMain}>메인으로 가기</Button>
               )}
             </>
           )}

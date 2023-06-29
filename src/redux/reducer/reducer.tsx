@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Product, ProductDetailResponseData } from '../../api';
 // 코드 흐름을 따라가면서 이해해보시고 추가로 작성해주시면 됩니다.
 
 // 타입을 정의합니다.
@@ -15,37 +16,12 @@ interface listState {
   listValue: Product[];
 }
 
-export interface Product {
-  // 제품 정보
-  id: string; // 제품 ID
-  title: string; // 제품 이름
-  price: number; // 제품 가격
-  description: string; // 제품 설명(최대 100자)
-  tags: string[]; // 제품 태그
-  thumbnail: string | undefined; // 제품 썸네일 이미지(URL)
-  discountRate: number; // 제품 할인율
-}
-
 // 단일 제품 상세 조회 - 예약 정보가 있을 경우 타입
 interface ReservationState {
   start: string;
   end: string;
   isCanceled: boolean;
   isExpired: boolean;
-}
-
-// 단일 제품 상세 조회 타입
-interface ProductState {
-  id: string;
-  title: string;
-  price: number;
-  description: string;
-  tags: string[];
-  thumbnail: string | null;
-  photo: string | null;
-  isSoldOut: boolean;
-  reservations: ReservationState[];
-  discountRate: number;
 }
 
 // 예약 날짜
@@ -92,7 +68,7 @@ const initialReservationState: ReservationState = {
 };
 
 // 단일 제품 상세 조회 초기값
-const initialProductState: ProductState = {
+const initialProductState: ProductDetailResponseData = {
   id: '',
   title: '',
   price: 0,
@@ -155,11 +131,9 @@ const searchSlice = createSlice({
   reducers: {
     search: (state, action: PayloadAction<string>) => {
       state.searchedValue = action.payload;
-      console.log(state.searchedValue);
     },
     category: (state, action: PayloadAction<string>) => {
       state.searchedValue = action.payload;
-      console.log(state.searchedValue);
     },
   },
 });
@@ -188,7 +162,10 @@ const productSlice = createSlice({
   name: 'product',
   initialState: initialProductState,
   reducers: {
-    updateProductDetail: (state, action: PayloadAction<ProductState>) => {
+    updateProductDetail: (
+      state,
+      action: PayloadAction<ProductDetailResponseData>
+    ) => {
       state.id = action.payload.id;
       state.title = action.payload.title;
       state.price = action.payload.price;
@@ -241,7 +218,7 @@ export interface RootState {
   counterSlice: Counterstate;
   searchSlice: Searchstate;
   listSlice: listState;
-  productSlice: ProductState;
+  productSlice: ProductDetailResponseData;
   reservationSlice: ReservationState;
   dateSlice: SelectedDate;
   timeSlice: SelectedTime;

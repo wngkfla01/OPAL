@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { selectTab } from 'redux/reducer/reducer';
 import { useNavigate, Link } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
 import { Row, Button, Typography, Modal } from 'antd';
-import { OneTransactionDetail } from 'api';
 
 const { Title } = Typography;
 
