@@ -113,10 +113,10 @@ const MyAccount: React.FC = () => {
     <div className="myaccount">
       <h2>내 계좌 목록</h2>
       <div className="myaccount__container">
+        <h3>내 계좌 총 잔액: {totalBalance}원</h3>
         {accounts && accounts.length > 0 ? (
           accounts.map((account, index) => (
             <>
-              <h3>내 계좌 총 잔액: {totalBalance}원</h3>
               <div className="myaccount__form" key={index}>
                 <span className="myaccount__form--input">
                   {account.bankName}
