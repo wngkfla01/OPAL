@@ -45,15 +45,12 @@ const SignIn = () => {
 
   return (
     <div className="inner">
-      <Title className="title" level={2}>
-        로그인
-      </Title>
+      <Title level={2}>로그인</Title>
       <Space align="center" direction="vertical">
         <div className="container">
           <Form onSubmitCapture={handleSignIn}>
             <Form.Item>
               <Input
-                className="container__input"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
@@ -64,7 +61,6 @@ const SignIn = () => {
             </Form.Item>
             <Form.Item>
               <Input
-                className="container__input"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
@@ -74,11 +70,11 @@ const SignIn = () => {
                 minLength={8}
               />
             </Form.Item>
-            <Button className="btn__sign btn" type="primary" htmlType="submit">
+            <Button className="btn__sign" type="primary" htmlType="submit">
               로그인
             </Button>
           </Form>
-          <Button className="btn__sign btn" onClick={handleSignUp}>
+          <Button className="btn__sign" onClick={handleSignUp}>
             회원 가입
           </Button>
           <div>{message && <Text>{message}</Text>}</div>

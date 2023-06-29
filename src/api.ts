@@ -279,7 +279,6 @@ export async function categoryProductApi(
     { headers }
   );
   const Data: Product[] = res.data;
-  console.log('태그', Data);
   return Data;
 }
 

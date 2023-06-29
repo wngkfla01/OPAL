@@ -1,10 +1,8 @@
 @import './common.scss';
 
 .searchBar {
-  padding-left: 100px;
-  width: 1300px;
+  width: 1100px;
   background-color: $white;
-  box-shadow: $shadow;
   &:hover {
     box-shadow: 0px 2px 10px rgba(248, 238, 255, 0.496);
   }
@@ -25,5 +23,12 @@
     &::placeholder {
       color: $main-br-3;
     }
+  }
+  &__btn {
+    font-size: 20px;
+    color: $main-br-1;
+    background-color: $white;
+    border: none;
+    width: 100px;
   }
 }

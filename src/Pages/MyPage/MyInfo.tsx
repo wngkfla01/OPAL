@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Popconfirm } from 'antd';
+import { Input, Button, Popconfirm } from 'antd';
 import { useCookies } from 'react-cookie';
 import { authenticateApi, userModifyApi, userModifyRequestBody } from 'api';
-import 'Styles/MyInfo.scss';
 
 const MyInfo: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -61,34 +60,39 @@ const MyInfo: React.FC = () => {
   };
 
   return (
-    <div className="myinfo">
+    <div
+      style={{
+        textAlign: 'center',
+        padding: '0 100px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
       {defaultName.length === 0 ? (
         isLoading
       ) : (
-        <div className="myinfo__container">
-          <div className="myinfo__input">
-            <label className="myinfo__input--label">닉네임</label>
-            <input
-              className="myinfo__input--input"
-              value={displayName || defaultName}
-              onChange={(e) => {
-                setDisplayName(e.target.value);
-              }}
-              disabled={!editProfile}
-            />
-          </div>
-          <div className="myinfo__input">
-            <label className="myinfo__input--label">아이디</label>
-            <input
-              className="myinfo__input--input"
-              type="email"
-              defaultValue={defaultEmail}
-              disabled
-            />
-          </div>
+        <div
+          style={{ width: '400px', height: '500px', border: '1px solid black' }}
+        >
+          <Input
+            addonBefore="닉네임"
+            value={displayName || defaultName}
+            onChange={(e) => {
+              setDisplayName(e.target.value);
+            }}
+            allowClear={true}
+            disabled={!editProfile}
+          />
+          <Input
+            addonBefore="아이디"
+            type="email"
+            defaultValue={defaultEmail}
+            allowClear={true}
+            disabled
+          />
           {editProfile === false ? (
             <Button
-              className="btn"
               type="primary"
               block
               onClick={() => setEditProfile(!editProfile)}
@@ -97,32 +101,27 @@ const MyInfo: React.FC = () => {
             </Button>
           ) : (
             <>
-              <div className="myinfo__input">
-                <label className="myinfo__input--label">비밀번호 입력</label>
-                <input
-                  className="myinfo__input--input"
-                  type="password"
-                  onChange={(e) => {
-                    setOldPassword(e.target.value);
-                  }}
-                  disabled={!editProfile}
-                  minLength={8}
-                />
-              </div>
-              <div className="myinfo__input">
-                <label className="myinfo__input--label">새 비밀번호 입력</label>
-                <input
-                  className="myinfo__input--input"
-                  type="password"
-                  onChange={(e) => {
-                    setNewPassword(e.target.value);
-                  }}
-                  disabled={!editProfile}
-                  minLength={8}
-                />{' '}
-              </div>
+              <Input
+                addonBefore="기존 비밀번호 입력"
+                type="password"
+                onChange={(e) => {
+                  setOldPassword(e.target.value);
+                }}
+                allowClear={true}
+                disabled={!editProfile}
+                minLength={8}
+              />
+              <Input
+                addonBefore="새 비밀번호 입력"
+                type="password"
+                onChange={(e) => {
+                  setNewPassword(e.target.value);
+                }}
+                allowClear={true}
+                disabled={!editProfile}
+                minLength={8}
+              />
               <Popconfirm
-                className="btn"
                 title="프로필 수정"
                 description="정말 수정하시겠습니까?"
                 onConfirm={updateProfileHandler}
@@ -133,12 +132,7 @@ const MyInfo: React.FC = () => {
                   수정완료
                 </Button>
               </Popconfirm>
-              <Button
-                className="btn"
-                danger
-                block
-                onClick={cancelEditProfileHandler}
-              >
+              <Button danger block onClick={cancelEditProfileHandler}>
                 취소
               </Button>
             </>

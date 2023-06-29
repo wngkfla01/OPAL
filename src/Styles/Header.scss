@@ -4,42 +4,28 @@
   align-items: center;
 
   &__inner {
-    margin: 30px auto;
-
+    margin: 0 auto;
     height: 100%;
     width: 1100px;
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
   }
   &__logo {
+    margin-top: 50px;
     font-family: $point-font;
     font-size: 100px;
     color: $main-br-1;
-    text-shadow: $text-shadow;
-    vertical-align: baseline;
+    text-shadow: $shadow;
     &--info {
       font: {
         size: 15px;
-        weight: 300;
       }
       top: -20px;
       width: 200px;
       margin: 0 auto;
-      margin-bottom: 25px;
       position: relative;
-      color: $main-br-2;
-    }
-  }
-  &__login {
-    width: 600px;
-    align-items: center;
-    justify-content: right;
-    display: flex;
-    &--nickname {
-      color: $main-br-1;
-      display: inline-block;
-      margin-right: 20px;
+      color: $main-br-3;
     }
   }
 }

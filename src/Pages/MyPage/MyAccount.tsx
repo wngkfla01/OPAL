@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import 'Styles/MyAccount.scss';
 import {
   accountListApi,
   connectAccountApi,
@@ -110,41 +109,56 @@ const MyAccount: React.FC = () => {
   };
 
   return (
-    <div className="myaccount">
+    <div style={{ textAlign: 'center', padding: '0 100px' }}>
       <h2>내 계좌 목록</h2>
-      <div className="myaccount__container">
-        <h3>내 계좌 총 잔액: {totalBalance}원</h3>
-        {accounts &&
-          accounts.map((account, index) => (
-            <div className="myaccount__form" key={index}>
-              <span className="myaccount__form--input">{account.bankName}</span>
-              <span className="myaccount__form--input">
-                {account.accountNumber}
-              </span>
-              <span className="myaccount__form--input">
-                잔액: {account.balance}원
-              </span>
-              <Popconfirm
-                title="계좌 삭제"
-                description="계좌 정보가 삭제됩니다. 계속하시겠습니까?"
-                onConfirm={(e) => deleteAccount(account, e)}
-                okText="삭제하기"
-                cancelText="취소"
-                className="myaccount__form--pop"
-              >
-                <Button className="btn__right">삭제</Button>
-              </Popconfirm>
-            </div>
-          ))}
-      </div>
-      <Button
-        className="btn"
-        type="primary"
-        block
-        style={{ margin: 'auto' }}
-        size="large"
-        onClick={showAccountModal}
+      <div
+        style={{
+          border: '1px solid black',
+          margin: '20px 0',
+        }}
       >
+        {accounts && accounts.length > 0 ? (
+          accounts.map((account, index) => (
+            <>
+              <h3>내 계좌 총 잔액: {totalBalance}원</h3>
+              <div
+                style={{
+                  display: 'grid',
+                  width: '100%',
+                  padding: '30px',
+                  gridTemplateColumns: '15% 30% 20% 20%',
+                  columnGap: '20px',
+                }}
+                key={index}
+              >
+                <span style={{ border: '1px solid black' }}>
+                  {account.bankName}
+                </span>
+                <span style={{ border: '1px solid black' }}>
+                  {account.accountNumber}
+                </span>
+                <span style={{ border: '1px solid black' }}>
+                  잔액: {account.balance}원
+                </span>
+                <Popconfirm
+                  title="계좌 삭제"
+                  description="계좌 정보가 삭제됩니다. 계속하시겠습니까?"
+                  onConfirm={(e) => deleteAccount(account, e)}
+                  okText="삭제하기"
+                  cancelText="취소"
+                >
+                  <Button type="primary" danger>
+                    삭제
+                  </Button>
+                </Popconfirm>
+              </div>
+            </>
+          ))
+        ) : (
+          <h3>계좌가 존재하지 않습니다. 계좌를 추가해 주세요!</h3>
+        )}
+      </div>
+      <Button type="primary" block size="large" onClick={showAccountModal}>
         계좌 등록
       </Button>
 

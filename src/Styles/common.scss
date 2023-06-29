@@ -9,8 +9,6 @@ $point-b-2: rgba(94, 176, 255, 1);
 $point-b-3: rgba(151, 204, 255, 1);
 $point-b-4: rgba(215, 235, 255, 1);
 
-$main-rb-1: rgb(160, 29, 3);
-
 $main-br-1: rgba(89, 80, 69, 1);
 $main-br-2: rgba(115, 103, 90, 1);
 $main-br-3: rgba(217, 205, 191, 1);
@@ -21,8 +19,7 @@ $white: rgb(255, 255, 255);
 
 //shsadow
 $shadow: 0px 2px 10px rgba(223, 223, 223, 0.496);
-$text-shadow: 0px 2px 10px rgba(158, 158, 158, 0.496);
-$inner-shadow: inset 2px 1px 8px rgba(223, 223, 223, 0.496);
+$inner-shadow: inset 0px 2px 10px rgba(223, 223, 223, 0.496);
 
 //font
 $point-font: 'Shrikhand', cursive;
@@ -30,57 +27,22 @@ $text-font: 'Noto Sans KR', sans-serif;
 
 .inner {
   color: $black;
-  width: 1300px;
+  width: 1100px;
   height: 100%;
   background-color: $white;
   margin: 0 auto;
-  border-radius: 5px;
+  border-radius: 2px;
+  box-shadow: $shadow;
 }
 
 .btn {
   font: $text-font;
   font-size: 18px;
-  height: 45px;
   color: $main-br-1;
   background-color: $white;
   border: none;
+  width: 100px;
   display: block;
-  border-radius: 25px;
-  padding: 0 40px;
-  box-shadow: $shadow;
-  margin: 20px;
-}
-.btn:hover {
-  transition: 1s;
-  &:hover {
-    color: $white;
-    background: $main-br-3;
-    box-shadow: $shadow;
-  }
-}
-.btn__right {
-  font-size: 18px;
-  height: 50px;
-  color: $white;
-  background-color: $main-rb-1;
-  padding: 8px;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  border: none;
-
-  box-shadow: $shadow;
-}
-.btn__right:hover {
-  transition: 1s;
-  &:hover {
-    color: bisque;
-    background: $main-br-2;
-    box-shadow: $shadow;
-  }
-}
-.shadow {
-  box-shadow: $shadow;
 }
 
 * {

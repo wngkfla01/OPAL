@@ -50,7 +50,7 @@ export default function Category({ onSearch }: SearchBarProps) {
 
   return (
     <>
-      <section className="inner shadow">
+      <section className="inner">
         <div className="category">
           <div className="category__container">
             <div
@@ -62,7 +62,6 @@ export default function Category({ onSearch }: SearchBarProps) {
               <div className="category__item-name">
                 <img src={파티룸} alt="파티룸" />
               </div>
-              <div className="category__item-title">파티룸</div>
             </div>
 
             <div

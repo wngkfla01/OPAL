@@ -194,15 +194,14 @@ const ProductDetail: React.FC = () => {
         }
         bordered={false}
         headStyle={{ height: '130px' }}
-        bodyStyle={{
-          height: '230px',
-          fontSize: '18px',
-          overflow: 'hidden',
-          border: 'none',
-        }}
+        bodyStyle={{ height: '250px', fontSize: '18px' }}
         className={styles.product__card}
       >
-        <Card.Grid hoverable={false} className={styles.product__address}>
+        <Card.Grid
+          hoverable={false}
+          style={{ width: '30%' }}
+          className={styles.card__container}
+        >
           <div>
             {/* 제품(공간) 장소 출력 */}
             <h3 className={styles.product__address}>주소</h3>
@@ -212,7 +211,11 @@ const ProductDetail: React.FC = () => {
           </div>
         </Card.Grid>
 
-        <Card.Grid hoverable={false} className={styles.product__selection}>
+        <Card.Grid
+          hoverable={false}
+          style={{ width: '40%' }}
+          className={styles.card__container}
+        >
           <form className={styles.product__selection}>
             {/* 제품(공간)을 예약할 날짜, 시간, 인원 선택 */}
             <h3>예약 사항 선택</h3>
@@ -223,7 +226,7 @@ const ProductDetail: React.FC = () => {
                 placement={'bottomLeft'}
                 placeholder={'날짜를 선택해주세요'}
                 onChange={onChangeDate}
-                style={{ width: '65%', margin: '5px 0' }}
+                style={{ width: '55%', margin: '5px 0' }}
               />
             </ConfigProvider>
             <br />
@@ -236,29 +239,34 @@ const ProductDetail: React.FC = () => {
               onChange={
                 onChangeTime as (values: unknown, timeString: unknown) => void
               }
-              style={{ width: '65%', marginBottom: '5px' }}
+              style={{ width: '55%', marginBottom: '5px' }}
             />
             <br />
             <p>· 예약 인원 : </p>
-            <Space direction="vertical">
+            <Space direction="vertical" style={{ width: '52%' }}>
               <InputNumber
-                size={'large'}
-                style={{ border: 'none', marginLeft: '15px' }}
+                size="large"
                 min={1}
                 max={50}
                 defaultValue={1}
                 onChange={onChangePerson}
               />
+              <p>(최소 1명, 최대 50명)</p>
             </Space>
           </form>
         </Card.Grid>
 
-        <Card.Grid hoverable={false} className={styles.product__info}>
+        <Card.Grid
+          hoverable={false}
+          style={{ width: '30%' }}
+          className={styles.card__container}
+        >
           <div>
             {/* 제품(공간) 가격 (1시간 당) 출력 */}
             <h3>가격</h3>
             <strong>{product.price.toLocaleString()}</strong>
             <span>원/ 1시간 당</span>
+            <p>자세한 가격은 결제 시 확인 가능!</p>
           </div>
         </Card.Grid>
       </Card>
@@ -284,8 +292,8 @@ const ProductDetail: React.FC = () => {
       </Space>
 
       <Card
-        title={<span className={styles.card__title}>상세정보</span>}
-        bordered={false}
+        title={<h3>상세정보</h3>}
+        bordered={true}
         className={styles.detailedInfo__card}
       >
         {detailedInfo.map((item, index) => (
@@ -295,11 +303,7 @@ const ProductDetail: React.FC = () => {
         ))}
       </Card>
 
-      <Card
-        title={<span className={styles.card__title}>시설안내</span>}
-        bordered={false}
-        className={styles.detailedInfo__card}
-      >
+      <Card title={<h3>시설안내</h3>} bordered={true}>
         {facilityInfo.map((item, index) => (
           <p key={index}>
             {item} <br />
