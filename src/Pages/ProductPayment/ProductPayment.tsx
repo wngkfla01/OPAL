@@ -8,9 +8,12 @@ import styles from 'Styles/ProductPayment.module.scss';
 import SelectionAccount from 'Components/Contents/SelectionAccount';
 
 const ProductPayment = () => {
+  const pickedAccount = useSelector(
+    (state: RootState) => state.selectAccountSlice.pickedAccount
+  );
+  console.log('account? :', pickedAccount);
   const [cookies] = useCookies(['accessToken']);
   const accessToken = cookies.accessToken;
-  const [selectedAccount, setSelectedAccount] = useState(null);
   const dateTimeOption = useSelector(
     (state: RootState) => state.reserveOptionSlice
   );
@@ -41,40 +44,53 @@ const ProductPayment = () => {
   const reserveEndTime = dateTimeOption.end.split('T')[1].split(':')[0];
 
   const handlePayment = async () => {
-    try {
-      // 계좌 목록 및 잔액 조회
-      const accountList = await accountListApi(accessToken);
-
-      !accountList ? console.log('계좌를 등록해야 합니다!') : null;
-
-      setSelectedAccount(
-        accountList.accounts.find(
-          (account: any) => account.id === selectedAccount
-        )
+    // 계좌 목록 및 잔액 조회
+    const accountList = await accountListApi(accessToken);
+    console.log('accountList: ', accountList);
+    if (pickedAccount.length === 0 && accountList.accounts.length !== 0) {
+      alert('결제하실 계좌를 선택해 주세요.');
+    } else if (accountList.accounts.length === 0) {
+      alert(
+        '등록된 계좌가 없습니다.[계좌 등록]버튼을 눌러 계좌를 추가해 주세요.'
       );
+    } else if (
+      accountList.accounts.length !== 0 &&
+      pickedAccount.length !== 0
+    ) {
+      try {
+        const requestBody: PaymentRequestBody = {
+          productId: product.id,
+          accountId: pickedAccount,
+          reservation: {
+            start: dateTimeOption.start,
+            end: dateTimeOption.end,
+          },
+        };
+        console.log('request? :', requestBody);
 
-      !selectedAccount ? console.log('계좌를 선택해야 합니다!') : null;
-
-      const requestBody: PaymentRequestBody = {
-        productId: product.id,
-        accountId: (selectedAccount as any)?.id,
-        reservation: {
-          start: dateTimeOption.start,
-          end: dateTimeOption.end,
-        },
-      };
-
-      // 제품(공간) 구매 신청(결제)
-      const paymentResult = await productPaymentApi(accessToken, requestBody);
-
-      if (paymentResult) {
-        console.log('결제에 성공했습니다!');
-      } else {
-        console.log('결제에 실패했습니다!');
+        // 제품(공간) 구매 신청(결제)
+        const paymentResult = await productPaymentApi(accessToken, requestBody);
+        console.log(paymentResult);
+      } catch {
+        alert('결제실패');
       }
-    } catch (error: any) {
-      console.log('에러! ', error.message);
     }
+
+    // !accountList ? console.log('계좌를 등록해야 합니다!') : null;
+
+    // setSelectedAccount(
+    //   accountList.accounts.find(
+    //     (account: any) => account.id === selectedAccount
+    //   )
+    // );
+
+    // !selectedAccount ? console.log('계좌를 선택해야 합니다!') : null;
+
+    // if (paymentResult) {
+    //   console.log('결제에 성공했습니다!');
+    // } else {
+    //   console.log('결제에 실패했습니다!');
+    // }
   };
 
   return (

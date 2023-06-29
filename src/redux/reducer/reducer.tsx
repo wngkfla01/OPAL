@@ -13,6 +13,9 @@ interface Searchstate {
 interface listState {
   listValue: Product[];
 }
+interface AccountState {
+  pickedAccount: string;
+}
 
 export interface Product {
   // 제품 정보
@@ -108,6 +111,9 @@ const initialReserveOptionState: ReserveOptionState = {
 const initialGuestsState: GuestsState = {
   guests: 1,
 };
+const initialAccountState: AccountState = {
+  pickedAccount: '',
+};
 
 const tabSlice = createSlice({
   name: 'tab',
@@ -131,6 +137,16 @@ const counterSlice = createSlice({
     },
     down: (state, action: PayloadAction<number>) => {
       state.clickedCounter = state.clickedCounter - action.payload;
+    },
+  },
+});
+
+const selectAccountSlice = createSlice({
+  name: 'selectAccountSlice',
+  initialState: initialAccountState,
+  reducers: {
+    selectAccount: (state, action: PayloadAction<string>) => {
+      state.pickedAccount = action.payload;
     },
   },
 });
@@ -214,6 +230,7 @@ export interface RootState {
   tabSlice: TabState;
   counterSlice: Counterstate;
   searchSlice: Searchstate;
+  selectAccountSlice: AccountState;
   listSlice: listState;
   productSlice: ProductState;
   reservationSlice: ReservationState;
@@ -224,6 +241,7 @@ export interface RootState {
 export const { selectTab } = tabSlice.actions;
 export const { up, down } = counterSlice.actions;
 export const { search, category } = searchSlice.actions;
+export const { selectAccount } = selectAccountSlice.actions;
 export const { plist } = listSlice.actions;
 export const { updateProductDetail } = productSlice.actions;
 export const { updateReservation } = reservationSlice.actions;
@@ -234,6 +252,7 @@ export default {
   tabSlice: tabSlice.reducer,
   counterSlice: counterSlice.reducer,
   searchSlice: searchSlice.reducer,
+  selectAccountSlice: selectAccountSlice.reducer,
   listSlice: listSlice.reducer,
   productSlice: productSlice.reducer,
   reservationSlice: reservationSlice.reducer,

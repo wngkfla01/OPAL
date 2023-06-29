@@ -67,9 +67,6 @@ const MyPurchase: React.FC = () => {
   }, []);
 
   const getMyPurchases = async (accessToken: authResponseData) => {
-    if (!loading) {
-      return;
-    }
     try {
       setLoading(false);
       const res = await allBuyProductApi(accessToken);
@@ -110,6 +107,7 @@ const MyPurchase: React.FC = () => {
     setCancelConfirm(false);
   };
   const cancelProduct = async (detailId: string) => {
+    console.log(detailId);
     const body: CancelRequestBody = {
       detailId: detailId,
     };
