@@ -47,16 +47,18 @@ const Header = () => {
         <Col className="header__login">
           {accessToken ? (
             <>
-              <span>환영합니다! {displayName}님</span>
-              <Button onClick={handleLogout} className="btn">
+              <span className="header__login--nickname">
+                환영합니다! {displayName}님
+              </span>
+              <Button type="text" onClick={handleLogout} className="btn">
                 로그아웃
               </Button>
-              <Button onClick={handleMyPage} className="btn">
+              <Button onClick={handleMyPage} className="btn myPageBtn">
                 마이페이지
               </Button>
             </>
           ) : (
-            <Button onClick={handleSignIn} className="header__btn btn">
+            <Button onClick={handleSignIn} className="btn">
               로그인
             </Button>
           )}

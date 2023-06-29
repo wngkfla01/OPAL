@@ -1,9 +1,10 @@
 @import './common.scss';
 
 .category {
-  width: 800px;
+  width: 1100px;
   height: 100%;
   margin: 75px auto;
+  margin-bottom: 0;
   align-items: center;
   justify-content: center;
   box-shadow: $inner-shadow;
@@ -13,9 +14,9 @@
     style: none;
   }
   &__container {
-    width: 700px;
+    width: 800px;
     padding: 0 20px;
-    margin: 60px auto;
+    margin: 90px auto;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -23,8 +24,8 @@
     // background-color: $point-b-1;
   }
   &__item {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     margin: 10px 30px;
     overflow: hidden;
     box-shadow: 0px 2px 10px rgba(226, 226, 226, 0.496);
@@ -41,12 +42,12 @@
       margin: auto 0;
       text-align: center;
       background-color: $white;
+      > img {
+        width: 70px;
+        align-items: center;
+        justify-content: center;
+        background-color: $white;
+      }
     }
   }
-}
-img {
-  width: 60px;
-  align-items: center;
-  justify-content: center;
-  background-color: $white;
 }
