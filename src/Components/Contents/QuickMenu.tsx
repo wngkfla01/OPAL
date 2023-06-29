@@ -11,6 +11,7 @@ import '../../Styles/QuickMenu.scss';
 export default function QuickMenu() {
   const [cookies, , removeCookie] = useCookies(['accessToken']);
   const accessToken = cookies.accessToken;
+  console.log('사용자 토큰', accessToken);
   const [userData, setUserData] = useState<any>();
   const navigate = useNavigate(); //페이지 이동
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { selectTab } from 'redux/reducer/reducer';
-import { useNavigate, Link } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { Row, Button, Typography, Modal } from 'antd';
 
 const { Title } = Typography;
@@ -27,6 +27,8 @@ const VoucherModal: React.FC<VoucherModalProps> = ({
   end,
 }) => {
   const navigate = useNavigate(); // 페이지 이동
+  const location = useLocation();
+  const isMyPage = location.pathname === '/mypage';
   const dispatch = useDispatch();
 
   let descriptionNew = '';
@@ -77,7 +79,8 @@ const VoucherModal: React.FC<VoucherModalProps> = ({
           <Button>
             <Link to="/">메인 페이지로 이동</Link>
           </Button>
-          <Button onClick={goMyPurchase}>예약 목록 조회</Button>
+
+          {!isMyPage && <Button onClick={goMyPurchase}>예약 목록 조회</Button>}
         </Row>
       </Row>
     </Modal>

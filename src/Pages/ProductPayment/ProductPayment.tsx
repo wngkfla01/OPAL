@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
-import { Button, Card, Image } from 'antd';
+import { Button, Card, Image, Modal } from 'antd';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/reducer/reducer';
 import { productPaymentApi, PaymentRequestBody, accountListApi } from 'api';
 import { useCookies } from 'react-cookie';
 import styles from 'Styles/ProductPayment.module.scss';
 import SelectionAccount from 'Components/Contents/SelectionAccount';
+import { useDispatch } from 'react-redux';
+import { selectTab } from 'redux/reducer/reducer';
+import { useNavigate, Link } from 'react-router-dom';
 
 const ProductPayment = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const pickedAccount = useSelector(
     (state: RootState) => state.selectAccountSlice.pickedAccount
   );
@@ -71,11 +77,16 @@ const ProductPayment = () => {
         };
 
         // 제품(공간) 구매 신청(결제)
-        const paymentResult = await productPaymentApi(accessToken, requestBody);
+        await productPaymentApi(accessToken, requestBody);
+        setIsModalOpen(true);
       } catch {
         alert('결제실패');
       }
     }
+  };
+  const goMyPurchase = () => {
+    dispatch(selectTab('구매 내역'));
+    navigate('/mypage');
   };
   return (
     <main className={styles.inner}>
@@ -145,6 +156,13 @@ const ProductPayment = () => {
         >
           결제하기
         </Button>
+        <Modal open={isModalOpen} footer={null} closable={false}>
+          <h2>결제가 완료되었습니다</h2>
+          <Button>
+            <Link to="/">메인으로 가기</Link>
+          </Button>
+          <Button onClick={goMyPurchase}>구매내역 가기</Button>
+        </Modal>
       </Card>
     </main>
   );
