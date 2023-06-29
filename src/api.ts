@@ -284,8 +284,27 @@ export async function categoryProductApi(
 }
 
 // 제품 거래(구매)신청 - POST
-export function buyProductApi() {
-  return axios.post(`${BASE_URL}/products/buy`).then((r) => r.data);
+export interface PaymentRequestBody {
+  productId: string; // 거래할 제품 ID (필수!)
+  accountId: string; // 결제할 사용자 계좌 ID (필수!)
+  reservation: {
+    // 예약 정보
+    start: string; // 예약 시작 시간(ISO)
+    end: string; // 예약 종료 시간(ISO)
+  };
+}
+
+type PaymentResponseValue = boolean; // 거래 신청 처리 여부
+
+export async function productPaymentApi(
+  accessToken: authResponseData,
+  requestBody: PaymentRequestBody
+) {
+  const res = await axios.post(`${BASE_URL}/products/buy`, requestBody, {
+    headers: { ...headers, Authorization: `Bearer ${accessToken}` },
+  });
+  const data = res.data;
+  return data;
 }
 
 // 제품 거래(구매) 취소 - POST

@@ -6,6 +6,7 @@ import SignIn from './SignIn/SignIn';
 import MyPage from './MyPage/MyPage';
 import ProductList from './ProductList/ProductList';
 import ProductDetail from './ProductDetail/ProductDetail';
+import ProductPayment from './ProductPayment/ProductPayment';
 import NotFound from '../Components/Common/NotFound';
 
 const RoutesComponent = () => {
@@ -17,6 +18,7 @@ const RoutesComponent = () => {
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/productlist" element={<ProductList />} />
       <Route path="/productdetail/:id" element={<ProductDetail />} />
+      <Route path="/productpayment" element={<ProductPayment />} />
       <Route path="/*" element={<NotFound />} />
     </Routes>
   );
