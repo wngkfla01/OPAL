@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { div, Row, Space } from 'antd';
 import { categoryProductApi } from 'api';
-import { category, plist, RootState } from 'redux/reducer/reducer';
+import { plist, RootState } from 'redux/reducer/reducer';
 import { useSelector, useDispatch } from 'react-redux';
 import 'Styles/Category.scss';
 
@@ -20,7 +19,11 @@ import 카페 from 'Assets/Images/9_카페.png';
 import 공연장 from 'Assets/Images/10_공연장.png';
 import 전시 from 'Assets/Images/11_전시.png';
 
-export default function Category() {
+interface SearchBarProps {
+  onSearch: (query: string) => void;
+}
+
+export default function Category({ onSearch }: SearchBarProps) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const searchedValue = useSelector((state: RootState) => {
@@ -37,12 +40,12 @@ export default function Category() {
     })();
   }, [searchedValue]);
 
-  function gotoProductlist() {
-    navigate(`/productlist`);
-  }
-  async function onClickHendler(name: string) {
-    dispatch(category(name));
-    gotoProductlist();
+  async function onClickHandler(name: string) {
+    onSearch(name);
+    const urlSearchParams = new URLSearchParams();
+    urlSearchParams.append('search', name);
+    const queryString = urlSearchParams.toString();
+    navigate(`/productlist?${queryString}`);
   }
 
   return (
@@ -53,7 +56,7 @@ export default function Category() {
             <div
               className="category__item"
               onClick={async () => {
-                await onClickHendler('파티룸');
+                await onClickHandler('파티룸');
               }}
             >
               <div className="category__item-name">
@@ -64,7 +67,7 @@ export default function Category() {
             <div
               className="category__item"
               onClick={async () => {
-                await onClickHendler('세미나실');
+                await onClickHandler('세미나실');
               }}
             >
               <div className="category__item-name">
@@ -74,7 +77,7 @@ export default function Category() {
             <div
               className="category__item"
               onClick={async () => {
-                await onClickHendler('촬영스튜디오');
+                await onClickHandler('촬영스튜디오');
               }}
             >
               <div className="category__item-name">
@@ -84,7 +87,7 @@ export default function Category() {
             <div
               className="category__item"
               onClick={async () => {
-                await onClickHendler('연습실');
+                await onClickHandler('연습실');
               }}
             >
               <div className="category__item-name">
@@ -97,7 +100,7 @@ export default function Category() {
             <div
               className="category__item"
               onClick={async () => {
-                await onClickHendler('라이브방송');
+                await onClickHandler('라이브방송');
               }}
             >
               <div className="category__item-name">
@@ -107,7 +110,7 @@ export default function Category() {
             <div
               className="category__item"
               onClick={async () => {
-                await onClickHendler('공용주방');
+                await onClickHandler('공용주방');
               }}
             >
               <div className="category__item-name">
@@ -117,7 +120,7 @@ export default function Category() {
             <div
               className="category__item"
               onClick={async () => {
-                await onClickHendler('운동시설');
+                await onClickHandler('운동시설');
               }}
             >
               <div className="category__item-name">
@@ -127,7 +130,7 @@ export default function Category() {
             <div
               className="category__item"
               onClick={async () => {
-                await onClickHendler('렌탈스튜디오');
+                await onClickHandler('렌탈스튜디오');
               }}
             >
               <div className="category__item-name">
@@ -140,7 +143,7 @@ export default function Category() {
             <div
               className="category__item"
               onClick={async () => {
-                await onClickHendler('강의실');
+                await onClickHandler('강의실');
               }}
             >
               <div className="category__item-name">
@@ -150,7 +153,7 @@ export default function Category() {
             <div
               className="category__item"
               onClick={async () => {
-                await onClickHendler('카페');
+                await onClickHandler('카페');
               }}
             >
               <div className="category__item-name">
@@ -160,7 +163,7 @@ export default function Category() {
             <div
               className="category__item"
               onClick={async () => {
-                await onClickHendler('공연장');
+                await onClickHandler('공연장');
               }}
             >
               <div className="category__item-name">
@@ -170,7 +173,7 @@ export default function Category() {
             <div
               className="category__item"
               onClick={async () => {
-                await onClickHendler('갤러리');
+                await onClickHandler('갤러리');
               }}
             >
               <div className="category__item-name">

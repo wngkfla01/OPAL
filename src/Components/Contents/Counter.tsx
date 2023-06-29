@@ -16,8 +16,6 @@ export default function Counter() {
         value={'-'}
         onClick={() => {
           dispatch(down(1));
-          console.log(down(1));
-          console.log(clickedCounter);
         }}
       />
       <InputNumber
@@ -32,7 +30,6 @@ export default function Counter() {
         value={'+'}
         onClick={() => {
           dispatch(up(1));
-          console.log(up(1));
         }}
       />
     </>

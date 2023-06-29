@@ -1,39 +1,99 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from 'redux/reducer/reducer';
-import { Pagination, Image, Space } from 'antd';
+import { Pagination, Image, Space, Modal } from 'antd';
 import 'Styles/ProductItem.scss';
+import { searchProductApi, categoryProductApi, Product } from 'api';
 
-export default function ProductItem() {
-  const searchedValue = useSelector((state: RootState) => {
-    return state.searchSlice.searchedValue;
-  });
-  const listValue = useSelector((state: RootState) => {
-    return state.listSlice.listValue;
-  });
-  console.log(listValue);
+interface SearchValueProps {
+  searchQuery: string;
+}
+export default function ProductItem(searchQuery: SearchValueProps) {
+  const searchText = searchQuery.searchQuery;
+  const [loading, setLoading] = useState<boolean>(true);
+  const [productList, setProductList] = useState<Product[]>([]);
+  const [previewVisible, setPreviewVisible] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const pageSize = 10;
+  const startIndex = (currentPage - 1) * pageSize;
+  const EndIndex = startIndex + pageSize;
+  const display = productList.slice(startIndex, EndIndex);
+  const pageChangeHandler = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  useEffect(() => {
+    getProductList(searchText);
+  }, [searchQuery]);
+
+  async function getProductList(searchText: string) {
+    setLoading(true);
+    const searchlist: Product[] = await searchProductApi(searchText);
+    const taglist: Product[] = await categoryProductApi(searchText);
+    lists(searchlist, taglist);
+  }
+
+  // searchlist, taglist를 중복값 제거하고 합침
+  async function lists(searchlist: Product[], taglist: Product[]) {
+    const mergelists: Product[] = searchlist.concat(taglist);
+    setProductList(
+      mergelists.reduce(
+        (ac: Product[], v) => (ac.includes(v) ? ac : [...ac, v]),
+        []
+      )
+    );
+    setLoading(false);
+  }
+
+  const handlePreview = (imageSrc: any) => {
+    setPreviewVisible(true);
+    setPreviewImage(imageSrc);
+  };
+
+  const handleClosePreview = () => {
+    setPreviewVisible(false);
+    setPreviewImage('');
+  };
+
   return (
     <>
-      <h1 className="searchedValue">
-        {searchedValue}의 {listValue.length}개 검색결과를 찾았습니다!
-      </h1>
+      {loading ? (
+        <h1>검색중...</h1>
+      ) : productList.length === 0 ? (
+        <h1>검색결과가 없어용...</h1>
+      ) : (
+        <h1 className="searchedValue">
+          {searchText}의 {productList.length}개 검색결과를 찾았습니다!
+        </h1>
+      )}
+
       <div>
-        {listValue?.length !== 0 &&
-          listValue?.map((list) => {
+        {productList?.length !== 0 &&
+          display?.map((list, index) => {
             const descriptionSlice = list.description.split('<br>');
             const descriptionNew = descriptionSlice[0];
             return (
-              <Space key={list.id} size={20} className="productItem">
+              <Space key={index} size={20} className="productItem">
                 <Image
                   width={300}
                   height={200}
                   src={list.thumbnail}
                   className="productItem__img"
+                  preview={false}
+                  onClick={() => handlePreview(list.thumbnail)}
                 />
+                <Modal
+                  open={previewVisible}
+                  onCancel={handleClosePreview}
+                  footer={null}
+                >
+                  <Image src={previewImage} preview={false} width="100%" />
+                </Modal>
                 <Link
                   to={`/productdetail/${list.id}`}
-                  key={list.id}
+                  key={index}
                   className="productItem__info-container"
                 >
                   <div className="productItem__info">
@@ -48,7 +108,12 @@ export default function ProductItem() {
             );
           })}
       </div>
-      <Pagination defaultCurrent={1} total={listValue.length} pageSize={7} />;
+      <Pagination
+        current={currentPage}
+        pageSize={pageSize}
+        total={productList.length}
+        onChange={pageChangeHandler}
+      />
     </>
   );
 }

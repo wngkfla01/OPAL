@@ -256,11 +256,10 @@ export interface Product {
   thumbnail: string | undefined; // 제품 썸네일 이미지(URL)
   discountRate: number; // 제품 할인율
 }
-export async function searchProductApi(
-  searchedValue: string
-): Promise<Product[]> {
+
+export async function searchProductApi(searchText: string): Promise<Product[]> {
   const data = {
-    searchText: `${searchedValue}`,
+    searchText: searchText,
   };
   const res: AxiosResponse<Product[]> = await axios.post(
     `${BASE_URL}/products/search`,
@@ -272,11 +271,11 @@ export async function searchProductApi(
 }
 
 export async function categoryProductApi(
-  categoryName: string
+  searchText: string
 ): Promise<Product[]> {
   const res: AxiosResponse<Product[]> = await axios.post(
     `${BASE_URL}/products/search`,
-    { searchTags: [`${categoryName}`] },
+    { searchTags: [`${searchText}`] },
     { headers }
   );
   const Data: Product[] = res.data;
