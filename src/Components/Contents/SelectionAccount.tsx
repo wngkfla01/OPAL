@@ -21,11 +21,16 @@ import {
   Radio,
   Popconfirm,
 } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAccount, RootState } from 'redux/reducer/reducer';
 
 const { Option } = Select;
 
 const SelectedAccount: React.FC = () => {
+  const dispatch = useDispatch();
+  const pickedAccount = useSelector(
+    (state: RootState) => state.selectAccountSlice.pickedAccount
+  );
   const [totalBalance, setTotalBalance] = useState<number>();
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
@@ -38,8 +43,7 @@ const SelectedAccount: React.FC = () => {
   const [signature, setSignature] = useState<boolean>(false);
   const [cookies] = useCookies(['accessToken']);
   const accessToken: authResponseData = cookies.accessToken;
-  const [selectedAccount, setSelectedAccount] = useState(null);
-  const dispatch = useDispatch();
+
   const showAccountModal = () => {
     setIsModalVisible(true);
     getBanksList();
@@ -113,7 +117,9 @@ const SelectedAccount: React.FC = () => {
   };
 
   const handleAccountChange = (e: any) => {
-    setSelectedAccount(e.target.value);
+    const account = e.target.value;
+    dispatch(selectAccount(account));
+    // setSelectedAccount(e.target.value);
   };
 
   return (
@@ -126,7 +132,7 @@ const SelectedAccount: React.FC = () => {
         }}
       >
         <h3>내 계좌 총 잔액: {totalBalance}원</h3>
-        <Radio.Group onChange={handleAccountChange} value={selectedAccount}>
+        <Radio.Group onChange={handleAccountChange} value={pickedAccount}>
           {accounts &&
             accounts.map((account, index) => (
               <Radio key={account.id} value={account.id}>
