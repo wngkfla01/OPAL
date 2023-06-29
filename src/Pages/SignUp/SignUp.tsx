@@ -60,7 +60,9 @@ const SignUp = () => {
   }
   return (
     <div className="inner">
-      <Title level={2}>회원가입</Title>
+      <Title className="title" level={2}>
+        회원가입
+      </Title>
       <Space align="center" direction="vertical">
         <div className="container">
           <Col>
@@ -108,7 +110,11 @@ const SignUp = () => {
                 />
               </Form.Item>
               <Form.Item>
-                <Button className="btn__sign" type="primary" htmlType="submit">
+                <Button
+                  className="btn__sign btn"
+                  type="primary"
+                  htmlType="submit"
+                >
                   회원가입하기
                 </Button>
               </Form.Item>
