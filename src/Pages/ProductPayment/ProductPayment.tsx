@@ -27,7 +27,6 @@ const ProductPayment = () => {
   );
   const product = useSelector((state: RootState) => state.productSlice);
   const productAddress = ['서울특별시 강남구 강남대로 364', '11층 11E 공간'];
-
   // 선택한 예약 날짜 및 시간에서 날짜만 반환
   const reserveStartDate = cookieSavedDate.startTime.split('T')[0];
   const reserveEndDate = cookieSavedDate.endTime.split('T')[0];
@@ -42,7 +41,6 @@ const ProductPayment = () => {
   const endYear = formatEndDate.getFullYear();
   const endMonth = formatEndDate.getMonth() + 1;
   const endDay = formatEndDate.getDate();
-
   const formattedStartDate = `${startYear}년 ${startMonth}월 ${startDay}일`;
   const formattedEndDate = `${endYear}년 ${endMonth}월 ${endDay}일`;
 
@@ -71,8 +69,8 @@ const ProductPayment = () => {
           productId: product.id,
           accountId: pickedAccount,
           reservation: {
-            start: dateTimeOption.start,
-            end: dateTimeOption.end,
+            start: cookieSavedDate.startTime,
+            end: cookieSavedDate.endTime,
           },
         };
 
