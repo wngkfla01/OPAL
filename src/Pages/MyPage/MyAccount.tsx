@@ -113,29 +113,36 @@ const MyAccount: React.FC = () => {
     <div className="myaccount">
       <h2>내 계좌 목록</h2>
       <div className="myaccount__container">
-        <h3>내 계좌 총 잔액: {totalBalance}원</h3>
-        {accounts &&
+        {accounts && accounts.length > 0 ? (
           accounts.map((account, index) => (
-            <div className="myaccount__form" key={index}>
-              <span className="myaccount__form--input">{account.bankName}</span>
-              <span className="myaccount__form--input">
-                {account.accountNumber}
-              </span>
-              <span className="myaccount__form--input">
-                잔액: {account.balance}원
-              </span>
-              <Popconfirm
-                title="계좌 삭제"
-                description="계좌 정보가 삭제됩니다. 계속하시겠습니까?"
-                onConfirm={(e) => deleteAccount(account, e)}
-                okText="삭제하기"
-                cancelText="취소"
-                className="myaccount__form--pop"
-              >
-                <Button className="btn__right">삭제</Button>
-              </Popconfirm>
-            </div>
-          ))}
+            <>
+              <h3>내 계좌 총 잔액: {totalBalance}원</h3>
+              <div className="myaccount__form" key={index}>
+                <span className="myaccount__form--input">
+                  {account.bankName}
+                </span>
+                <span className="myaccount__form--input">
+                  {account.accountNumber}
+                </span>
+                <span className="myaccount__form--input">
+                  잔액: {account.balance}원
+                </span>
+                <Popconfirm
+                  title="계좌 삭제"
+                  description="계좌 정보가 삭제됩니다. 계속하시겠습니까?"
+                  onConfirm={(e) => deleteAccount(account, e)}
+                  okText="삭제하기"
+                  cancelText="취소"
+                  className="myaccount__form--pop"
+                >
+                  <Button className="btn__right">삭제</Button>
+                </Popconfirm>
+              </div>
+            </>
+          ))
+        ) : (
+          <h3>계좌가 존재하지 않습니다. 계좌를 추가해 주세요!</h3>
+        )}
       </div>
       <Button
         className="btn"
