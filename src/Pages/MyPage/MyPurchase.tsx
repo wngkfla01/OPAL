@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Space, Spin, Pagination, Modal, Checkbox } from 'antd';
 import { useCookies } from 'react-cookie';
+import VoucherModal from 'Components/Contents/VoucherModal';
 import {
   authResponseData,
   allBuyProductApi,
@@ -18,10 +19,20 @@ const MyPurchase: React.FC = () => {
   const [ongoingPurchases, setOngoingPurchases] = useState<MyPurchases>([]);
   const [purchaseDetail, setPurchaseDetail] = useState<OneTransactionDetail>();
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [voucherModalDetailId, setVoucherModalDetailId] = useState<string>('');
+  const [voucherModalTitle, setVoucherModalTitle] = useState<string>('');
+  const [voucherModalDes, setVoucherModalDes] = useState<string>('');
+  const [voucherModalImg, setVoucherModalImg] = useState<
+    string | null | undefined
+  >('');
+  const [voucherModalSt, setVoucherModalSt] = useState<string | undefined>();
+  const [voucherModalEn, setVoucherModalEn] = useState<string | undefined>();
   const [cancelConfirm, setCancelConfirm] = useState<boolean>(false);
   const [ongoinCurrentPage, setOngoinCurrentPage] = useState<number>(1);
   const [cancelledCurrentPage, setCancelledCurrentPage] = useState<number>(1);
   const [completedCurrentPage, setCompletedCurrentPage] = useState<number>(1);
+
+  const [isOpenVoucher, setIsOpenVoucher] = useState<boolean>(false);
   const [cookies] = useCookies(['accessToken']);
   const accessToken: authResponseData = cookies.accessToken;
 
@@ -58,6 +69,7 @@ const MyPurchase: React.FC = () => {
   const getMyPurchases = async (accessToken: authResponseData) => {
     try {
       const res = await allBuyProductApi(accessToken);
+      console.log('전체조회: ', res);
       setLoading(false);
       setCompletedPurchases(
         res.filter(
@@ -83,6 +95,7 @@ const MyPurchase: React.FC = () => {
       detailId: detailId,
     };
     const res = await oneBuyProductApi(accessToken, body);
+    console.log('purchasedetail', res);
     setPurchaseDetail(res);
   };
 
@@ -113,6 +126,26 @@ const MyPurchase: React.FC = () => {
     setCompletedCurrentPage(page);
   };
 
+  const openVoucherModal = (
+    detailId: string,
+    title: string,
+    description: string,
+    img: string | null | undefined,
+    start: string | undefined,
+    end: string | undefined
+  ) => {
+    setVoucherModalDetailId(detailId);
+    setVoucherModalTitle(title);
+    setVoucherModalDes(description);
+    setVoucherModalImg(img);
+    setVoucherModalSt(start);
+    setVoucherModalEn(end);
+    setIsOpenVoucher(true);
+  };
+  const closeVoucherModal = () => {
+    setIsOpenVoucher(false);
+  };
+
   return (
     <div>
       <div>
@@ -130,51 +163,22 @@ const MyPurchase: React.FC = () => {
                 </h2>
               ) : (
                 displayOngoingPurchases.map((product, index) => (
-                  <div style={{ border: '1px solid black' }} key={index}>
-                    <h4>{product.product.title}</h4>
-                    <div style={{ display: 'flex', height: '40px' }}>
-                      <div style={{ width: '40%', border: '1px solid black' }}>
-                        서울 강남구
-                      </div>
-                      <div
-                        style={{
-                          width: '60%',
-                          border: '1px solid black',
-                        }}
-                      >
-                        <span>
-                          {product.reservation?.start.split('T')[0]} /{' '}
-                          {
-                            product.reservation?.start
-                              .split('T')[1]
-                              .split(':')[0]
-                          }
-                          시 ~{' '}
-                          {product.reservation?.end.split('T')[1].split(':')[0]}
-                          시
-                        </span>
-                      </div>
-                    </div>
-                    <Button block onClick={() => showCancelModal(product)}>
-                      예약 취소
-                    </Button>
-                    <Modal
-                      title="예약 취소하기"
-                      open={isModalVisible}
-                      centered
-                      onCancel={handleCancelModal}
-                      footer={[
-                        <Button
-                          key="submit"
-                          type="primary"
-                          onClick={() => cancelProduct(product.detailId)}
-                          disabled={cancelConfirm ? false : true}
-                        >
-                          예약 취소하기
-                        </Button>,
-                      ]}
+                  <>
+                    <a
+                      onClick={() =>
+                        openVoucherModal(
+                          product.detailId,
+                          product.product.title,
+                          product.product.description,
+                          product.product.thumbnail,
+                          product.reservation?.start,
+                          product.reservation?.end
+                        )
+                      }
+                      key={index}
                     >
-                      <h4>{purchaseDetail?.product.title}</h4>
+                      <h4>{product.product.title}</h4>
+
                       <div style={{ display: 'flex', height: '40px' }}>
                         <div
                           style={{ width: '40%', border: '1px solid black' }}
@@ -188,15 +192,15 @@ const MyPurchase: React.FC = () => {
                           }}
                         >
                           <span>
-                            {purchaseDetail?.reservation?.start.split('T')[0]} /{' '}
+                            {product.reservation?.start.split('T')[0]} /{' '}
                             {
-                              purchaseDetail?.reservation?.start
+                              product.reservation?.start
                                 .split('T')[1]
                                 .split(':')[0]
                             }
                             시 ~{' '}
                             {
-                              purchaseDetail?.reservation?.end
+                              product.reservation?.end
                                 .split('T')[1]
                                 .split(':')[0]
                             }
@@ -204,25 +208,86 @@ const MyPurchase: React.FC = () => {
                           </span>
                         </div>
                       </div>
-                      <div
-                        style={{
-                          height: '70px',
-                          border: '1px solid black',
-                          margin: '10px 0',
-                          textAlign: 'center',
-                        }}
+                      <Button block onClick={() => showCancelModal(product)}>
+                        예약 취소
+                      </Button>
+                      <Modal
+                        title="예약 취소하기"
+                        open={isModalVisible}
+                        centered
+                        onCancel={handleCancelModal}
+                        footer={[
+                          <Button
+                            key="submit"
+                            type="primary"
+                            onClick={() => cancelProduct(product.detailId)}
+                            disabled={cancelConfirm ? false : true}
+                          >
+                            예약 취소하기
+                          </Button>,
+                        ]}
                       >
-                        [취소약관] 어쩌구저쩌구 취소하면 후회할텐데!!
-                      </div>
-                      <div style={{ textAlign: 'center' }}>
-                        취소 약관에 동의합니다
-                        <Checkbox
-                          checked={cancelConfirm}
-                          onChange={() => setCancelConfirm(!cancelConfirm)}
-                        ></Checkbox>
-                      </div>
-                    </Modal>
-                  </div>
+                        <h4>{purchaseDetail?.product.title}</h4>
+                        <div style={{ display: 'flex', height: '40px' }}>
+                          <div
+                            style={{ width: '40%', border: '1px solid black' }}
+                          >
+                            서울 강남구
+                          </div>
+                          <div
+                            style={{
+                              width: '60%',
+                              border: '1px solid black',
+                            }}
+                          >
+                            <span>
+                              {purchaseDetail?.reservation?.start.split('T')[0]}{' '}
+                              /{' '}
+                              {
+                                purchaseDetail?.reservation?.start
+                                  .split('T')[1]
+                                  .split(':')[0]
+                              }
+                              시 ~{' '}
+                              {
+                                purchaseDetail?.reservation?.end
+                                  .split('T')[1]
+                                  .split(':')[0]
+                              }
+                              시
+                            </span>
+                          </div>
+                        </div>
+                        <div
+                          style={{
+                            height: '70px',
+                            border: '1px solid black',
+                            margin: '10px 0',
+                            textAlign: 'center',
+                          }}
+                        >
+                          [취소약관] 어쩌구저쩌구 취소하면 후회할텐데!!
+                        </div>
+                        <div style={{ textAlign: 'center' }}>
+                          취소 약관에 동의합니다
+                          <Checkbox
+                            checked={cancelConfirm}
+                            onChange={() => setCancelConfirm(!cancelConfirm)}
+                          ></Checkbox>
+                        </div>
+                      </Modal>
+                    </a>
+                    <VoucherModal
+                      open={isOpenVoucher}
+                      onCancel={closeVoucherModal}
+                      detailId={voucherModalDetailId}
+                      title={voucherModalTitle}
+                      description={voucherModalDes}
+                      img={voucherModalImg}
+                      start={voucherModalSt}
+                      end={voucherModalEn}
+                    />
+                  </>
                 ))
               )}
               <Pagination
