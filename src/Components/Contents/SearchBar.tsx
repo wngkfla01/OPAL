@@ -1,7 +1,7 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { search, plist, RootState } from 'redux/reducer/reducer';
+import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { plist } from 'redux/reducer/reducer';
 import { DatePicker, Space } from 'antd';
 import { Product, searchProductApi, categoryProductApi } from 'api';
 import Counter from 'Components/Contents/Counter';
@@ -11,18 +11,24 @@ import 'Styles/SearchBar.scss';
 
 dayjs.extend(customParseFormat);
 const dateFormat = 'YYYY/MM/DD';
-
-function SearchBar() {
+interface SearchBarProps {
+  onSearch: (query: string) => void;
+}
+function SearchBar({ onSearch }: SearchBarProps) {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const [searchValue, setSearchValue] = useState(
+    searchParams.get('search') || ''
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const searchedValue = useSelector((state: RootState) => {
-    return state.searchSlice.searchedValue;
-  });
-  const listValue = useSelector((state: RootState) => {
-    return state.listSlice.listValue;
-  });
+
   async function gotoProductlist() {
-    navigate(`/productlist`);
+    // URL 생성
+    const urlSearchParams = new URLSearchParams();
+    urlSearchParams.append('search', searchValue);
+    const queryString = urlSearchParams.toString();
+    navigate(`/productlist?${queryString}`);
   }
 
   async function lists(searchlist: Product[], taglist: Product[]) {
@@ -31,7 +37,6 @@ function SearchBar() {
       (ac: Product[], v) => (ac.includes(v) ? ac : [...ac, v]),
       []
     );
-    console.log('확인', merged);
     {
       setlist(merged);
     }
@@ -39,20 +44,23 @@ function SearchBar() {
   async function setlist(lists: Product[]) {
     dispatch(plist(lists));
   }
-
   async function pressEnterKey(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') {
-      if (!searchedValue.trim()) return;
-      const searchlist: Product[] = await searchProductApi(searchedValue);
-      const taglist: Product[] = await categoryProductApi(searchedValue);
+      if (!searchValue.trim()) return;
+      onSearch(searchValue);
+      const searchlist: Product[] = await searchProductApi(searchValue);
+      const taglist: Product[] = await categoryProductApi(searchValue);
       lists(searchlist, taglist);
-      console.log('검색+태그', listValue);
-      console.log(listValue);
-      console.log('검색어', searchlist);
-      console.log('태그', taglist);
       await gotoProductlist();
     }
-    console.log('리스트 스테이트 저장', listValue);
+  }
+  async function clickSearchButton() {
+    if (!searchValue.trim()) return;
+    onSearch(searchValue);
+    const searchlist: Product[] = await searchProductApi(searchValue);
+    const taglist: Product[] = await categoryProductApi(searchValue);
+    lists(searchlist, taglist);
+    await gotoProductlist();
   }
 
   return (
@@ -61,12 +69,11 @@ function SearchBar() {
         <Space className="searchBar__inner">
           <input
             type="text"
-            value={searchedValue}
+            value={searchValue}
             className="searchBar__input"
             placeholder="검색어를 입력해주세요"
             onChange={(e) => {
-              dispatch(search(e.target.value));
-              console.log(searchedValue);
+              setSearchValue(e.target.value);
             }}
             onKeyDown={pressEnterKey}
           />
@@ -83,7 +90,7 @@ function SearchBar() {
             type="button"
             className="searchBar__btn btn"
             value={'검색하기'}
-            onClick={gotoProductlist}
+            onClick={clickSearchButton}
           />
         </Space>
       </form>

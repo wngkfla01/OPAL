@@ -66,8 +66,6 @@ const ProductDetail: React.FC = () => {
   const onChangeDate: DatePickerProps['onChange'] = (date, dateString) => {
     const isoDate = date?.toISOString();
     dispatch(selectedDate(dateString as any));
-    console.log('iso형식은', isoDate); // heropy와 동일함
-    console.log('dateString은', dateString); // 2023-06-21
   };
 
   // antd TimePicker - 예약 시간
@@ -98,7 +96,6 @@ const ProductDetail: React.FC = () => {
   // antd InputNumber - 예약 인원
   const onChangePerson = (value: 1 | 50 | null) => {
     dispatch(selectedGuests(value as any));
-    console.log('예약 인원은? ', value);
   };
 
   // 제품의 description을 가져와 문자열에 포함된 <br>을 기준으로 나누고 빈 문자열만 제거

@@ -1,20 +1,20 @@
-import React from 'react';
-import { useCookies } from 'react-cookie';
+import React, { useState } from 'react';
 import SearchBar from 'Components/Contents/SearchBar';
 import Category from 'Components/Contents/Category';
 import Event from 'Components/Contents/Event';
 import QuickMenu from 'Components/Contents/QuickMenu';
 
 const Home = () => {
-  const [cookies] = useCookies(['accessToken']);
-
-  console.log('홈에서 사용자토큰', cookies);
+  const [searchQuery, setSearchQuery] = useState('');
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+  };
 
   return (
     <>
       <main className="inner">
-        <SearchBar />
-        <Category />
+        <SearchBar onSearch={handleSearch} />
+        <Category onSearch={handleSearch} />
         <Event />
         <QuickMenu />
       </main>

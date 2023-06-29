@@ -67,9 +67,13 @@ const MyPurchase: React.FC = () => {
   }, []);
 
   const getMyPurchases = async (accessToken: authResponseData) => {
+    if (!loading) {
+      return;
+    }
     try {
-      const res = await allBuyProductApi(accessToken);
       setLoading(false);
+      const res = await allBuyProductApi(accessToken);
+      // setLoading(false);
       setCompletedPurchases(
         res.filter(
           (purchase) => !purchase.isCanceled && purchase.reservation?.isExpired
