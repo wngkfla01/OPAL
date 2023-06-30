@@ -12,37 +12,35 @@ import siwoo from '../../Assets/Images/siwoo.png';
 const Footer = () => {
   return (
     <div className="footer">
-      <div className="footer footer__back">
-        <div className="footer__container">
-          <div className="footer__logo">
-            OP-AL
-            <a href="https://github.com/OP-AL">
-              <GithubOutlined style={{ fontSize: '40px' }} />
-            </a>
-          </div>
+      <div className="footer__container">
+        <div className="footer__logo">
+          OP-AL
+          <a href="https://github.com/OP-AL">
+            <GithubOutlined style={{ fontSize: '40px' }} />
+          </a>
+        </div>
 
-          <div className="footer__opal">
-            <h3>developers</h3>
-            <div className="icon">
-              <a className="icon-link" href="https://github.com/wngkfla01">
-                <img src={harim} alt="Harim" />
-              </a>
-              <a className="icon-link" href="https://github.com/dmswl2030">
-                <img src={eunji} alt="Eunji" />
-              </a>
-              <a className="icon-link" href="https://github.com/DevYBecca">
-                <img src={geumyeop} alt="Geumyeop" />
-              </a>
-              <a
-                className="icon-link"
-                href="https://github.com/cuconveniencestore"
-              >
-                <img src={siwoo} alt="Siwoo" />
-              </a>
-              <a className="icon-link" href="https://github.com/nangkong98">
-                <img src={donghun} alt="Donghun" />
-              </a>
-            </div>
+        <div className="footer__opal">
+          <h3>developers</h3>
+          <div className="icon">
+            <a className="icon-link" href="https://github.com/wngkfla01">
+              <img src={harim} alt="Harim" />
+            </a>
+            <a className="icon-link" href="https://github.com/dmswl2030">
+              <img src={eunji} alt="Eunji" />
+            </a>
+            <a className="icon-link" href="https://github.com/DevYBecca">
+              <img src={geumyeop} alt="Geumyeop" />
+            </a>
+            <a
+              className="icon-link"
+              href="https://github.com/cuconveniencestore"
+            >
+              <img src={siwoo} alt="Siwoo" />
+            </a>
+            <a className="icon-link" href="https://github.com/nangkong98">
+              <img src={donghun} alt="Donghun" />
+            </a>
           </div>
         </div>
       </div>
