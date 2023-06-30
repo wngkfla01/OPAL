@@ -107,7 +107,6 @@ const MyPurchase: React.FC = () => {
     setCancelConfirm(false);
   };
   const cancelProduct = async (detailId: string) => {
-    console.log(detailId);
     const body: CancelRequestBody = {
       detailId: detailId,
     };

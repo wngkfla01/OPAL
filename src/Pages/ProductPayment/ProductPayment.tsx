@@ -4,11 +4,11 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'redux/reducer/reducer';
 import { productPaymentApi, PaymentRequestBody, accountListApi } from 'api';
 import { useCookies } from 'react-cookie';
-import styles from 'Styles/ProductPayment.module.scss';
-import SelectionAccount from 'Components/Contents/SelectionAccount';
 import { useDispatch } from 'react-redux';
 import { selectTab } from 'redux/reducer/reducer';
 import { useNavigate, Link } from 'react-router-dom';
+import styles from 'Styles/ProductPayment.module.scss';
+import SelectionAccount from 'Components/Contents/SelectionAccount';
 import '../../Styles/Modal.scss';
 
 const ProductPayment = () => {
@@ -121,13 +121,13 @@ const ProductPayment = () => {
               <p>예약 날짜 : {formattedStartDate}</p>
               <p>
                 예약 시간 : <br />
-                {formattedStartDate} {reserveStartTime}시<br />~{' '}
+                {formattedStartDate} {reserveStartTime}시<br />~
                 {formattedEndDate} {reserveEndTime}시 (
                 {cookieSavedDate.timeDiffer}시간)
               </p>
               <p>예약 인원 : {productInfo.guests}명</p>
               <p>
-                가격 :{' '}
+                가격 :
                 {(
                   parseFloat(productInfo.price) * cookieSavedDate.timeDiffer
                 ).toLocaleString()}
