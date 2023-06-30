@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { selectTab } from 'redux/reducer/reducer';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { Row, Button, Typography, Modal } from 'antd';
+import '../../Styles/Modal.scss';
 
 const { Title } = Typography;
 
@@ -46,36 +47,32 @@ const VoucherModal: React.FC<VoucherModalProps> = ({
     <Modal open={open} centered onCancel={onCancel} footer={null}>
       <Title level={1}>예약 확인증</Title>
 
-      <Row justify="center" style={{ flexDirection: 'column' }}>
-        <Row>
+      <Row justify="center">
+        <Row className="VoucherModal__info">
           <div>
-            <div>
+            <div className="VoucherModal__info-item">
               <h2>공간이름</h2>
               <h3>{title}</h3>
-              <img src={img || '이미지 없음'} alt="place img" />
+              <img
+                className="VoucherModal__info-img"
+                src={img || '이미지 없음'}
+                alt="place img"
+              />
             </div>
-            <div>
+            <div className="VoucherModal__info-item">
               <h2>공간정보</h2>
               <div>{descriptionNew}</div>
             </div>
-            <div>
+            <div className="VoucherModal__info-item">
               <h2>예약시간</h2>
               <span>
-                <div></div>
                 {start?.split('T')[0]} / {start?.split('T')[1].split(':')[0]}시
                 ~ {end?.split('T')[1].split(':')[0]}시
               </span>
             </div>
           </div>
         </Row>
-        <Row
-          justify="center"
-          align="middle"
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-          }}
-        >
+        <Row justify="center" align="middle" className="VoucherModal__btn">
           <Button>
             <Link to="/">메인 페이지로 이동</Link>
           </Button>

@@ -9,6 +9,7 @@ import SelectionAccount from 'Components/Contents/SelectionAccount';
 import { useDispatch } from 'react-redux';
 import { selectTab } from 'redux/reducer/reducer';
 import { useNavigate, Link } from 'react-router-dom';
+import '../../Styles/Modal.scss';
 
 const ProductPayment = () => {
   const navigate = useNavigate();
@@ -154,12 +155,19 @@ const ProductPayment = () => {
         >
           결제하기
         </Button>
-        <Modal open={isModalOpen} footer={null} closable={false}>
-          <h2>결제가 완료되었습니다</h2>
-          <Button>
-            <Link to="/">메인으로 가기</Link>
-          </Button>
-          <Button onClick={goMyPurchase}>구매내역 가기</Button>
+        <Modal
+          open={isModalOpen}
+          footer={null}
+          closable={false}
+          className="ComplectModal"
+        >
+          <h1 className="ComplectModal__title">결제가 완료되었습니다</h1>
+          <div className="ComplectModal__btn">
+            <Button>
+              <Link to="/">메인으로 가기</Link>
+            </Button>
+            <Button onClick={goMyPurchase}>구매내역 가기</Button>
+          </div>
         </Modal>
       </Card>
     </main>
