@@ -157,11 +157,9 @@ const searchSlice = createSlice({
   reducers: {
     search: (state, action: PayloadAction<string>) => {
       state.searchedValue = action.payload;
-      console.log(state.searchedValue);
     },
     category: (state, action: PayloadAction<string>) => {
       state.searchedValue = action.payload;
-      console.log(state.searchedValue);
     },
   },
 });
