@@ -11,7 +11,7 @@ import siwoo from '../../Assets/Images/siwoo.png';
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <div className="footer">
       <div className="footer__container">
         <div className="footer__logo">
           OP-AL
@@ -44,7 +44,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
+    </div>
   );
 };
 export default Footer;
