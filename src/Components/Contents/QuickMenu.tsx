@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { allBuyProductApi } from 'api';
+import { allBuyProductApi, authResponseData, MyPurchases } from 'api';
 import { useCookies } from 'react-cookie';
 import { useDispatch } from 'react-redux';
 import { selectTab } from 'redux/reducer/reducer';
@@ -9,7 +9,7 @@ import VoucherModal from 'Components/Contents/VoucherModal';
 import '../../Styles/QuickMenu.scss';
 
 export default function QuickMenu() {
-  const [cookies, , removeCookie] = useCookies(['accessToken']);
+  const [cookies] = useCookies(['accessToken']);
   const accessToken = cookies.accessToken;
   const [userData, setUserData] = useState<any>();
   const navigate = useNavigate(); //페이지 이동
@@ -32,22 +32,25 @@ export default function QuickMenu() {
   };
 
   useEffect(() => {
-    if (accessToken) {
-      const fetchData = async () => {
-        try {
-          const data = await allBuyProductApi(accessToken);
-          const firstData = data[0];
-          setUserData(firstData);
-        } catch (error) {
-          console.error('구매 내역이 없습니다:', error);
-        }
-      };
+    fetchData();
+  }, []);
 
-      fetchData();
-    } else {
-      removeCookie('accessToken');
+  const fetchData = async () => {
+    try {
+      const data = await allBuyProductApi(accessToken);
+      setUserData(
+        data.filter(
+          (purchase) =>
+            !purchase.done &&
+            !purchase.isCanceled &&
+            !purchase.reservation?.isExpired
+        )[0]
+      );
+    } catch (error) {
+      console.error('구매 내역이 없습니다:', error);
     }
-  }, [accessToken, removeCookie]);
+  };
+  console.log(userData);
 
   const openVoucherModal = (
     detailId: string,
