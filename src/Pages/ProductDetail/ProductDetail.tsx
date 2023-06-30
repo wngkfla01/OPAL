@@ -215,7 +215,11 @@ const ProductDetail: React.FC = () => {
         }}
         className={styles.product__card}
       >
-        <Card.Grid hoverable={false} className={styles.product__address}>
+        <Card.Grid
+          hoverable={false}
+          className={styles.product__address}
+          style={{ width: '33%' }}
+        >
           <div>
             {/* 제품(공간) 장소 출력 */}
             <h3 className={styles.product__address}>주소</h3>
@@ -225,7 +229,11 @@ const ProductDetail: React.FC = () => {
           </div>
         </Card.Grid>
 
-        <Card.Grid hoverable={false} className={styles.product__selection}>
+        <Card.Grid
+          hoverable={false}
+          className={styles.product__selection}
+          style={{ width: '45%' }}
+        >
           <form className={styles.product__selection}>
             {/* 제품(공간)을 예약할 날짜, 시간, 인원 선택 */}
             <h3>예약 사항 선택</h3>
@@ -244,12 +252,12 @@ const ProductDetail: React.FC = () => {
                 }}
                 format="YYYY년 MM월 DD일 HH시"
                 onChange={handleRangeChange}
-                style={{ width: '360px', marginBottom: '15px' }}
+                style={{ width: '400px', marginBottom: '15px' }}
               />
             </ConfigProvider>
             <br />
             <p>· 예약 인원 : </p>
-            <Space direction="vertical" style={{ width: '52%' }}>
+            <Space direction="vertical" style={{ width: '60%' }}>
               <InputNumber
                 size="large"
                 min={1}
@@ -262,7 +270,7 @@ const ProductDetail: React.FC = () => {
           </form>
         </Card.Grid>
 
-        <Card.Grid hoverable={false} className={styles.product__info}>
+        <Card.Grid hoverable={false} style={{ width: '22%' }}>
           <div>
             {/* 제품(공간) 가격 (1시간 당) 출력 */}
             <h3>가격</h3>
