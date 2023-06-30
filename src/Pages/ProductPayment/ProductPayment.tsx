@@ -85,25 +85,25 @@ const ProductPayment = () => {
   return (
     <main className={styles.inner}>
       <Card
+        className={styles.preview}
         title={
           <div className={styles.preview__title}>
             <h1>예약 희망 옵션 확인</h1>
             <p>선택한 옵션이 맞는지 확인해 주세요</p>
           </div>
         }
-        bordered={true}
-        headStyle={{ height: '130px' }}
-        bodyStyle={{ height: '420px' }}
+        bordered={false}
+        headStyle={{ height: '230px' }}
+        bodyStyle={{ height: '450px' }}
       >
         <figure className={styles.preview__card}>
           <Image
-            width={500}
-            height={350}
             preview={false}
             src={productInfo.photo}
             className={styles.product__img}
             alt={'공간 이미지'}
           />
+
           <div className={styles.product__info}>
             <h1>{productInfo.title}</h1>
             <div>
@@ -113,58 +113,74 @@ const ProductPayment = () => {
               ))}
             </div>
             <div className={styles.product__reserve}>
-              <p>예약 날짜 : {formattedStartDate}</p>
-              <p>
-                예약 시간 : <br />
-                {formattedStartDate} {reserveStartTime}시<br />~
-                {formattedEndDate} {reserveEndTime}시 (
-                {cookieSavedDate.timeDiffer}시간)
-              </p>
-              <p>예약 인원 : {productInfo.guests}명</p>
-              <p>
-                가격 :
-                {(
-                  parseFloat(productInfo.price) * cookieSavedDate.timeDiffer
-                ).toLocaleString()}
-                원
-              </p>
+              <div className={styles.product__reserveInfo}>
+                <span>예약 날짜 :</span>
+                <p>{formattedStartDate}</p>
+              </div>
+              <div className={styles.product__reserveInfo}>
+                <span>예약 시간 :</span>
+                <p>
+                  {formattedStartDate} {reserveStartTime}시<br />~{' '}
+                  {formattedEndDate} {reserveEndTime}시 (
+                  {cookieSavedDate.timeDiffer}
+                  시간)
+                </p>
+              </div>
+              <div className={styles.product__reserveInfo}>
+                <span>예약 인원 : </span>
+                <p>{productInfo.guests}명</p>
+              </div>
+              <div className={styles.product__reserveInfo}>
+                <span>대여 가격 :</span>
+                <p>
+                  {(
+                    parseFloat(productInfo.price) * cookieSavedDate.timeDiffer
+                  ).toLocaleString()}
+                  원
+                </p>
+              </div>
             </div>
           </div>
         </figure>
       </Card>
-
-      <h1 style={{ textAlign: 'center' }}>결제하기</h1>
-
-      <Card
-        title={'계좌정보'}
-        bordered={true}
-        headStyle={{ height: '130px' }}
-        bodyStyle={{ height: '250px' }}
-      >
-        <SelectionAccount />
-        <Button
-          type="primary"
-          size="large"
-          style={{ width: '50%' }}
-          onClick={handlePayment}
+      <div className={styles.payment}>
+        <Card
+          className={styles.payment__card}
+          title={'결제 진행'}
+          bordered={false}
+          headStyle={{
+            height: '130px',
+            fontSize: '30px',
+            color: 'rgba(89, 80, 69, 1)',
+          }}
+          bodyStyle={{ height: '100%' }}
         >
-          결제하기
-        </Button>
-        <Modal
-          open={isModalOpen}
-          footer={null}
-          closable={false}
-          className="ComplectModal"
-        >
-          <h1 className="ComplectModal__title">결제가 완료되었습니다</h1>
-          <div className="ComplectModal__btn">
-            <Button>
-              <Link to="/">메인으로 가기</Link>
-            </Button>
-            <Button onClick={goMyPurchase}>구매내역 가기</Button>
-          </div>
-        </Modal>
-      </Card>
+          <SelectionAccount />
+          <Button
+            className="btn__right"
+            type="primary"
+            style={{
+              width: '84%',
+              margin: '0 auto 75px',
+              backgroundColor: 'rgba(89, 80, 69, 1)',
+            }}
+            onClick={handlePayment}
+          >
+            결제하기
+          </Button>
+          <Modal open={isModalOpen} footer={null} closable={false}>
+            <h1 className="modal__header">결제가 완료되었습니다</h1>
+            <div className="ComplectModal__btn">
+              <Button className="btn">
+                <Link to="/">메인으로 가기</Link>
+              </Button>
+              <Button className="btn" onClick={goMyPurchase}>
+                구매내역 가기
+              </Button>
+            </div>
+          </Modal>
+        </Card>
+      </div>
     </main>
   );
 };

@@ -88,6 +88,7 @@ const MyInfo: React.FC = () => {
           {editProfile === false ? (
             <Button
               className="btn"
+              style={{ textAlign: 'center' }}
               type="primary"
               block
               onClick={() => setEditProfile(!editProfile)}

@@ -52,7 +52,7 @@ const Header = () => {
               <Button type="text" onClick={handleLogout} className="btn">
                 로그아웃
               </Button>
-              <Button onClick={handleMyPage} className="btn myPageBtn">
+              <Button onClick={handleMyPage} className="btn">
                 마이페이지
               </Button>
             </>

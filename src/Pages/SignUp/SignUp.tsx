@@ -60,15 +60,14 @@ const SignUp = () => {
   }
   return (
     <div className="inner">
-      <Title className="title" level={2}>
-        회원가입
-      </Title>
-      <Space align="center" direction="vertical">
+      <div className="title">회원가입</div>
+      <Space>
         <div className="container">
           <Col>
             <Form onSubmitCapture={handleSignUp}>
               <Form.Item>
                 <Input
+                  className="container__input"
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
                   type="text"
@@ -79,6 +78,7 @@ const SignUp = () => {
               </Form.Item>
               <Form.Item>
                 <Input
+                  className="container__input"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   type="email"
@@ -89,6 +89,7 @@ const SignUp = () => {
               </Form.Item>
               <Form.Item>
                 <Input
+                  className="container__input"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   type="password"
@@ -100,6 +101,7 @@ const SignUp = () => {
               </Form.Item>
               <Form.Item>
                 <Input
+                  className="container__input"
                   value={passwordCheck}
                   onChange={(e) => setPasswordCheck(e.target.value)}
                   type="password"

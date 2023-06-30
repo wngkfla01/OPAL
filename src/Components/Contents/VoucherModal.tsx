@@ -44,41 +44,51 @@ const VoucherModal: React.FC<VoucherModalProps> = ({
   };
 
   return (
-    <Modal open={open} centered onCancel={onCancel} footer={null}>
-      <Title level={1}>예약 확인증</Title>
+    <Modal
+      width={800}
+      // style={{ justifyContent: 'center' }}
+      open={open}
+      footer={null}
+      centered
+      onCancel={onCancel}
+      className="voucherModal"
+    >
+      <div className="modal__title">예약 확인증</div>
 
-      <Row justify="center">
-        <Row className="VoucherModal__info">
-          <div>
-            <div className="VoucherModal__info-item">
-              <h2>공간이름</h2>
-              <h3>{title}</h3>
-              <img
-                className="VoucherModal__info-img"
-                src={img || '이미지 없음'}
-                alt="place img"
-              />
-            </div>
-            <div className="VoucherModal__info-item">
-              <h2>공간정보</h2>
-              <div>{descriptionNew}</div>
-            </div>
-            <div className="VoucherModal__info-item">
-              <h2>예약시간</h2>
-              <span>
-                {start?.split('T')[0]} / {start?.split('T')[1].split(':')[0]}시
-                ~ {end?.split('T')[1].split(':')[0]}시
-              </span>
-            </div>
+      <Row className="voucherModal__row">
+        <div>
+          <div className="voucherModal__info">
+            <h3 className="voucherModal__info-title">{title}</h3>
+            <img
+              className="voucherModal__info-img"
+              width={450}
+              src={img || '이미지 없음'}
+              alt="place img"
+            />
           </div>
-        </Row>
-        <Row justify="center" align="middle" className="VoucherModal__btn">
-          <Button>
-            <Link to="/">메인 페이지로 이동</Link>
-          </Button>
+          <div className="voucherModal__info">
+            <h2 className="voucherModal__info-title">공간정보</h2>
+            <div className="voucherModal__info-item">{descriptionNew}</div>
+          </div>
+          <div className="voucherModal__info">
+            <h2 className="voucherModal__info-title">예약시간</h2>
+            <span className="voucherModal__info-item">
+              {start?.split('T')[0]} / {start?.split('T')[1].split(':')[0]}시 ~{' '}
+              {end?.split('T')[1].split(':')[0]}시
+            </span>
+          </div>
+        </div>
+      </Row>
+      <Row className="voucherModal__btn">
+        <Button className="btn">
+          <Link to="/">메인 페이지로 이동</Link>
+        </Button>
 
-          {!isMyPage && <Button onClick={goMyPurchase}>예약 목록 조회</Button>}
-        </Row>
+        {!isMyPage && (
+          <Button className="btn" onClick={goMyPurchase}>
+            예약 목록 조회
+          </Button>
+        )}
       </Row>
     </Modal>
   );

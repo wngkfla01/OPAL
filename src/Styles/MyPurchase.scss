@@ -1,0 +1,141 @@
+@import './common.scss';
+
+.mypurchase {
+  width: 100%;
+  &__container {
+    margin: 20px auto;
+    border: {
+      styles: none;
+      radius: 35px;
+    }
+  }
+  &__item {
+    display: flex;
+    flex-direction: column;
+    color: rgb(86, 86, 13);
+    &--title {
+      text-align: left;
+      margin: 10px 25px;
+    }
+    &--container {
+      padding: 30px 20px;
+      margin-top: 40px;
+      box-shadow: $inner-shadow;
+
+      border: {
+        radius: 25px;
+      }
+    }
+    &--content {
+      text-align: left;
+      margin-bottom: 10px;
+      padding: 0 30px;
+    }
+    &--btn {
+      width: 100%;
+      height: 50px;
+      box-shadow: $shadow;
+      text-align: center;
+      margin: 20px 0;
+      border: none;
+    }
+    &--btn:hover {
+      &:hover {
+        color: $main-br-1;
+      }
+    }
+    &--Rbtn {
+      width: 100%;
+      height: 50px;
+      box-shadow: $shadow;
+      color: $white;
+      background-color: $main-rb-1;
+      text-align: center;
+      margin: 20px 0;
+      border: none;
+    }
+    &--Rbtn:hover {
+      &:hover {
+        color: $main-rb-1;
+        background-color: $white;
+      }
+    }
+  }
+  &__info {
+    display: flex;
+    height: 20px;
+    font-size: 17px;
+    align-items: center;
+    &--add {
+      margin-left: 30px;
+      width: 40%;
+      border-right: 2px solid $main-br-4;
+    }
+    &--time {
+      margin-left: 40px;
+      width: 50%;
+    }
+    &--page {
+      margin-top: 30px;
+    }
+  }
+}
+// .modal {
+//   // color: yellow;
+//   &__btn {
+//     background-color: $main-rb-1;
+//     color: $white;
+//     // &:hover {
+//     //   box-shadow: $shadow;
+//     // }
+//   }
+//   &__header {
+//     color: $main-br-1;
+//     text-align: center;
+//     font-size: 20px;
+//     margin: 40px 0;
+//   }
+//   &__name {
+//     text-align: left;
+//     font-size: 20px;
+//     margin: 20px 30px;
+//   }
+//   &__agreement {
+//     font-size: 14px;
+
+//     &--title {
+//       color: $black;
+//       margin: 40px 0 20px;
+//       padding: 20px 40px;
+//       box-shadow: $shadow;
+//       border-radius: 30px;
+//       > span {
+//         display: block;
+//         margin-bottom: 7px;
+//         font: {
+//           weight: 600;
+//           size: 16px;
+//         }
+//       }
+//     }
+//     &--contnet {
+//       display: flex;
+//       > p {
+//         justify-content: justify;
+//         font-weight: 400;
+//         color: $black;
+//         margin-left: 7px;
+//       }
+//     }
+//   }
+// }
+// .ant-checkbox.ant-checkbox-input.custom-cursor-on-hover {
+//   margin-left: 10px;
+// }
+// .ant-checkbox-inner {
+//   box-shadow: $shadow;
+// }
+// .ant-checkbox-checked .ant-checkbox-inner {
+//   border-color: $main-rb-1;
+//   background-color: $main-rb-1;
+// }

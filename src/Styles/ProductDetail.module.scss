@@ -3,11 +3,14 @@
 .title {
   font: {
     size: 50px;
-    family: $point-font;
+    family: $title-font;
   }
-  color: $main-br-1;
-  text-align: center;
-  margin-top: 75px;
+  color: $point-b-1;
+  text: {
+    align: center;
+    shadow: $text-shadow;
+  }
+  margin: 35px 0 35px;
 }
 .inner {
   display: flex;

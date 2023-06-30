@@ -3,20 +3,5 @@
 .mypage {
   width: 1100px;
   padding: 75px;
-  // background-color: aquamarine;
   justify-content: center;
-}
-.ant-tabs-ink-bar {
-  height: 5px;
-  background: $main-br-1 !important;
-}
-.ant-tabs-tab:hover {
-  color: $main-br-2;
-  &:hover {
-    color: $main-br-2;
-  }
-}
-.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: $main-br-1;
-  text-shadow: $text-shadow;
 }

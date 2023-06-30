@@ -1,0 +1,28 @@
+@import './common.scss';
+
+.selection {
+  display: flex;
+  flex-direction: column;
+  &__form {
+    color: antiquewhite;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: 20% 30% 24% 16%;
+    align-items: center;
+    width: 800px;
+    margin: 10px 0;
+    // background-color: aquamarine;
+
+    &--input {
+      // background-color: aquamarine;
+      height: 50px;
+      color: $black;
+      box-shadow: $shadow;
+      border-radius: 8px;
+      vertical-align: middle;
+      align-items: center;
+      padding-top: 10px;
+      margin: 0 10px;
+    }
+  }
+}
