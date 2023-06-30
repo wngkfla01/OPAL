@@ -4,11 +4,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 .container {
-  width: 50rem;
-  padding: 5rem;
-  border-radius: 20px;
+  width: 500px;
+  justify-content: center;
   &__input {
     border: none;
     padding-left: 30px;
@@ -20,9 +20,11 @@
 .btn__sign {
   width: 100%;
   height: 100%;
-  margin-top: 20px;
+  margin: 0 auto;
+  justify-content: center;
 }
 .title {
-  margin-top: 15px;
+  font-size: 30px;
+  margin-bottom: 60px;
   color: $main-br-1;
 }

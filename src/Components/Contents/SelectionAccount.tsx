@@ -23,6 +23,7 @@ import {
 } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAccount, RootState } from 'redux/reducer/reducer';
+import 'Styles/SelectionAccount.scss';
 
 const { Option } = Select;
 
@@ -123,36 +124,40 @@ const SelectedAccount: React.FC = () => {
   };
 
   return (
-    <div style={{ textAlign: 'center', padding: '0 100px' }}>
+    <div
+      className="myaccount"
+      style={{ textAlign: 'center', padding: '0 100px' }}
+    >
       <h2>내 계좌 목록</h2>
       <div
+        className="myaccount__container"
         style={{
-          border: '1px solid black',
           margin: '20px 0',
         }}
       >
-        <h3>내 계좌 총 잔액: {totalBalance}원</h3>
-        <Radio.Group onChange={handleAccountChange} value={pickedAccount}>
+        <h3 style={{ marginBottom: '40px' }}>
+          내 계좌 총 잔액: {totalBalance}원
+        </h3>
+        <Radio.Group
+          className="selection"
+          onChange={handleAccountChange}
+          value={pickedAccount}
+        >
           {accounts &&
             accounts.map((account, index) => (
-              <Radio key={account.id} value={account.id}>
-                <div
-                  style={{
-                    display: 'grid',
-                    width: '100%',
-                    padding: '30px',
-                    gridTemplateColumns: '22% 33% 28% 17%',
-                    columnGap: '20px',
-                  }}
-                  key={index}
-                >
-                  <span style={{ border: '1px solid black' }}>
+              <Radio
+                style={{ margin: '0 auto' }}
+                key={account.id}
+                value={account.id}
+              >
+                <div className="selection__form" key={index}>
+                  <span className="selection__form--input">
                     {account.bankName}
                   </span>
-                  <span style={{ border: '1px solid black' }}>
+                  <span className="selection__form--input">
                     {account.accountNumber}
                   </span>
-                  <span style={{ border: '1px solid black' }}>
+                  <span className="selection__form--input">
                     잔액: {account.balance}원
                   </span>
                   <Popconfirm
@@ -162,7 +167,11 @@ const SelectedAccount: React.FC = () => {
                     okText="삭제하기"
                     cancelText="취소"
                   >
-                    <Button type="primary" danger>
+                    <Button
+                      className="btn__right"
+                      type="primary"
+                      style={{ marginLeft: '10px' }}
+                    >
                       삭제
                     </Button>
                   </Popconfirm>
@@ -171,20 +180,32 @@ const SelectedAccount: React.FC = () => {
             ))}
         </Radio.Group>
       </div>
-      <Button type="primary" block size="large" onClick={showAccountModal}>
+      <Button
+        className="btn"
+        style={{ marginTop: '100px' }}
+        type="primary"
+        block
+        onClick={showAccountModal}
+      >
         계좌 등록
       </Button>
 
       {/* 계좌 등록 버튼 클릭시 나타나는 Modal */}
       <Modal
-        title="새로운 계좌등록"
+        className="modal"
+        title={<div className="modal__header">새로운 계좌등록</div>}
         open={isModalVisible}
+        width={600}
         centered
         onCancel={handleCancel}
         footer={[
           <Button
+            className="btn__right"
+            style={{
+              margin: '20px auto 30px',
+              width: '95%',
+            }}
             key="submit"
-            type="primary"
             onClick={addNewAccount}
             disabled={signature ? false : true}
           >
@@ -194,9 +215,10 @@ const SelectedAccount: React.FC = () => {
       >
         <div>
           <Space direction="horizontal">
-            <div>
-              <span>1. 은행 선택</span>
+            <div className="modal__input">
+              <span className="modal__input--value">1. 은행 선택</span>
               <Select
+                className="modal__input--input"
                 value={selectedBank || null}
                 onChange={(value) => {
                   const parsedValue = JSON.parse(value);
@@ -205,7 +227,7 @@ const SelectedAccount: React.FC = () => {
                   setDigits(sumDigits(parsedValue.digits));
                 }}
                 placeholder="선택"
-                style={{ width: '130px' }}
+                style={{ width: '200px' }}
               >
                 {banks.map((bank, index) => (
                   <Option
@@ -222,9 +244,11 @@ const SelectedAccount: React.FC = () => {
                 ))}
               </Select>
             </div>
-            <div>
-              <span>2. 계좌번호 입력</span>
+            <div className="modal__input">
+              <span className="modal__input--value">2. 계좌번호 입력</span>
               <Input
+                style={{ width: '300px' }}
+                className="modal__input--input"
                 value={accountNumber}
                 onChange={(e) => setAccountNumber(e.target.value)}
                 disabled={selectedBank ? false : true}
@@ -232,9 +256,11 @@ const SelectedAccount: React.FC = () => {
               />
             </div>
           </Space>
-          <div>
-            <span>3. 휴대폰 번호 입력</span>
+          <div className="modal__input">
+            <span className="modal__input--value">3. 휴대폰 번호 입력</span>
             <Input
+              style={{ width: '530px' }}
+              className="modal__input--input"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
               placeholder="-를 제외한 숫자만 입력해 주세요."
@@ -245,8 +271,8 @@ const SelectedAccount: React.FC = () => {
               }
             />
           </div>
-          <div style={{ textAlign: 'center' }}>
-            개인정보 저장에 동의합니다
+          <div style={{ textAlign: 'center', margin: '10px 20px' }}>
+            개인정보 저장에 동의합니다&nbsp;&nbsp;
             <Checkbox
               disabled={
                 phoneNumber.length === 11 && isValidPhoneNumber ? false : true

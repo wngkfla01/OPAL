@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Button, Space, Spin, Pagination, Modal, Checkbox } from 'antd';
 import { useCookies } from 'react-cookie';
 import VoucherModal from 'Components/Contents/VoucherModal';
+import 'Styles/MyPurchase.scss';
+
 import {
   authResponseData,
   allBuyProductApi,
@@ -146,26 +148,27 @@ const MyPurchase: React.FC = () => {
   };
 
   return (
-    <div>
-      <div>
+    <div className="mypurchase">
+      <div className="mypurchase__container">
         {loading ? (
           <Space direction="vertical" style={{ width: '100%' }}>
             <Spin tip="loading..." size="large"></Spin>
           </Space>
         ) : (
           <>
-            <div style={{ border: '1px solid black' }}>
-              <h1>현재 예약 현황</h1>
+            <div className="mypurchase__item">
+              <h1 className="mypurchase__item--title">현재 예약 현황</h1>
               {ongoingPurchases.length === 0 ? (
-                <h2 style={{ display: 'flex', justifyContent: 'center' }}>
-                  결과없음
-                </h2>
+                <h2 className="mypurchase__item--container">결과없음</h2>
               ) : (
                 displayOngoingPurchases.map((product, index) => (
                   <>
-                    <div key={index}>
-                      <h2>{product.product.title}</h2>
+                    <div className="mypurchase__item--container" key={index}>
+                      <h2 className="mypurchase__item--content">
+                        {product.product.title}
+                      </h2>
                       <Button
+                        className="mypurchase__item--btn"
                         onClick={() =>
                           openVoucherModal(
                             product.detailId,
@@ -180,18 +183,9 @@ const MyPurchase: React.FC = () => {
                         예약 확인증
                       </Button>
 
-                      <div style={{ display: 'flex', height: '40px' }}>
-                        <div
-                          style={{ width: '40%', border: '1px solid black' }}
-                        >
-                          서울 강남구
-                        </div>
-                        <div
-                          style={{
-                            width: '60%',
-                            border: '1px solid black',
-                          }}
-                        >
+                      <div className="mypurchase__info">
+                        <div className="mypurchase__info--add">서울 강남구</div>
+                        <div className="mypurchase__info--time">
                           <span>
                             {product.reservation?.start.split('T')[0]} /{' '}
                             {
@@ -209,18 +203,33 @@ const MyPurchase: React.FC = () => {
                           </span>
                         </div>
                       </div>
-                      <Button block onClick={() => showCancelModal(product)}>
+                      <Button
+                        className="mypurchase__item--Rbtn"
+                        block
+                        onClick={() => showCancelModal(product)}
+                      >
                         예약 취소
                       </Button>
+
                       <Modal
-                        title="예약 취소하기"
+                        className="modal"
+                        title={
+                          <div className="modal__header">
+                            예약을 취소하시겠습니까?
+                          </div>
+                        }
                         open={isModalVisible}
                         centered
                         onCancel={handleCancelModal}
+                        width={600}
                         footer={[
                           <Button
+                            className="btn__right"
+                            style={{
+                              margin: '20px auto 30px',
+                              width: '100%',
+                            }}
                             key="submit"
-                            type="primary"
                             onClick={() => cancelProduct(product.detailId)}
                             disabled={cancelConfirm ? false : true}
                           >
@@ -228,19 +237,14 @@ const MyPurchase: React.FC = () => {
                           </Button>,
                         ]}
                       >
-                        <h4>{purchaseDetail?.product.title}</h4>
-                        <div style={{ display: 'flex', height: '40px' }}>
-                          <div
-                            style={{ width: '40%', border: '1px solid black' }}
-                          >
+                        <h4 className="modal__name">
+                          {purchaseDetail?.product.title}
+                        </h4>
+                        <div className="mypurchase__info">
+                          <div className="mypurchase__info--add">
                             서울 강남구
                           </div>
-                          <div
-                            style={{
-                              width: '60%',
-                              border: '1px solid black',
-                            }}
-                          >
+                          <div className="mypurchase__info--time">
                             <span>
                               {purchaseDetail?.reservation?.start.split('T')[0]}{' '}
                               /{' '}
@@ -259,30 +263,32 @@ const MyPurchase: React.FC = () => {
                             </span>
                           </div>
                         </div>
-                        <div
-                          style={{
-                            border: '1px solid black',
-                            margin: '10px 0',
-                          }}
-                        >
-                          [취소약관]
-                          <div>
+                        <div className="modal__agreement--title">
+                          <span>취소약관</span>
+                          <div className="modal__agreement--contnet">
+                            <span>-&nbsp;</span>
                             <p>
-                              취소 요청은 상호 합의에 따라 처리될 수 있습니다.
+                              취소 요청은 상호 합의에 따라 처리될 수 있습니다
                             </p>
+                          </div>
+                          <div className="modal__agreement--contnet">
+                            <span>-&nbsp;</span>
                             <p>
                               거래 취소 시, 환불 여부와 환불 규정은 개별 거래에
-                              따라 달라질 수 있습니다.
+                              따라 달라질 수 있습니다
                             </p>
+                          </div>
+                          <div className="modal__agreement--contnet">
+                            <span>-&nbsp;</span>
                             <p>
                               상대방의 부적절한 행동, 불이익 등이 취소 사유로
                               인정될 경우, 환불 및 기타 조치에 대한 결정은
-                              합리적인 판단에 따라 이루어질 수 있습니다.
+                              합리적인 판단에 따라 이루어질 수 있습니다
                             </p>
                           </div>
                         </div>
                         <div style={{ textAlign: 'center' }}>
-                          취소 약관에 동의합니다
+                          취소 약관에 동의합니다&nbsp;&nbsp;
                           <Checkbox
                             checked={cancelConfirm}
                             onChange={() => setCancelConfirm(!cancelConfirm)}
@@ -304,6 +310,7 @@ const MyPurchase: React.FC = () => {
                 ))
               )}
               <Pagination
+                className="mypurchase__info--page"
                 style={{ display: 'flex', justifyContent: 'center' }}
                 current={ongoinCurrentPage}
                 pageSize={pageSize}
@@ -311,17 +318,23 @@ const MyPurchase: React.FC = () => {
                 onChange={ongoingPageChangeHandler}
               />
             </div>
-            <div style={{ border: '1px solid black' }}>
-              <h1>취소된 예약</h1>
+            <div className="mypurchase__item">
+              <h1 className="mypurchase__item--title">취소된 예약</h1>
               {cancelledPurchases.length === 0 ? (
-                <h2 style={{ display: 'flex', justifyContent: 'center' }}>
+                <h2
+                  className="mypurchase__item--container"
+                  style={{ display: 'flex', justifyContent: 'center' }}
+                >
                   결과없음
                 </h2>
               ) : (
                 displayCancelledPurchases.map((product, index) => (
-                  <div style={{ border: '1px solid black' }} key={index}>
-                    <h2>{product.product.title}</h2>
+                  <div className="mypurchase__item--container" key={index}>
+                    <h2 className="mypurchase__item--content">
+                      {product.product.title}
+                    </h2>
                     <Button
+                      className="mypurchase__item--btn"
                       onClick={() =>
                         openVoucherModal(
                           product.detailId,
@@ -335,16 +348,9 @@ const MyPurchase: React.FC = () => {
                     >
                       예약 확인증
                     </Button>
-                    <div style={{ display: 'flex', height: '40px' }}>
-                      <div style={{ width: '40%', border: '1px solid black' }}>
-                        서울 강남구
-                      </div>
-                      <div
-                        style={{
-                          width: '60%',
-                          border: '1px solid black',
-                        }}
-                      >
+                    <div className="mypurchase__info">
+                      <div className="mypurchase__info--add">서울 강남구</div>
+                      <div className="mypurchase__info--time">
                         <span>
                           {product.reservation?.start.split('T')[0]} /{' '}
                           {
@@ -372,6 +378,7 @@ const MyPurchase: React.FC = () => {
                 ))
               )}
               <Pagination
+                className="mypurchase__info--page"
                 style={{ display: 'flex', justifyContent: 'center' }}
                 current={cancelledCurrentPage}
                 pageSize={pageSize}
@@ -379,17 +386,23 @@ const MyPurchase: React.FC = () => {
                 onChange={cancelledPageChangeHandler}
               />
             </div>
-            <div style={{ border: '1px solid black' }}>
-              <h1>지난 예약</h1>
+            <div className="mypurchase__item">
+              <h1 className="mypurchase__item--title">지난 예약</h1>
               {completedPurchases.length === 0 ? (
-                <h2 style={{ display: 'flex', justifyContent: 'center' }}>
+                <h2
+                  className="mypurchase__item--container"
+                  style={{ display: 'flex', justifyContent: 'center' }}
+                >
                   결과없음
                 </h2>
               ) : (
                 displayCompletedPurchases.map((product, index) => (
-                  <div style={{ border: '1px solid black' }} key={index}>
-                    <h2>{product.product.title}</h2>
+                  <div className="mypurchase__item--container" key={index}>
+                    <h2 className="mypurchase__item--content">
+                      {product.product.title}
+                    </h2>
                     <Button
+                      className="mypurchase__item--btn"
                       onClick={() =>
                         openVoucherModal(
                           product.detailId,
@@ -403,16 +416,9 @@ const MyPurchase: React.FC = () => {
                     >
                       예약 확인증
                     </Button>
-                    <div style={{ display: 'flex', height: '40px' }}>
-                      <div style={{ width: '40%', border: '1px solid black' }}>
-                        서울 강남구
-                      </div>
-                      <div
-                        style={{
-                          width: '60%',
-                          border: '1px solid black',
-                        }}
-                      >
+                    <div className="mypurchase__info">
+                      <div className="mypurchase__info--add">서울 강남구</div>
+                      <div className="mypurchase__info--time">
                         <span>
                           {product.reservation?.start.split('T')[0]} /{' '}
                           {
@@ -440,6 +446,7 @@ const MyPurchase: React.FC = () => {
                 ))
               )}
               <Pagination
+                className="mypurchase__info--page"
                 style={{ display: 'flex', justifyContent: 'center' }}
                 current={completedCurrentPage}
                 pageSize={pageSize}

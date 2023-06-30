@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'Styles/MyAccount.scss';
+
 import {
   accountListApi,
   connectAccountApi,
@@ -145,11 +146,9 @@ const MyAccount: React.FC = () => {
         )}
       </div>
       <Button
-        className="btn"
-        type="primary"
+        className="btn myaccount__btn"
         block
         style={{ margin: 'auto' }}
-        size="large"
         onClick={showAccountModal}
       >
         계좌 등록
@@ -157,14 +156,20 @@ const MyAccount: React.FC = () => {
 
       {/* 계좌 등록 버튼 클릭시 나타나는 Modal */}
       <Modal
-        title="새로운 계좌등록"
+        className="modal"
+        title={<div className="modal__header">새로운 계좌등록</div>}
         open={isModalVisible}
+        width={600}
         centered
         onCancel={handleCancel}
         footer={[
           <Button
+            className="btn__right"
+            style={{
+              margin: '20px auto 30px',
+              width: '95%',
+            }}
             key="submit"
-            type="primary"
             onClick={addNewAccount}
             disabled={signature ? false : true}
           >
@@ -174,9 +179,10 @@ const MyAccount: React.FC = () => {
       >
         <div>
           <Space direction="horizontal">
-            <div>
-              <span>1. 은행 선택</span>
+            <div className="modal__input">
+              <span className="modal__input--value">1. 은행 선택</span>
               <Select
+                className="modal__input--input"
                 value={selectedBank || null}
                 onChange={(value) => {
                   const parsedValue = JSON.parse(value);
@@ -185,7 +191,7 @@ const MyAccount: React.FC = () => {
                   setDigits(sumDigits(parsedValue.digits));
                 }}
                 placeholder="선택"
-                style={{ width: '130px' }}
+                style={{ width: '200px' }}
               >
                 {banks.map((bank, index) => (
                   <Option
@@ -202,9 +208,11 @@ const MyAccount: React.FC = () => {
                 ))}
               </Select>
             </div>
-            <div>
-              <span>2. 계좌번호 입력</span>
+            <div className="modal__input">
+              <span className="modal__input--value">2. 계좌번호 입력</span>
               <Input
+                style={{ width: '300px' }}
+                className="modal__input--input"
                 value={accountNumber}
                 onChange={(e) => setAccountNumber(e.target.value)}
                 disabled={selectedBank ? false : true}
@@ -212,9 +220,11 @@ const MyAccount: React.FC = () => {
               />
             </div>
           </Space>
-          <div>
-            <span>3. 휴대폰 번호 입력</span>
+          <div className="modal__input">
+            <span className="modal__input--value">3. 휴대폰 번호 입력</span>
             <Input
+              style={{ width: '530px' }}
+              className="modal__input--input"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
               placeholder="-를 제외한 숫자만 입력해 주세요."
@@ -225,8 +235,8 @@ const MyAccount: React.FC = () => {
               }
             />
           </div>
-          <div style={{ textAlign: 'center' }}>
-            개인정보 저장에 동의합니다
+          <div style={{ textAlign: 'center', margin: '10px 20px' }}>
+            개인정보 저장에 동의합니다&nbsp;&nbsp;
             <Checkbox
               disabled={
                 phoneNumber.length === 11 && isValidPhoneNumber ? false : true

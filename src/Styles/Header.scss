@@ -32,10 +32,11 @@
     }
   }
   &__login {
-    width: 600px;
+    width: 560px;
     align-items: center;
-    justify-content: right;
+    justify-content: space-between;
     display: flex;
+
     &--nickname {
       color: $main-br-1;
       display: inline-block;

@@ -4,29 +4,30 @@ $point-or-2: rgba(255, 132, 64, 1);
 $point-or-3: rgba(255, 184, 144, 1);
 $point-or-4: rgba(255, 228, 214, 1);
 
-$point-b-1: rgba(13, 136, 255, 1);
+$point-b-1: rgb(87, 150, 103);
 $point-b-2: rgba(94, 176, 255, 1);
 $point-b-3: rgba(151, 204, 255, 1);
 $point-b-4: rgba(215, 235, 255, 1);
 
-$main-rb-1: rgb(160, 29, 3);
+$main-rb-1: rgb(255, 167, 85);
 
 $main-br-1: rgba(89, 80, 69, 1);
 $main-br-2: rgba(115, 103, 90, 1);
 $main-br-3: rgba(217, 205, 191, 1);
-$main-br-4: rgba(242, 235, 227, 1);
+$main-br-4: rgb(230, 230, 230);
 
 $black: rgb(22, 22, 22);
 $white: rgb(255, 255, 255);
 
 //shsadow
 $shadow: 0px 2px 10px rgba(223, 223, 223, 0.496);
-$text-shadow: 0px 2px 10px rgba(158, 158, 158, 0.496);
+$text-shadow: 0px 2px 10px rgba(150, 151, 150, 0.496);
 $inner-shadow: inset 2px 1px 8px rgba(223, 223, 223, 0.496);
 
 //font
-$point-font: 'Shrikhand', cursive;
+$point-font: 'Shrikhand', cursive, sans-serif;
 $text-font: 'Noto Sans KR', sans-serif;
+$title-font: 'Bagel Fat One', cursive, sans-serif;
 
 .inner {
   color: $black;
@@ -48,7 +49,7 @@ $text-font: 'Noto Sans KR', sans-serif;
   border-radius: 25px;
   padding: 0 40px;
   box-shadow: $shadow;
-  margin: 20px;
+  margin: 20px 0;
 }
 .btn:hover {
   transition: 1s;
@@ -68,14 +69,14 @@ $text-font: 'Noto Sans KR', sans-serif;
   display: flex;
   justify-content: center;
   border: none;
-
+  border-radius: 8px;
   box-shadow: $shadow;
+  transition: 0.8s;
 }
 .btn__right:hover {
-  transition: 1s;
   &:hover {
-    color: bisque;
-    background: $main-br-2;
+    color: $main-br-1;
+    background: $white;
     box-shadow: $shadow;
   }
 }
@@ -88,4 +89,82 @@ $text-font: 'Noto Sans KR', sans-serif;
   padding: 0;
   margin: 0;
   font-family: $text-font;
+}
+
+//pagination
+.ant-pagination .ant-pagination-item-active {
+  color: $main-br-3;
+  border-color: $main-br-1;
+
+  > a {
+    color: $main-br-1;
+  }
+}
+.ant-pagination .ant-pagination-item-active:hover {
+  border-color: $main-br-1;
+  > a {
+    color: $main-br-1;
+  }
+}
+
+//checkbox
+.ant-checkbox.ant-checkbox-input.custom-cursor-on-hover {
+  margin-left: 10px;
+}
+.ant-checkbox-inner {
+  box-shadow: $shadow;
+}
+.ant-checkbox-checked .ant-checkbox-inner {
+  border-color: $main-rb-1;
+  background-color: $main-rb-1;
+}
+
+//popconfirm
+.ant-popconfirm {
+  &-title {
+    color: $main-br-1 !important;
+    width: 400px;
+    margin-bottom: 10px;
+    font: {
+      size: 16px;
+      weight: 300;
+    }
+  }
+  &-description {
+    color: $main-br-1;
+  }
+}
+.ant-btn.css-dev-only-do-not-override-12jzuas.ant-btn-default.ant-btn-sm.ant-btn-default {
+  color: $main-br-1;
+  background-color: $white;
+  border: none;
+  margin: 10px;
+  height: 30px;
+  width: 90px;
+  box-shadow: $shadow;
+}
+.ant-btn.css-dev-only-do-not-override-12jzuas.ant-btn-primary.ant-btn-sm.ant-btn-primary {
+  color: $white;
+  background-color: $main-rb-1;
+  border: none;
+  margin: 10px;
+  height: 30px;
+  width: 90px;
+  box-shadow: $shadow;
+}
+
+//teb antd
+.ant-tabs-ink-bar {
+  height: 5px;
+  background: $main-br-1 !important;
+}
+.ant-tabs-tab:hover {
+  color: $main-br-2;
+  &:hover {
+    color: $main-br-2;
+  }
+}
+.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: $main-br-1;
+  text-shadow: $text-shadow;
 }

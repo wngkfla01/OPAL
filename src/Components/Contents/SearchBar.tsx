@@ -86,17 +86,42 @@ function SearchBar({ onSearch }: SearchBarProps) {
                 size="large"
                 placement={'bottomLeft'}
                 placeholder={'날짜를 선택해주세요'}
-                style={{ width: '100%', margin: '5px 0' }}
+                style={{
+                  width: '200px',
+                  height: '45px',
+                  margin: '5px 0',
+                  padding: '5px 20px',
+                  border: 'none',
+                  borderRadius: '25px',
+                  verticalAlign: 'middle',
+                  boxShadow: 'inset 2px 1px 8px rgba(223, 223, 223, 0.496)',
+                }}
               />
             </ConfigProvider>
           </Space>
           <div>
-            <span>인원 : </span>
-            <InputNumber size="large" min={1} max={50} defaultValue={1} />
+            <span style={{ margin: '5px 20px', color: 'rgba(89, 80, 69, 1)' }}>
+              인원
+            </span>
+            <InputNumber
+              style={{
+                width: '100px',
+                height: '45px',
+                margin: '5px 0',
+                padding: '5px 20px',
+                border: 'none',
+                borderRadius: '25px',
+                verticalAlign: 'middle',
+                boxShadow: 'inset 2px 1px 8px rgba(223, 223, 223, 0.496)',
+              }}
+              min={1}
+              max={50}
+              defaultValue={1}
+            />
           </div>
           <input
             type="button"
-            className=" btn"
+            className="btn"
             value={'검색하기'}
             onClick={clickSearchButton}
           />

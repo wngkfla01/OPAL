@@ -45,10 +45,8 @@ const SignIn = () => {
 
   return (
     <div className="inner">
-      <Title className="title" level={2}>
-        로그인
-      </Title>
-      <Space align="center" direction="vertical">
+      <div className="title">로그인</div>
+      <Space direction="vertical">
         <div className="container">
           <Form onSubmitCapture={handleSignIn}>
             <Form.Item>
@@ -74,7 +72,7 @@ const SignIn = () => {
                 minLength={8}
               />
             </Form.Item>
-            <Button className="btn__sign btn" type="primary" htmlType="submit">
+            <Button className="btn__sign btn" htmlType="submit">
               로그인
             </Button>
           </Form>

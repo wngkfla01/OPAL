@@ -7,6 +7,7 @@
   &__container {
     height: 300px;
     width: 500px;
+    margin: 0 auto;
   }
   &__input {
     display: inline-flex;
@@ -16,7 +17,7 @@
     background-color: &white;
     border-radius: 13px;
     box-shadow: $shadow;
-    margin: 10px;
+    margin: 10px 0;
     // background-color: rgb(143, 120, 30);
     &--label {
       color: rebeccapurple;
