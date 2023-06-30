@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { allBuyProductApi, authResponseData, MyPurchases } from 'api';
+import { allBuyProductApi } from 'api';
 import { useCookies } from 'react-cookie';
 import { useDispatch } from 'react-redux';
 import { selectTab } from 'redux/reducer/reducer';
@@ -50,7 +50,6 @@ export default function QuickMenu() {
       console.error('구매 내역이 없습니다:', error);
     }
   };
-  console.log(userData);
 
   const openVoucherModal = (
     detailId: string,
