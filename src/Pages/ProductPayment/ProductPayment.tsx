@@ -23,15 +23,10 @@ const ProductPayment = () => {
   const [dateCookies, setDateCookies] = useCookies(['selectedDateTime']);
   const cookieSavedDate = dateCookies.selectedDateTime;
   const productInfo = useCookies(['productInfo'])[0].productInfo;
-  const dateTimeOption = useSelector(
-    (state: RootState) => state.reserveOptionSlice
-  );
-  const product = useSelector((state: RootState) => state.productSlice);
   const productAddress = ['서울특별시 강남구 강남대로 364', '11층 11E 공간'];
   // 선택한 예약 날짜 및 시간에서 날짜만 반환
   const reserveStartDate = cookieSavedDate.startTime.split('T')[0];
   const reserveEndDate = cookieSavedDate.endTime.split('T')[0];
-
   const formatStartDate = new Date(reserveStartDate);
   const formatEndDate = new Date(reserveEndDate);
 
@@ -67,7 +62,7 @@ const ProductPayment = () => {
     ) {
       try {
         const requestBody: PaymentRequestBody = {
-          productId: product.id,
+          productId: productInfo.id,
           accountId: pickedAccount,
           reservation: {
             start: cookieSavedDate.startTime,

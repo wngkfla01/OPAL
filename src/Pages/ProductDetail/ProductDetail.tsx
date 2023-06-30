@@ -136,6 +136,7 @@ const ProductDetail: React.FC = () => {
         { path: '/' }
       );
       setProductInfoCookies('productInfo', {
+        id: product.id,
         title: product.title,
         photo: product.thumbnail,
         guests: guests,

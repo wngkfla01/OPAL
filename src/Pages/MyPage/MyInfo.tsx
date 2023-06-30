@@ -9,8 +9,7 @@ const MyInfo: React.FC = () => {
   const [defaultEmail, setDefaultEmail] = useState(''); //처음 불러오는 이메일
 
   const [defaultName, setDefaultName] = useState(''); //처음 불러오는 닉네임
-  const [displayName, setDisplayName] = useState(defaultName);
-
+  const [displayName, setDisplayName] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [editProfile, setEditProfile] = useState(false); //편집 수정모드
@@ -23,6 +22,7 @@ const MyInfo: React.FC = () => {
       try {
         const userData = await authenticateApi(accessToken);
         setDefaultName(userData.displayName);
+        setDisplayName(userData.displayName);
         setDefaultEmail(userData.email);
         setIsLoading(false);
       } catch (error) {
@@ -59,7 +59,6 @@ const MyInfo: React.FC = () => {
     setEditProfile(!editProfile);
     window.location.reload();
   };
-
   return (
     <div className="myinfo">
       {defaultName.length === 0 ? (
@@ -70,7 +69,7 @@ const MyInfo: React.FC = () => {
             <label className="myinfo__input--label">닉네임</label>
             <input
               className="myinfo__input--input"
-              value={displayName || defaultName}
+              value={displayName}
               onChange={(e) => {
                 setDisplayName(e.target.value);
               }}
