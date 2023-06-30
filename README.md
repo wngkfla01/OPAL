@@ -14,7 +14,7 @@
 
 ## 📌 배포
 
-[배포 사이트]
+**[OP-AL](https://zippy-sable-b21ba3.netlify.app/)** ← 클릭 시 이동 ❗
 
 <br/>
 
@@ -64,9 +64,10 @@
   ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
   ![CSS](https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=css3&logoColor=white)
   ![SASS](https://img.shields.io/badge/SASS-CC6699?style=flat-square&logo=sass&logoColor=white)
+  ![Ant Design](https://img.shields.io/badge/Ant%20Design-0170FE?style=flat-square&logo=Ant%20Design&logoColor=white)
   ![JAVASCRIPT](https://img.shields.io/badge/JAVASCRIPT-F7DF1E?style=flat-square&logo=javascript&logoColor=white)
-  <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"/>
-  <img src="https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=Typescript&logoColor=white"/>
+  ![REACT](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black)
+  ![TYPESCRIPT](https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=Typescript&logoColor=white)
 
 - Config
 
@@ -76,6 +77,7 @@
 
   ![VISUALSTUDIOCODE](https://img.shields.io/badge/VISUALSTUDIOCODE-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white)
   ![GITHUB](https://img.shields.io/badge/GITHUB-181717?style=flat-square&logo=github&logoColor=white)
+  ![GIT](https://img.shields.io/badge/GIT-F05032?style=flat&logo=git&logoColor=white)
 
 - Deployment
 
