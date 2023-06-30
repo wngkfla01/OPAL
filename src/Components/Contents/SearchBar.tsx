@@ -13,7 +13,6 @@ import 'Styles/SearchBar.scss';
 dayjs.extend(customParseFormat);
 dayjs.locale('ko');
 
-const dateFormat = 'YYYY/MM/DD';
 interface SearchBarProps {
   onSearch: (query: string) => void;
 }
@@ -100,7 +99,13 @@ function SearchBar({ onSearch }: SearchBarProps) {
             </ConfigProvider>
           </Space>
           <div>
-            <span style={{ margin: '5px 20px', color: 'rgba(89, 80, 69, 1)' }}>
+            <span
+              style={{
+                margin: '5px 20px',
+                color: 'rgba(89, 80, 69, 1)',
+                fontSize: '17px',
+              }}
+            >
               인원
             </span>
             <InputNumber

@@ -49,7 +49,11 @@ const Header = () => {
               <span className="header__login--nickname">
                 환영합니다! {displayName}님
               </span>
-              <Button type="text" onClick={handleLogout} className="btn">
+              <Button
+                type="text"
+                onClick={handleLogout}
+                className="btn btn__logout"
+              >
                 로그아웃
               </Button>
               <Button onClick={handleMyPage} className="btn">
