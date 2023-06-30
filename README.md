@@ -1,46 +1,84 @@
-# OP-AL 프로젝트
+![header](https://capsule-render.vercel.app/api?type=waving&color=gradient&height=200&section=header&text=OP-AL&fontSize=50)
 
-## 최초 clone 후 프로젝트 실행 방법
+<br/>
 
-- npm i
-- npm run start
+## 📌 프로젝트 소개
 
-## 초기 세팅(프로젝트 생성 및 eslint, prettier 설정은 아래 블로그를 참고했습니다.)
+# OP-AL
 
-### cra 프로젝트 생성 및 초기설정
+> **O**ld **P**eople with **A**ctive **L**ife
 
-(참고했던 링크)
+> 인생의 제 2막을 시작한 5060세대의 여가 및 건강 활동을 위한 공간을 대여하고, 소개하는 공간 대여 플랫폼
 
-- https://velog.io/@junghyeonsu/React-create-react-app-Typescript-%EC%B4%88%EA%B8%B0-%EC%84%B8%ED%8C%85-%EC%99%84%EB%B2%BD-%EC%A0%95%EB%A6%AC
+<br/>
 
-### 폴더구조(초기 디렉터리 생성)
+## 📌 배포
 
-- 폴더 내부에 '.keep' 이라는 파일이 있다면, 해당 폴더 개발하실 때 지워주시면 됩니다. 깃허브에 빈폴더가 push가 안되더라구요. 그래서 임시로 넣어놓은 파일입니다.
+[배포 사이트]
 
-* Assets: 폰트, 이미지 등을 담습니다(추후 사용하지 않을 시 삭제).
-* Components: (재사용이 가능한) 컴포넌트들을 담습니다.
-* Pages: Router를 사용하여 이동할 큼지막한 컴포넌트
-  -> Home: 메인 페이지 입니다.
-  -> MyPage: 마이페이지 입니다. 회인 개인정보 및 계좌등록 및 조회, 구매내역조회 등이 포함됩니다.
-  -> ProductDetail: 한 제품(공간)의 상세정보를 담은 상세페이지입니다.
-  -> ProductList: 검색 등을 통해 사용자에게 보여주는 제품(공간) 목록 페이지입니다.
-  -> ProductPayment: 제품(공간) 결제 페이지입니다.
-  -> SignIn: 로그인 페이지입니다.
-  -> SignUp: 회원가입 페이지입니다.
-* Store: 데이터와 데이터를 관리하는 파일들을 담습니다.
-  -> Data: Redux 관련 store / Actions / Reducer 등
-  -> Type: 인터페이스나 이미지 파일을 처리하는 모듈 등
-* Styles: Style 관련 파일들을 담습니다.
+<br/>
 
-(참고했던 링크)
+## 📌 프로젝트 기간
 
-- https://velog.io/@greatasher7/React-Typescript-Setup-without-CRA-4
+2023.5.30 ~ 2023.7.2
 
-## 현재 사용버전
+<br/>
 
-- typescript: 4.9.5
-- react: 18.2.0
-- react-dom: 18.2.0
-- styled-components: 5.3.10
-- eslint: 8.42.0
-- prettier: 2.8.8
+## 📌 Team
+
+|                                                **[주하림](https://github.com/wngkfla01)**                                                |                                                **[이시우](https://github.com/cuconveniencestore)**                                                 |                                                **[이은지](https://github.com/dmswl2030)**                                                |                                                **[윤금엽](https://github.com/DevYBecca)**                                                 |                                                **[강동훈](https://github.com/nangkong98)**                                                 |
+| :--------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: |
+| <a href="https://github.com/wngkfla01"><img src="https://avatars.githubusercontent.com/u/64509945?v=4" width=90px alt="주하림의 사진" /> | <a href="https://github.com/cuconveniencestore"><img src="https://avatars.githubusercontent.com/u/125563995?v=4" width=90px alt="이시우의 사진" /> | <a href="https://github.com/dmswl2030"><img src="https://avatars.githubusercontent.com/u/51252978?v=4" width=90px alt="이은지의 사진" /> | <a href="https://github.com/DevYBecca"><img src="https://avatars.githubusercontent.com/u/125433485?v=4" width=90px alt="윤금엽의 사진" /> | <a href="https://github.com/nangkong98"><img src="https://avatars.githubusercontent.com/u/116564788?v=4" width=90px alt="강동훈의 사진" /> |
+|                                                       마이페이지<br>계좌, 구매내역                                                       |                                                   전체 스타일<br>제품 검색 기능,<br>검색 리스트                                                    |                                                  로그인, 회원가입,<br>마이페이지 내정보                                                  |                                                      제품 상세페이지,<br>결제페이지                                                       |                                                              더미데이터 수집                                                               |
+
+## 📌 프로젝트 상세 프리뷰
+
+- 메인
+
+  - 제품 검색 기능
+  - 이벤트 배너
+  - 지금 뜨는 곳
+  - 퀵메뉴
+
+- 제품
+
+  - 제품 리스트, 상세페이지
+  - 결제 페이지
+
+- 마이페이지
+
+  - 내정보 수정
+  - 내계좌 관리
+  - 구매내역 조회
+
+- 인증
+
+  - 로그인, 회원가입
+
+<br />
+
+## 📌 기술스택
+
+- Development
+
+  ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+  ![CSS](https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=css3&logoColor=white)
+  ![SASS](https://img.shields.io/badge/SASS-CC6699?style=flat-square&logo=sass&logoColor=white)
+  ![JAVASCRIPT](https://img.shields.io/badge/JAVASCRIPT-F7DF1E?style=flat-square&logo=javascript&logoColor=white)
+  <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"/>
+  <img src="https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=Typescript&logoColor=white"/>
+
+- Config
+
+  ![Npm](https://img.shields.io/badge/NPM-CB3837?style=flat-square&logo=npm&logoColor=white)
+
+- Environment
+
+  ![VISUALSTUDIOCODE](https://img.shields.io/badge/VISUALSTUDIOCODE-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white)
+  ![GITHUB](https://img.shields.io/badge/GITHUB-181717?style=flat-square&logo=github&logoColor=white)
+
+- Deployment
+
+  ![](https://camo.githubusercontent.com/69139a1fb652b0445950106929ffd6322b3299b73b82d629e720babb9cef1988/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4e45544c4946592d3030433742373f7374796c653d666c61742d737175617265266c6f676f3d6e65746c696679266c6f676f436f6c6f723d7768697465)
+
+<br/>
