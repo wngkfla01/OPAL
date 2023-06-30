@@ -2,10 +2,8 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { selectTab } from 'redux/reducer/reducer';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import { Row, Button, Typography, Modal } from 'antd';
+import { Row, Button, Modal } from 'antd';
 import '../../Styles/Modal.scss';
-
-const { Title } = Typography;
 
 interface VoucherModalProps {
   open: boolean;
@@ -85,7 +83,7 @@ const VoucherModal: React.FC<VoucherModalProps> = ({
         </Button>
 
         {!isMyPage && (
-          <Button className="btn" onClick={goMyPurchase}>
+          <Button className="btn btn__purchaseList" onClick={goMyPurchase}>
             예약 목록 조회
           </Button>
         )}
