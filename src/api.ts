@@ -1,11 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
 
-// BASE_URL을 가져다 써주세요!
-// headers는 공통영역이라 api.ts에서 선언해두었습니다
-// interface 타입선언을 가져오실때 그에 맞는 이름으로 바꿔서 export 해주세요 (RequestBody X -> signUpRequestBody O)
-// 각 Api의 함수명은 바꾸셔도 됩니다! 뒤에 Api만 유지해주세요~
-// 이 주석은 모든 api가 정리되면 지우겠습니다
-
 const BASE_URL = 'https://asia-northeast3-heropy-api.cloudfunctions.net/api';
 
 const headers = {
@@ -103,11 +97,6 @@ export async function userModifyApi(
   return json;
 }
 
-// 사용자 목록조회 - GET 'masterKey: true'
-export function userInquiryApi() {
-  return axios.get(`${BASE_URL}/auth/users`).then((r) => r.data);
-}
-
 //----------------------------------계좌----------------------------------//
 export interface Account {
   // 사용자 계좌 정보
@@ -183,38 +172,6 @@ export function deleteAccountApi(
 }
 
 //----------------------------------제품----------------------------------//
-// 모든 제품 조회 - GET 'masterKey: true'
-export function allProductApi() {
-  return axios.get(`${BASE_URL}/products`).then((r) => r.data);
-}
-
-// 전체 거래(판매)내역 - GET 'masterKey: true'
-export function allSalesApi() {
-  return axios.get(`${BASE_URL}/products/transactions/all`).then((r) => r.data);
-}
-
-// 거래(판매)내역 완료/취소 및 해제 - PUT 'masterKey: true'
-export function requestCancelProductApi() {
-  return axios
-    .put(`${BASE_URL}/products/transactions/:detailId`)
-    .then((r) => r.data);
-}
-
-// 제품 추가 - POST 'masterKey: true'
-export function addProductApi() {
-  return axios.post(`${BASE_URL}/products`).then((r) => r.data);
-}
-
-// 제품 수정 - PUT 'masterKey: true'
-export function modifyProductApi() {
-  return axios.put(`${BASE_URL}/products/:productId`).then((r) => r.data);
-}
-
-// 제품 삭제 - DELETE 'masterKey: true'
-export function deleteProductApi() {
-  return axios.delete(`${BASE_URL}/products/:productId`).then((r) => r.data);
-}
-
 // 단일제품 상세조회 - GET
 export interface ProductDetailResponseData {
   id: string; // 제품 ID
@@ -279,7 +236,6 @@ export async function categoryProductApi(
     { headers }
   );
   const Data: Product[] = res.data;
-  console.log('태그', Data);
   return Data;
 }
 
@@ -293,8 +249,6 @@ export interface PaymentRequestBody {
     end: string; // 예약 종료 시간(ISO)
   };
 }
-
-type PaymentResponseValue = boolean; // 거래 신청 처리 여부
 
 export async function productPaymentApi(
   accessToken: authResponseData,
@@ -319,12 +273,6 @@ export async function cancelProductApi(
     headers: { ...headers, Authorization: `Bearer ${accessToken}` },
   });
   return res.data;
-  // return axios.post(`${BASE_URL}/products/cancel`).then((r) => r.data);
-}
-
-// 제품 거래(구매) 확정 - POST
-export function confirmProductApi() {
-  return axios.post(`${BASE_URL}/products/ok`).then((r) => r.data);
 }
 
 // 제품 전체 거래(구매) 내역 - GET
