@@ -57,7 +57,7 @@ const MyInfo: React.FC = () => {
       console.log(error);
     }
     setEditProfile(!editProfile);
-    window.location.reload();
+    history.go(0);
   };
   return (
     <div className="myinfo">
