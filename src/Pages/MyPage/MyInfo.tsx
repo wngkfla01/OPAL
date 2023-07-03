@@ -61,6 +61,7 @@ const MyInfo: React.FC = () => {
   };
   return (
     <div className="myinfo">
+      <p>띱</p>
       {defaultName.length === 0 ? (
         isLoading
       ) : (
