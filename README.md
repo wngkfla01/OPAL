@@ -29,31 +29,43 @@
 |                                                **[주하림](https://github.com/wngkfla01)**                                                |                                                **[이시우](https://github.com/cuconveniencestore)**                                                 |                                                **[이은지](https://github.com/dmswl2030)**                                                |                                                **[윤금엽](https://github.com/DevYBecca)**                                                 |                                                **[강동훈](https://github.com/nangkong98)**                                                 |
 | :--------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: |
 | <a href="https://github.com/wngkfla01"><img src="https://avatars.githubusercontent.com/u/64509945?v=4" width=90px alt="주하림의 사진" /> | <a href="https://github.com/cuconveniencestore"><img src="https://avatars.githubusercontent.com/u/125563995?v=4" width=90px alt="이시우의 사진" /> | <a href="https://github.com/dmswl2030"><img src="https://avatars.githubusercontent.com/u/51252978?v=4" width=90px alt="이은지의 사진" /> | <a href="https://github.com/DevYBecca"><img src="https://avatars.githubusercontent.com/u/125433485?v=4" width=90px alt="윤금엽의 사진" /> | <a href="https://github.com/nangkong98"><img src="https://avatars.githubusercontent.com/u/116564788?v=4" width=90px alt="강동훈의 사진" /> |
-|                                                       마이페이지<br>계좌, 구매내역                                                       |                                                   전체 스타일<br>제품 검색 기능,<br>검색 리스트                                                    |                                                  로그인, 회원가입,<br>마이페이지 내정보                                                  |                                                      제품 상세페이지,<br>결제페이지                                                       |                                                              더미데이터 수집                                                               |
+|                                     초기 개발 세팅<br> 리덕스 설정<br> 마이페이지<br>계좌, 구매내역                                      |                                                   전체 스타일<br>제품 검색 기능,<br>검색 리스트                                                    |                                                  로그인, 회원가입,<br>마이페이지 내정보                                                  |                                                      제품 상세페이지,<br>결제페이지                                                       |                                                              더미데이터 수집                                                               |
 
 ## 📌 프로젝트 상세 프리뷰
+
+<br />
 
 - 메인
 
   - 제품 검색, 이벤트 배너, 지금 뜨는 곳, 퀵메뉴
-    <img src="./src/Assets/Images/readme-main.gif" width="500px">
+  - <details>
+      <summary>프리뷰</summary>
+      <img src="./src/Assets/Images/readme-main.gif" width="500px">
+    </details>
 
 - 제품
 
   - 제품 리스트, 상세페이지, 결제 페이지
-    <img src="./src/Assets/Images/readme-item.gif" width="500px">
+  - <details>
+      <summary>프리뷰</summary>
+      <img src="./src/Assets/Images/readme-item.gif" width="500px">
+    </details>
 
 - 마이페이지
 
   - 내정보 수정, 내계좌 관리, 구매내역 조회
-    <img src="./src/Assets/Images/readme-mypage.gif" width="500px">
+  - <details>
+      <summary>프리뷰</summary>
+      <img src="./src/Assets/Images/readme-mypage.gif" width="500px">
+    </details>
 
 - 인증
 
   - 로그인, 회원가입
-    <img src="./src/Assets/Images/readme-sign.gif" width="500px">
-
-<br />
+  - <details>
+      <summary>프리뷰</summary>
+      <img src="./src/Assets/Images/readme-sign.gif" width="500px">
+    </details>
 
 ## 📌 기술스택
 
