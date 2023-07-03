@@ -19,7 +19,7 @@ const RoutesComponent = () => {
       <Route path="/productlist" element={<ProductList />} />
       <Route path="/productdetail/:id" element={<ProductDetail />} />
       <Route path="/productpayment" element={<ProductPayment />} />
-      {/* <Route path="/*" element={<NotFound />} /> */}
+      <Route path="/*" element={<NotFound />} />
     </Routes>
   );
 };
