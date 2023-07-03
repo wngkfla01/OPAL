@@ -35,25 +35,23 @@
 
 - 메인
 
-  - 제품 검색 기능
-  - 이벤트 배너
-  - 지금 뜨는 곳
-  - 퀵메뉴
+  - 제품 검색, 이벤트 배너, 지금 뜨는 곳, 퀵메뉴
+    <img src="./src/Assets/Images/readme-main.gif" width="500px">
 
 - 제품
 
-  - 제품 리스트, 상세페이지
-  - 결제 페이지
+  - 제품 리스트, 상세페이지, 결제 페이지
+    <img src="./src/Assets/Images/readme-item.gif" width="500px">
 
 - 마이페이지
 
-  - 내정보 수정
-  - 내계좌 관리
-  - 구매내역 조회
+  - 내정보 수정, 내계좌 관리, 구매내역 조회
+    <img src="./src/Assets/Images/readme-mypage.gif" width="500px">
 
 - 인증
 
   - 로그인, 회원가입
+    <img src="./src/Assets/Images/readme-sign.gif" width="500px">
 
 <br />
 
