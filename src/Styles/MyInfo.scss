@@ -1,0 +1,30 @@
+@import './common.scss';
+
+.myinfo {
+  margin: 40px 0;
+  display: flex;
+  justify-content: center;
+  &__container {
+    height: 300px;
+    width: 500px;
+    margin: 0 auto;
+  }
+  &__input {
+    display: inline-flex;
+    height: 40px;
+    width: 500px;
+    align-items: center;
+    background-color: &white;
+    border-radius: 13px;
+    box-shadow: $shadow;
+    margin: 10px 0;
+    // background-color: rgb(143, 120, 30);
+    &--label {
+      color: rebeccapurple;
+      margin: 0 20px;
+    }
+    &--input {
+      border: none;
+    }
+  }
+}
