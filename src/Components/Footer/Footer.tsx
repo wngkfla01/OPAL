@@ -16,12 +16,12 @@ const Footer = () => {
         <div className="footer__logo">
           OP-AL
           <a href="https://github.com/OP-AL">
-            <GithubOutlined style={{ fontSize: '40px' }} />
+            <GithubOutlined style={{ fontSize: '30px', marginLeft: '10px' }} />
           </a>
         </div>
 
         <div className="footer__opal">
-          <h3>developers</h3>
+          <h3 className="footer__label">developers</h3>
           <div className="icon">
             <a className="icon-link" href="https://github.com/wngkfla01">
               <img src={harim} alt="Harim" />
