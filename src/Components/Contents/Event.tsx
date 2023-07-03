@@ -15,7 +15,7 @@ import now5 from 'Assets/Images/now_005.jpeg';
 
 export default function Event() {
   return (
-    <section className="inner">
+    <section className="inner" style={{ margin: '20px' }}>
       <span className="event__title">EVENT</span>
       <Carousel autoplay className="even">
         <div className="event">

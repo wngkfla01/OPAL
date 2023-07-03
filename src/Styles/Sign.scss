@@ -28,3 +28,25 @@
   margin-bottom: 60px;
   color: $main-br-1;
 }
+.sign {
+  &__info {
+    font: {
+      size: 16px;
+      weight: 500;
+    }
+    color: $main-br-1;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+  }
+  &__btn {
+    width: 100%;
+    color: $main-br-1;
+    text-align: center;
+    margin: 20px auto;
+    border: none;
+    :hover {
+      color: $black;
+    }
+  }
+}

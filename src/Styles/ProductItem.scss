@@ -2,7 +2,16 @@
 
 .searchedValue {
   font-size: 20px;
-  margin: 35px;
+  margin: 55px 0 35px;
+  &--none {
+    padding: 400px 0 155px;
+    height: 400px;
+    color: $main-br-1;
+    font: {
+      size: 25px;
+      weight: 400;
+    }
+  }
 }
 .productItem {
   width: 1000px;

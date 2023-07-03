@@ -75,7 +75,7 @@ export default function ProductItem(searchQuery: SearchValueProps) {
           />
         </div>
       ) : productList.length === 0 ? (
-        <h1>검색결과가 없어용...</h1>
+        <h1 className="searchedValue--none">검색결과가 없습니다... 🧸</h1>
       ) : (
         <>
           <h1 className="searchedValue">

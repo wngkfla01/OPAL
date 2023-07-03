@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Button, Popconfirm } from 'antd';
 import { useCookies } from 'react-cookie';
 import { authenticateApi, userModifyApi, userModifyRequestBody } from 'api';
-import 'Styles/MyInfo.scss';
 
 const MyInfo: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);

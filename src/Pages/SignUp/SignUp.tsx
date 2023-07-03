@@ -10,7 +10,7 @@ import {
 import { Form, Input, Button, Typography, Col, Space } from 'antd';
 import '../../Styles/Sign.scss';
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -44,9 +44,9 @@ const SignUp = () => {
       await authenticateCheck(signUpData.accessToken);
       const accessToken = signUpData.accessToken;
       setCookies('accessToken', accessToken, { path: '/' });
-      setMessage('회원가입 & 로그인이 완료되었습니다.');
+      setMessage('회원가입 & 로그인이 완료되었습니다');
     } catch (error) {
-      setMessage('회원가입에 실패하였습니다. 이미 존재하는 아이디 입니다.');
+      setMessage('회원가입에 실패하였습니다 이미 존재하는 아이디 입니다');
     }
   }
 
@@ -55,7 +55,7 @@ const SignUp = () => {
     try {
       await authenticateApi(accessToken);
     } catch (error) {
-      setMessage('인증에 실패하였습니다.');
+      setMessage('인증에 실패하였습니다');
     }
   }
   return (
@@ -124,9 +124,11 @@ const SignUp = () => {
           </Col>
           {message && (
             <>
-              <Text>{message}</Text>
-              {message !== '비밀번호가 일치하지 않습니다. 확인해주세요.' && (
-                <Button onClick={goToMain}>메인으로 가기</Button>
+              <Text className="sign__info">{message}</Text>
+              {message !== '비밀번호가 일치하지 않습니다 확인해주세요' && (
+                <Button className="sign__btn" onClick={goToMain}>
+                  메인으로 가기
+                </Button>
               )}
             </>
           )}
