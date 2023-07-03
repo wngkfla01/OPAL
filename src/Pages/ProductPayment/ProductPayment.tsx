@@ -157,12 +157,11 @@ const ProductPayment = () => {
         >
           <SelectionAccount />
           <Button
-            className="btn__right"
+            className="btn__brown"
             type="primary"
             style={{
               width: '84%',
               margin: '0 auto 75px',
-              backgroundColor: 'rgba(89, 80, 69, 1)',
             }}
             onClick={handlePayment}
           >
