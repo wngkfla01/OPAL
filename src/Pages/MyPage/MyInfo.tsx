@@ -129,13 +129,12 @@ const MyInfo: React.FC = () => {
                 okText="수정완료"
                 cancelText="취소"
               >
-                <Button type="primary" block>
+                <Button className="btn" block>
                   수정완료
                 </Button>
               </Popconfirm>
               <Button
-                className="btn"
-                danger
+                className="btn__danger"
                 block
                 onClick={cancelEditProfileHandler}
               >
