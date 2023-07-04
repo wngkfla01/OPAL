@@ -45,7 +45,7 @@ $title-font: 'Bagel Fat One', cursive, sans-serif;
   height: 45px;
   color: $main-br-1;
   background-color: $white;
-  border: none;
+  border: 0.2px solid $main-br-4;
   display: block;
   border-radius: 25px;
   padding: 0 40px;
@@ -53,8 +53,9 @@ $title-font: 'Bagel Fat One', cursive, sans-serif;
   margin: 20px 0;
 }
 .btn:hover {
-  transition: 1s;
+  transition: 0.5s;
   &:hover {
+    border: 0.2px solid $main-br-4;
     color: $white;
     background: $main-br-3;
     box-shadow: $shadow;
@@ -77,6 +78,28 @@ $title-font: 'Bagel Fat One', cursive, sans-serif;
 .btn__right:hover {
   &:hover {
     color: $main-br-1;
+    background: $white;
+    box-shadow: $shadow;
+  }
+}
+.btn__danger {
+  font: $text-font;
+  font-size: 18px;
+  height: 45px;
+  background-color: $main-rb-1;
+  border: none;
+  color: $white;
+  display: block;
+  border-radius: 25px;
+  padding: 0 40px;
+  box-shadow: $shadow;
+  margin: 20px 0;
+}
+.btn__danger:hover {
+  transition: 0.5s;
+  &:hover {
+    border: 0.2px solid $main-br-4;
+    color: $main-rb-1;
     background: $white;
     box-shadow: $shadow;
   }
@@ -195,4 +218,37 @@ $title-font: 'Bagel Fat One', cursive, sans-serif;
 .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: $main-br-1;
   text-shadow: $text-shadow;
+}
+
+//radio
+.ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+  border-color: $main-br-1;
+  background-color: $main-br-2;
+}
+.ant-radio-wrapper:hover .ant-radio-inner {
+  // &:hover {
+  border-color: $main-br-1;
+  // }
+}
+
+//datepicker
+.ant-picker-focused {
+  border: none;
+}
+.ant-picker-range .ant-picker-active-bar {
+  background: $main-rb-1;
+}
+.ant-picker-focused.ant-picker:hover {
+  border-color: $main-rb-1;
+}
+.ant-picker:hover {
+  border-color: $main-rb-1;
+}
+
+//input number
+.ant-input-number:hover {
+  border-color: $main-rb-1;
+}
+.ant-input-number-focused {
+  border-color: $main-rb-1;
 }
