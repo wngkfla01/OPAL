@@ -42,7 +42,7 @@
 ### Library
 
 ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=axios&logoColor=white)
-![Redux](https://img.shields.io/badge/Redux-764ABC?style=flat&logo=Redux&logoColor=white)
+![Recoil](https://img.shields.io/badge/Recoil-3578E5?style=flat&logo=Recoil&logoColor=white)
 ![React Cookie](https://img.shields.io/badge/React%20Cookie-FF4154?style=flat&logo=reactcookie&logoColor=white)
 ![Ant Design](https://img.shields.io/badge/Ant%20Design-0170FE?style=flat&logo=Ant%20Design&logoColor=white)
 
