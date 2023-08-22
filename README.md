@@ -125,8 +125,7 @@
 
 | 마이 페이지<br/>(구매 내역)                                                                                                      | 마이 페이지<br/>(구매 취소)                                                                                                        |
 | -------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| ![user-mypage-purchase](https://github.com/wngkfla01/OPAL/assets/64509945/bbed5733-39d3-4b6a-a292-e6c529951fbf)
- | ![user-reservationcancel](https://github.com/wngkfla01/OPAL/assets/64509945/2d9c9f02-4701-421c-b0fc-3706e21d9547)
+| ![user-mypage-purchase](https://github.com/wngkfla01/OPAL/assets/64509945/bbed5733-39d3-4b6a-a292-e6c529951fbf) | ![user-reservationcancel](https://github.com/wngkfla01/OPAL/assets/64509945/2d9c9f02-4701-421c-b0fc-3706e21d9547)
  |
 
 ## 📌 담당 페이지 및 기능 구현
