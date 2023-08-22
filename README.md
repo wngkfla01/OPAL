@@ -104,27 +104,30 @@
 
 | 메인 페이지<br/>(로그인 전)                                                                                           | 메인 페이지<br/>(로그인 후)                                                                                                       |
 | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| ![user-main](https://github.com/wngkfla01/OPAL/assets/125433485/da01748f-8522-40ea-a5f0-56c4ac912eff) | ![user-main-reservation](https://github.com/wngkfla01/OPAL/assets/125433485/72de3974-ecf1-4817-a79d-b38126288785) |
+| ![user-main](https://github.com/wngkfla01/OPAL/assets/64509945/860479cb-97f2-4b09-a4cd-e0e088d89340) | ![user-main-reservation](https://github.com/wngkfla01/OPAL/assets/64509945/76bdc03a-466d-42b1-8fcd-b32b3fa128a9) |
 
 | 로그인                                                                                                                  | 회원가입                                                                                                                |
 | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| ![user-signin](https://github.com/wngkfla01/OPAL/assets/125433485/4562a912-ba74-4fe8-ae93-34836b22b6fa) | ![user-signup](https://github.com/wngkfla01/OPAL/assets/125433485/68dff152-8054-4297-a7bf-cfd663e1a318) |
+| ![user-signin](https://github.com/wngkfla01/OPAL/assets/64509945/8b9db21c-6e7e-47e8-8fdf-aa60c208132a) | ![user-signup](https://github.com/wngkfla01/OPAL/assets/64509945/8e1ef935-a8a1-475f-a4d4-b71e0400cfe2) |
 
 | 메인 페이지 퀵메뉴<br/>(로그인 후)                                                                                              | 제품 검색 페이지                                                                                                        |
 | ------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| ![user-main-quickmenu](https://github.com/wngkfla01/OPAL/assets/125433485/865469d2-ac77-40db-94b7-2a258fbe2213) | ![user-search](https://github.com/wngkfla01/OPAL/assets/125433485/c11e748e-f802-4fdb-8689-da31a27e7bb2) |
+| ![user-main-quickmenu](https://github.com/wngkfla01/OPAL/assets/64509945/4f70e445-8f62-4575-92ce-061f06ecf1e3) |![user-search](https://github.com/wngkfla01/OPAL/assets/64509945/32e03c51-75b2-4e33-ba54-859ceb66302c) |
 
 | 제품 상세 페이지                                                                                                               | 제품 결제 페이지                                                                                                                |
 | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
-| ![user-productdetail](https://github.com/wngkfla01/OPAL/assets/125433485/ac6df4ad-f0be-4603-bc0b-db8f8109c938) | ![user-productpayment](https://github.com/wngkfla01/OPAL/assets/125433485/db47980a-1c76-4ac8-a3fc-fb9f40d0ec3a) |
+| ![user-productdetail](https://github.com/wngkfla01/OPAL/assets/64509945/156bf058-1a60-4291-a8b3-02f3d72f0fea) | ![user-productpayment](https://github.com/wngkfla01/OPAL/assets/64509945/8bd3005d-d935-4d90-921a-e04c2ec9be09)
+ |
 
 | 마이 페이지<br/>(내 정보)                                                                                                    | 마이 페이지<br/>(내 계좌)                                                                                                       |
 | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| ![user-mypage-info](https://github.com/wngkfla01/OPAL/assets/125433485/8b84e3e2-884d-436f-a8f2-60db780abda5) | ![user-mypage-account](https://github.com/wngkfla01/OPAL/assets/125433485/18cf99c3-7582-4957-96e8-d576f3aefee8) |
+| ![user-mypage-info](https://github.com/wngkfla01/OPAL/assets/64509945/723bcdb3-62ec-44f9-aa18-3b796eba6566) | ![user-mypage-account](https://github.com/wngkfla01/OPAL/assets/64509945/e9cf7171-96d6-4480-86c8-cdaef349ef24) |
 
 | 마이 페이지<br/>(구매 내역)                                                                                                      | 마이 페이지<br/>(구매 취소)                                                                                                        |
 | -------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| ![user-mypage-purchase](https://github.com/wngkfla01/OPAL/assets/125433485/a7ea86d7-77bc-4a5a-9ab1-e7518e651dbe) | ![user-reservationcancel](https://github.com/wngkfla01/OPAL/assets/125433485/edfed6f8-a70a-4f03-9782-b1f9cc8bcd3e) |
+| ![user-mypage-purchase](https://github.com/wngkfla01/OPAL/assets/64509945/bbed5733-39d3-4b6a-a292-e6c529951fbf)
+ | ![user-reservationcancel](https://github.com/wngkfla01/OPAL/assets/64509945/2d9c9f02-4701-421c-b0fc-3706e21d9547)
+ |
 
 ## 📌 담당 페이지 및 기능 구현
 
